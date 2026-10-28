@@ -97,10 +97,10 @@ window.QUEST_LINES = [
     ],
   ),
   line(
-    "lordoss",
+    "lordoss-cigarettes",
+    "Lordoss I · Cigarettes",
     "Lordoss",
-    "Lordoss",
-    "Meet Lordoss in the Innards. His 17-step cigarette and restoration chain needs no Bar; the story resumes at Transmission Tower Pt. 3 after Bar V3 and Tower construction.",
+    "Meet Lordoss in the Innards and complete his ten cigarette deliveries. No Bar upgrade is required.",
     "#a48cff",
     [
       quest("Tobacco Journey Pt. 1", "Euruska (Lordoss)", "Any", "Bring 3 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
@@ -113,6 +113,15 @@ window.QUEST_LINES = [
       quest("Tobacco Journey Pt. 8", "Euruska (Lordoss)", "Any", "Bring 8 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
       quest("Tobacco Journey Pt. 9", "Euruska (Lordoss)", "Any", "Bring 5 Premium Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
       quest("Tobacco Journey Pt. 10", "Euruska (Lordoss)", "Any", "Bring 20 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+    ],
+  ),
+  line(
+    "lordoss-restoration",
+    "Lordoss II · Restoration",
+    "Lordoss",
+    "Complete Tobacco Journey Pt. 10, then restore Lordoss through seven hidden quests. No Bar upgrade is required; Giant's Senses is needed later at Transmission Tower Pt. 3.",
+    "#c09bff",
+    [
       quest("Fresh Start", "Lordoss", "Innards", "Remove Lordoss' bayonet.", { phase: "NO BAR · RESTORATION" }),
       quest("Breath of Fresh Smoke", "Lordoss", "Any", "Find 3 cybernetic lungs.", { phase: "NO BAR · RESTORATION" }),
       quest("Backbones for the Backbone", "Lordoss", "Any", "Find 10 modular spine components.", { phase: "NO BAR · RESTORATION" }),
@@ -209,7 +218,7 @@ window.QUEST_LINES = [
 // normal progression. Railgun is a late Bunco line unlocked at maximum Scavenger
 // standing, not an opening-column campaign.
 window.QUESTLINE_APPEARANCE_ORDER = [
-  "tutorial", "lordoss", "hidden-water", "scav-scrap", "summon-the-pain",
+  "tutorial", "lordoss-cigarettes", "lordoss-restoration", "hidden-water", "scav-scrap", "summon-the-pain",
   "shifting-tide", "vip-treatment", "memento", "garage-days", "railgun",
   "transmission-tower", "doctor-morrow", "trophy-room",
 ];
@@ -421,7 +430,8 @@ window.QUEST_GIVERS = {
     { name: "Eurasia", page: "Eurasia", file: "Eurasia.png" },
   ],
   railgun: [{ name: "Bunco", page: "Bunco", file: "Bunco.png" }],
-  lordoss: [{ name: "Lordoss", page: "Lordoss", file: "Lordoss.png" }],
+  "lordoss-cigarettes": [{ name: "Lordoss", page: "Lordoss", file: "Lordoss.png" }],
+  "lordoss-restoration": [{ name: "Lordoss", page: "Lordoss", file: "Lordoss.png" }],
   "transmission-tower": [
     { name: "Velko", page: "Velko", file: "Velko.png" },
     { name: "Sura", page: "Sura", file: "Sura.png" },
@@ -483,7 +493,8 @@ window.ITEM_NAME_ALIASES = {
 window.QUESTLINE_GATES = {
   tutorial: { defaultUnlocked: true, label: "Starting path", requiresLines: [], requiresUpgrades: [] },
   railgun: { label: "Bunco approval", requiresLines: [], requiresUpgrades: [] },
-  lordoss: { label: "Meet Lordoss in the Innards", requiresLines: [], requiresUpgrades: [] },
+  "lordoss-cigarettes": { label: "Meet Lordoss in the Innards", requiresLines: [], requiresUpgrades: [] },
+  "lordoss-restoration": { label: "Complete Lordoss I", requiresLines: ["lordoss-cigarettes"], requiresUpgrades: [] },
   "transmission-tower": { label: "Build Bar V3", requiresLines: [], requiresUpgrades: ["bar-v3"] },
   "trophy-room": { label: "Complete Transmission Tower Pt. 4", requiresLines: ["transmission-tower"], requiresUpgrades: [] },
   "shifting-tide": { label: "Discover the Water Thief contact", requiresLines: [], requiresUpgrades: [] },
@@ -499,29 +510,31 @@ window.QUESTLINE_GATES = {
 // The overview includes real Innards gates and partial-line milestones instead of
 // pretending every relationship is a full questline-to-questline dependency.
 window.CAMPAIGN_MAP_NODES = [
-  { id:"line:tutorial", kind:"line", ref:"tutorial", column:0, row:2 },
-  { id:"line:lordoss", kind:"line", ref:"lordoss", column:1, row:0 },
+  { id:"line:tutorial", kind:"line", ref:"tutorial", column:0, row:2, starting:true },
+  { id:"line:lordoss-cigarettes", kind:"line", ref:"lordoss-cigarettes", column:1, row:0 },
+  { id:"line:lordoss-restoration", kind:"line", ref:"lordoss-restoration", column:2, row:0, depends:[{ id:"line:lordoss-cigarettes", label:"COMPLETE PT. 10", hard:true }] },
   { id:"line:hidden-water", kind:"line", ref:"hidden-water", column:1, row:1 },
   { id:"line:scav-scrap", kind:"line", ref:"scav-scrap", column:1, row:2 },
   { id:"line:summon-the-pain", kind:"line", ref:"summon-the-pain", column:1, row:3 },
   { id:"line:shifting-tide", kind:"line", ref:"shifting-tide", column:1, row:4 },
-  { id:"line:vip-treatment", kind:"line", ref:"vip-treatment", column:2, row:0 },
-  { id:"line:memento", kind:"line", ref:"memento", column:2, row:1 },
-  { id:"line:garage-days", kind:"line", ref:"garage-days", column:2, row:2 },
-  { id:"upgrade:bar-v3", kind:"upgrade", ref:"bar-v3", column:2, row:3, label:"BAR V3", detail:"Fully upgrade the Bar" },
+  { id:"line:vip-treatment", kind:"line", ref:"vip-treatment", column:2, row:1 },
+  { id:"line:memento", kind:"line", ref:"memento", column:2, row:2 },
+  { id:"line:garage-days", kind:"line", ref:"garage-days", column:2, row:3 },
   { id:"line:railgun", kind:"line", ref:"railgun", column:2, row:4 },
-  { id:"upgrade:garage", kind:"upgrade", ref:"garage", column:3, row:1, label:"GARAGE", detail:"Innards fast-travel facility", depends:[{ id:"line:garage-days", label:"COMPLETE PT. 3", hard:true }] },
-  { id:"line:transmission-tower", kind:"line", ref:"transmission-tower", column:3, row:3, depends:[{ id:"upgrade:bar-v3", label:"STARTS LINE", hard:true }, { id:"line:lordoss", label:"REQUIRED AT PT. 3", hard:false }] },
-  { id:"upgrade:transmission-tower-build", kind:"upgrade", ref:"transmission-tower-build", column:4, row:3, label:"TRANSMISSION TOWER", detail:"Blueprint awarded after Pt. 1", depends:[{ id:"line:transmission-tower", label:"AFTER PT. 1", hard:false }] },
-  { id:"line:doctor-morrow", kind:"line", ref:"doctor-morrow", column:5, row:2, depends:[{ id:"upgrade:transmission-tower-build", label:"TOWER + CODE", hard:true }] },
-  { id:"line:trophy-room", kind:"line", ref:"trophy-room", column:5, row:4, depends:[{ id:"line:transmission-tower", label:"COMPLETE PT. 4", hard:true }] },
-  { id:"upgrade:cognition-cradle", kind:"upgrade", ref:"cognition-cradle", column:6, row:4, label:"COGNITION CRADLE", detail:"Trophy Room construction branch", depends:[{ id:"line:trophy-room", label:"AFTER COST PT. 4", hard:false }] },
+  { id:"upgrade:garage", kind:"upgrade", ref:"garage", column:3, row:3, label:"GARAGE", detail:"Innards fast-travel facility", depends:[{ id:"line:garage-days", label:"COMPLETE PT. 3", hard:true }] },
+  { id:"upgrade:bar-v3", kind:"upgrade", ref:"bar-v3", column:1, row:5.8, label:"BAR V3", detail:"Fully upgrade the Bar" },
+  { id:"line:transmission-tower", kind:"line", ref:"transmission-tower", column:2, row:5.8, note:"Pt. 3 also requires Lordoss II", depends:[{ id:"upgrade:bar-v3", label:"STARTS LINE", hard:true }] },
+  { id:"upgrade:transmission-tower-build", kind:"upgrade", ref:"transmission-tower-build", column:3, row:5.8, label:"TRANSMISSION TOWER", detail:"Blueprint awarded after Pt. 1", depends:[{ id:"line:transmission-tower", label:"AFTER PT. 1", hard:false }] },
+  { id:"line:doctor-morrow", kind:"line", ref:"doctor-morrow", column:4, row:5.8, depends:[{ id:"upgrade:transmission-tower-build", label:"TOWER + CODE", hard:true }] },
+  { id:"line:trophy-room", kind:"line", ref:"trophy-room", column:3, row:6.75, depends:[{ id:"line:transmission-tower", label:"COMPLETE PT. 4", hard:true }] },
+  { id:"upgrade:cognition-cradle", kind:"upgrade", ref:"cognition-cradle", column:4, row:6.75, label:"COGNITION CRADLE", detail:"Trophy Room construction branch", depends:[{ id:"line:trophy-room", label:"AFTER COST PT. 4", hard:false }] },
 ];
 
 window.QUESTLINE_ITEM_NAMES = {
   tutorial: ["Barrel of Water", "Europan Drone Flight Controller", "Europan IFF Chip LVL1", "Toy Dinosaur", "Toy Car", "Toy Train"],
   railgun: ["Barrel of Water"],
-  lordoss: ["Dogboro Cigarettes (Basic)", "Hinoko Cigarettes (Import)", "Nucky Gold Cigarettes (Premium)", "Cybernetic Lungs", "Brawler Spinal Joint", "Wetware System", "Advanced Joint", "Gyroscopic Stabilizer", "Orgamech Nervous System"],
+  "lordoss-cigarettes": ["Dogboro Cigarettes (Basic)", "Hinoko Cigarettes (Import)", "Nucky Gold Cigarettes (Premium)"],
+  "lordoss-restoration": ["Cybernetic Lungs", "Brawler Spinal Joint", "Wetware System", "Advanced Joint", "Gyroscopic Stabilizer", "Orgamech Nervous System"],
   "transmission-tower": ["Frequency Tap", "Cyborg Immunosuppressant", "Processor Board"],
   "trophy-room": ["Rotary Hammer", "Orga Codex", "Power Schematics", "Industrial Sealant", "Military Cables", "Recovery Drone", "Power Cell", "Explosive Charge", "Super Glue", "Sheet Metal", "Screws", "Bolts", "Nuts", "Clamp", "Cortical Array", "Memory Interface", "Interface Core", "Mnemonic Index"],
   "vip-treatment": ["Personnel Data"],

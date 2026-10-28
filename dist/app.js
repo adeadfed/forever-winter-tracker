@@ -59,14 +59,20 @@
         if (items[oldId] !== undefined) items[canonicalId] = Math.max(Number(items[canonicalId]) || 0, Number(items[oldId]) || 0);
         if (oldId !== canonicalId) delete items[oldId];
       });
+      const migratedSelectedLine = parsed.selectedLine === "lordoss" ? "lordoss-cigarettes" : parsed.selectedLine;
+      const unlockedLines = { ...(parsed.unlockedLines ?? {}) };
+      if (unlockedLines.lordoss) {
+        unlockedLines["lordoss-cigarettes"] = true;
+        delete unlockedLines.lordoss;
+      }
       return {
         ...defaultState,
         ...parsed,
         completed: parsed.completed ?? {},
         items,
         upgrades: parsed.upgrades ?? {},
-        unlockedLines: parsed.unlockedLines ?? {},
-        selectedLine: lineById.has(parsed.selectedLine) ? parsed.selectedLine : defaultState.selectedLine,
+        unlockedLines,
+        selectedLine: lineById.has(migratedSelectedLine) ? migratedSelectedLine : defaultState.selectedLine,
       };
     } catch {
       return structuredClone(defaultState);
@@ -259,10 +265,10 @@
   }
 
   function renderCampaignMap() {
-    const cardWidth = 216;
-    const cardHeight = 76;
-    const columnGap = 252;
-    const rowGap = 102;
+    const cardWidth = 210;
+    const cardHeight = 72;
+    const columnGap = 260;
+    const rowGap = 88;
     const offsetX = 28;
     const offsetY = 28;
     const positions = new Map(CAMPAIGN_MAP_NODES.map((node) => [node.id, {
@@ -309,16 +315,23 @@
       const complete = isLineComplete(line.id);
       const count = line.quests.filter((quest) => isComplete(quest.id)).length;
       const gate = QUESTLINE_GATES[line.id];
-      return `<article class="campaign-card ${unlocked ? "is-unlocked" : "is-locked"} ${complete ? "is-complete" : ""} ${state.selectedLine === line.id ? "is-selected" : ""}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
+      const startingStatus = complete ? "STARTING QUESTLINE · COMPLETE" : "START HERE · MAIN QUEST";
+      const detail = node.starting ? "The Long Road In is the campaign entry point" : node.note ?? gate?.label ?? line.unlock;
+      return `<article class="campaign-card ${node.starting ? "is-starting" : ""} ${unlocked ? "is-unlocked" : "is-locked"} ${complete ? "is-complete" : ""} ${state.selectedLine === line.id ? "is-selected" : ""}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
+        ${node.starting ? '<span class="campaign-start-badge">STARTING QUESTLINE</span>' : ""}
         <button type="button" class="campaign-select" data-select-line="${line.id}">
-          <span class="campaign-status">${complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
+          <span class="campaign-status">${node.starting ? startingStatus : complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
           <strong>${escapeHtml(line.name)}</strong>
-          <small>${count}/${line.quests.length} · ${escapeHtml(gate?.label ?? line.unlock)}</small>
+          <small class="${node.note ? "campaign-note" : ""}">${count}/${line.quests.length} · ${escapeHtml(detail)}</small>
         </button>
         ${!unlocked ? `<button class="mini-unlock" type="button" data-unlock-line="${line.id}">Override</button>` : ""}
       </article>`;
     }).join("");
-    els.campaignMap.innerHTML = `<div class="campaign-world" style="width:${worldWidth}px;height:${worldHeight}px"><svg width="${worldWidth}" height="${worldHeight}" viewBox="0 0 ${worldWidth} ${worldHeight}" aria-hidden="true"><defs><marker id="campaign-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>${edgeParts.join("")}</svg>${cards}</div>`;
+    const laneDividerY = offsetY + 5.22 * rowGap;
+    els.campaignMap.innerHTML = `<div class="campaign-world" style="width:${worldWidth}px;height:${worldHeight}px">
+      <span class="campaign-lane-label" style="left:${offsetX + columnGap}px;top:7px">SIDE QUESTLINES</span>
+      <div class="campaign-lane-divider" style="top:${laneDividerY}px"><span>INNARDS-GATED STORY</span></div>
+      <svg width="${worldWidth}" height="${worldHeight}" viewBox="0 0 ${worldWidth} ${worldHeight}" aria-hidden="true"><defs><marker id="campaign-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>${edgeParts.join("")}</svg>${cards}</div>`;
     document.querySelector(".campaign-panel")?.classList.toggle("is-collapsed", state.campaignCollapsed);
     els.collapseCampaign.textContent = state.campaignCollapsed ? "Expand" : "Collapse";
     els.collapseCampaign.setAttribute("aria-expanded", String(!state.campaignCollapsed));

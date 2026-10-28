@@ -131,8 +131,12 @@ assert.ok(graphMarkup.includes('data-focus-quest-items="blue-gold"'), "quest nod
 assert.ok(document.ids.get("lineItems").innerHTML.includes('data-focus-item="Barrel of Water"'), "questline item rows should link to graph nodes");
 assert.ok(document.ids.get("lineItems").innerHTML.includes('assets/items/barrel-of-water.png'), "unmapped item art should use the stable scraper destination");
 assert.ok(!document.ids.get("lineItems").innerHTML.includes("◇"), "questline items must not render generic category glyphs");
-assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card/g) ?? []).length, 17, "campaign overview should render questlines and Innards gates");
+assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card/g) ?? []).length, 18, "campaign overview should render questlines and Innards gates");
 assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card campaign-gate /g) ?? []).length, 4, "campaign overview should render four Innards gate nodes");
+assert.ok(document.ids.get("campaignMap").innerHTML.includes("STARTING QUESTLINE"), "The Long Road In should be visibly identified as the starting line");
+assert.ok(document.ids.get("campaignMap").innerHTML.includes("Lordoss I · Cigarettes"), "campaign overview should render Lordoss I");
+assert.ok(document.ids.get("campaignMap").innerHTML.includes("Lordoss II · Restoration"), "campaign overview should render Lordoss II");
+assert.ok(document.ids.get("campaignMap").innerHTML.includes("INNARDS-GATED STORY"), "campaign overview should separate the late Innards story lane");
 assert.equal((document.ids.get("radiantGrid").innerHTML.match(/class="radiant-row/g) ?? []).length, 87, "all radiant rows should render");
 assert.equal((document.ids.get("radiantGrid").innerHTML.match(/class="radiant-faction-icon/g) ?? []).length, 87, "radiants should render faction icons");
 assert.ok(document.ids.get("radiantGrid").innerHTML.includes("Western Embassy"), "radiants should distinguish the issuing desk from the reputation faction");

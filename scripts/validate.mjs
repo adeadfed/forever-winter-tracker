@@ -19,7 +19,7 @@ const quests = [...chainQuests, ...RADIANT_QUESTS];
 const ids = quests.map((quest) => quest.id);
 const idSet = new Set(ids);
 
-assert.equal(QUEST_LINES.length, 13, "expected every curated questline");
+assert.equal(QUEST_LINES.length, 14, "expected every curated questline and both Lordoss parts");
 assert.deepEqual(Array.from(QUEST_LINES, (line) => line.id), Array.from(QUESTLINE_APPEARANCE_ORDER), "questline selector must follow campaign appearance order");
 assert.equal(chainQuests.length, 100, "unexpected chain quest count");
 assert.equal(RADIANT_QUESTS.length, 87, "unexpected radiant quest count");
@@ -53,8 +53,12 @@ const optionalTutorialIds = new Set(tutorial.quests.filter((entry) => entry.opti
 for (const entry of tutorial.quests.filter((quest) => !quest.optional)) {
   assert.equal(entry.requires.some((id) => optionalTutorialIds.has(id)), false, `${entry.name} must not depend on an optional tutorial quest`);
 }
-const lordoss = QUEST_LINES.find((entry) => entry.id === "lordoss");
-assert.ok(lordoss.quests.every((entry) => entry.phase?.includes("NO BAR") || entry.id === "giants-senses"), "Lordoss' personal chain must be identified as a no-Bar phase");
+const lordossCigarettes = QUEST_LINES.find((entry) => entry.id === "lordoss-cigarettes");
+const lordossRestoration = QUEST_LINES.find((entry) => entry.id === "lordoss-restoration");
+assert.equal(lordossCigarettes.quests.length, 10, "Lordoss I must contain the ten cigarette quests");
+assert.equal(lordossRestoration.quests.length, 7, "Lordoss II must contain the seven restoration quests");
+assert.ok([...lordossCigarettes.quests, ...lordossRestoration.quests].every((entry) => entry.phase?.includes("NO BAR") || entry.id === "giants-senses"), "Both Lordoss parts must be identified as a no-Bar phase");
+assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-restoration"].requiresLines), ["lordoss-cigarettes"], "Lordoss II must unlock after Lordoss I");
 assert.deepEqual(Array.from(QUEST_LINES.find((entry) => entry.id === "transmission-tower").quests.find((entry) => entry.id === "transmission-tower-pt-3").requires), ["transmission-tower-pt-2", "giants-senses"], "Lordoss must rejoin the Bar/Tower story at Transmission Tower Pt. 3");
 
 for (const quest of chainQuests) assert.equal(quest.radiant, false, `${quest.name} must be a questline node`);
@@ -164,6 +168,11 @@ assert.equal(CAMPAIGN_MAP_NODES.filter((node) => node.kind === "line").length, Q
 assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "bar-v3"), "campaign overview must expose the Bar V3 gate");
 assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "transmission-tower-build"), "campaign overview must expose the Transmission Tower build gate");
 assert.equal(CAMPAIGN_MAP_NODES.find((node) => node.ref === "tutorial")?.column, 0, "the tutorial must be the opening campaign column");
+assert.equal(CAMPAIGN_MAP_NODES.find((node) => node.ref === "tutorial")?.starting, true, "The Long Road In must be visually marked as the starting questline");
+assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "lordoss-cigarettes"), "campaign overview must show Lordoss I");
+assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "lordoss-restoration"), "campaign overview must show Lordoss II");
+const campaignSlots = new Set(CAMPAIGN_MAP_NODES.map((node) => `${node.column}:${node.row}`));
+assert.equal(campaignSlots.size, CAMPAIGN_MAP_NODES.length, "campaign cards must not share a layout slot");
 assert.ok(CAMPAIGN_MAP_NODES.find((node) => node.ref === "railgun")?.column > 0, "Railgun must not appear in the opening campaign column");
 const scraper = fs.readFileSync(path.join(root, "scripts", "scrape_wiki_assets.py"), "utf8");
 assert.ok(scraper.includes("Mozilla/5.0") && scraper.includes("MediaWiki"), "local wiki scraper must use browser headers and the MediaWiki API");
