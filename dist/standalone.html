@@ -1,0 +1,2095 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="Interactive questline, hideout, and item tracker for The Forever Winter.">
+  <title>The Forever Winter — Operations Map</title>
+  <style>
+:root {
+  color-scheme: dark;
+  --bg: #050505;
+  --surface: #111111;
+  --surface-2: #191919;
+  --surface-3: #242424;
+  --panel: #151515;
+  --border: #363636;
+  --border-strong: #777777;
+  --text: #eeeeea;
+  --muted: #a2a2a0;
+  --faint: #666665;
+  --rust: #b82b1e;
+  --rust-bright: #f03924;
+  --amber: #f3c846;
+  --olive: #b4d6c4;
+  --danger: #f03924;
+  --display: "DIN Condensed", "Roboto Condensed", "Arial Narrow", Impact, sans-serif;
+  --body: "DIN Alternate", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  --mono: "OCR A Std", "Share Tech Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { min-width: 320px; min-height: 100%; }
+body {
+  display: grid;
+  grid-template-rows: 56px 50px minmax(0, 1fr) 28px;
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 45% 12%, rgba(255,255,255,.04), transparent 42rem),
+    linear-gradient(90deg,rgba(255,255,255,.018),transparent 14%,transparent 86%,rgba(255,255,255,.018)),
+    var(--bg);
+  font: 14px/1.4 var(--body);
+}
+body::before { content:""; position:fixed; z-index:100; inset:0; pointer-events:none; opacity:.22; background:repeating-linear-gradient(0deg,rgba(255,255,255,.055) 0,rgba(255,255,255,.055) 1px,transparent 1px,transparent 3px); mix-blend-mode:screen; }
+body::after { content:""; position:fixed; z-index:99; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(255,40,20,.025),transparent 18%,transparent 82%,rgba(255,40,20,.02)); }
+button, input, select { font: inherit; color: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+
+.topbar {
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 270px 1fr 200px;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: rgba(6,6,6,.98);
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.brand { display: flex; align-items: center; gap: 12px; height: 100%; padding: 0 20px; text-decoration: none; }
+.brand-mark { position: relative; display: flex; align-items: end; gap: 3px; width: 36px; height: 34px; padding: 7px; border: 1px solid var(--rust-bright); transform: skew(-7deg); }
+.brand-mark::after { content:""; position:absolute; right:-5px; bottom:-5px; width:13px; height:13px; border-right:1px solid var(--amber); border-bottom:1px solid var(--amber); }
+.brand-mark i { width: 6px; background: var(--rust-bright); }
+.brand-mark i:nth-child(1) { height: 11px; }.brand-mark i:nth-child(2) { height: 22px; }.brand-mark i:nth-child(3) { height: 16px; }
+.brand > span:last-child { display:grid; }
+.brand strong { font: 700 18px/.95 var(--display); letter-spacing:.08em; }
+.brand small { margin-top:5px; color:var(--rust-bright); font:700 8px/1 var(--mono); letter-spacing:.24em; }
+.tabs { display:flex; align-self:stretch; justify-content:center; }
+.tab { position:relative; min-width:112px; padding:0 22px; border:0; background:transparent; color:var(--muted); cursor:pointer; font:700 11px var(--mono); letter-spacing:.05em; text-transform:uppercase; }
+.tab + .tab::before { content:"/"; position:absolute; left:0; color:#8d8d8d; }
+.tab::after { content:""; position:absolute; right:22px; bottom:0; left:22px; height:2px; background:transparent; }
+.tab:hover { color:var(--text); background:rgba(255,255,255,.02); }
+.tab.is-active { color:var(--rust-bright); background:rgba(240,57,36,.035); }
+.tab.is-active::after { background:var(--rust-bright); }
+.top-stats { display:flex; align-items:center; justify-content:flex-end; gap:18px; padding:0 20px; color:var(--muted); font:9px var(--mono); text-transform:uppercase; }
+.top-stats b { color:var(--text); }
+.reset-button { padding:7px 10px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; font:9px var(--mono); text-transform:uppercase; }
+.reset-button:hover { border-color:var(--danger); color:#e8866c; }
+
+.controls { z-index:9; display:flex; align-items:center; gap:10px; overflow-x:auto; padding:7px 16px; border-bottom:1px solid var(--border); background:#0b0b0b; scrollbar-width:thin; }
+.search-box { display:flex; align-items:center; gap:9px; width:min(270px,22vw); height:36px; padding:0 11px; border:1px solid var(--border); background:var(--bg); }
+.search-box > span { color:var(--rust-bright); font:22px/1 var(--display); transform:rotate(-15deg); }
+.search-box input { width:100%; min-width:0; border:0; outline:0; background:transparent; font-size:11px; }
+.search-box input::placeholder { color:var(--faint); }
+.search-box:focus-within { border-color:var(--rust); }
+.select-wrap { display:flex; align-items:center; gap:8px; height:36px; padding-left:10px; border:1px solid var(--border); background:var(--bg); }
+.select-wrap > span { color:var(--rust-bright); font:700 8px var(--mono); letter-spacing:.1em; text-transform:uppercase; }
+select { height:34px; min-width:150px; padding:0 28px 0 0; border:0; outline:0; background:transparent; font-size:10px; }
+#radiantSort { min-width:125px; }
+.filter-group { display:flex; height:36px; margin-left:auto; border:1px solid var(--border); }
+.filter { min-width:62px; border:0; border-right:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; font:700 8px var(--mono); text-transform:uppercase; }
+.filter:last-child { border-right:0; }.filter:hover { color:var(--text); }.filter.is-active { background:var(--surface-3); color:var(--amber); }
+.data-counts { display:flex; gap:14px; color:var(--faint); font:8px var(--mono); text-transform:uppercase; }
+.data-counts b { color:var(--muted); }
+
+main { min-height:0; overflow:hidden; }
+.view { display:none; height:100%; min-height:0; }
+.view.is-active { display:grid; }
+.tree-view.is-active { display:block; overflow:auto; scrollbar-color:var(--border-strong) var(--bg); }
+
+.campaign-panel, .line-panel, .context-items { position:relative; border-bottom:1px solid var(--border); }
+.section-label { display:flex; align-items:center; gap:14px; min-height:72px; padding:12px 18px; border-bottom:1px solid var(--border); background:linear-gradient(90deg,var(--surface),rgba(17,16,13,.72)); }
+.section-label > span { display:grid; place-items:center; width:30px; height:30px; border:1px solid var(--rust); color:var(--rust-bright); font:700 9px var(--mono); }
+.section-label h1, .section-label h2 { margin:0; font:700 23px/1 var(--display); letter-spacing:.035em; text-transform:uppercase; }
+.section-label p { margin:5px 0 0; color:var(--muted); font-size:9px; }
+.section-label > button { margin-left:auto; padding:7px 10px; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; font:8px var(--mono); text-transform:uppercase; }
+.section-label.compact { min-height:68px; }
+.campaign-map { height:390px; overflow:auto hidden; background:
+  linear-gradient(rgba(198,95,61,.024) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(198,95,61,.024) 1px,transparent 1px),#0a0907;
+  background-size:32px 32px;
+}
+.campaign-panel.is-collapsed .campaign-map { display:none; }
+.campaign-world { position:relative; width:1580px; height:370px; }
+.campaign-world > svg { position:absolute; inset:0; overflow:visible; pointer-events:none; }
+.campaign-edge { fill:none; stroke:#423e35; stroke-width:1.5; }
+.campaign-edge.is-live { stroke:var(--rust-bright); }
+.campaign-edge + marker path, #campaign-arrow path { fill:#5a5447; }
+.campaign-card { position:absolute; width:268px; height:86px; border:1px solid var(--border); background:rgba(19,17,13,.97); box-shadow:0 10px 28px rgba(0,0,0,.24); }
+.campaign-card::before { content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--line-accent); opacity:.28; }
+.campaign-card.is-unlocked { border-color:color-mix(in srgb,var(--line-accent) 50%,var(--border)); }
+.campaign-card.is-selected { outline:1px solid var(--rust-bright); outline-offset:3px; }
+.campaign-card.is-complete { background:#171811; }
+.campaign-select { display:grid; gap:4px; width:100%; height:100%; padding:11px 82px 11px 14px; border:0; background:transparent; text-align:left; cursor:pointer; }
+.campaign-select strong { overflow:hidden; font:700 17px/1.1 var(--display); letter-spacing:.02em; text-overflow:ellipsis; white-space:nowrap; }
+.campaign-select small { overflow:hidden; color:var(--muted); font-size:8px; text-overflow:ellipsis; white-space:nowrap; }
+.campaign-status { color:var(--line-accent); font:700 7px var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+.campaign-card.is-locked { filter:saturate(.35); opacity:.72; }
+.mini-unlock { position:absolute; right:9px; bottom:10px; width:62px; padding:6px 4px; border:1px solid var(--border-strong); background:#0a0907; color:var(--muted); cursor:pointer; font:7px/1.2 var(--mono); text-transform:uppercase; }
+.mini-unlock:hover { border-color:var(--rust); color:var(--rust-bright); }
+
+.tree-header { position:sticky; z-index:5; top:0; display:grid; grid-template-columns:auto minmax(230px,1fr) auto 135px auto; align-items:center; gap:18px; min-height:88px; padding:10px 18px; border-bottom:1px solid var(--border); background:rgba(15,14,11,.97); backdrop-filter:blur(8px); }
+.giver-list { display:flex; align-items:center; min-width:54px; }
+.giver-chip { position:relative; display:block; width:52px; height:58px; margin-right:-8px; overflow:hidden; border:1px solid var(--border-strong); background:var(--surface-3); text-decoration:none; clip-path:polygon(0 0,100% 0,100% 82%,84% 100%,0 100%); }
+.giver-chip img { width:100%; height:100%; object-fit:var(--portrait-fit,contain); object-position:var(--portrait-position,center); filter:saturate(.82) contrast(1.08); }
+.giver-chip span, .giver-chip b { display:none; }
+.tree-title { min-width:0; }
+.eyebrow { margin-bottom:5px; color:var(--rust-bright); font:700 7px var(--mono); letter-spacing:.14em; text-transform:uppercase; }
+.tree-title h2, .plain-header h1 { margin:0; font:700 27px/1 var(--display); letter-spacing:.025em; text-transform:uppercase; }
+.tree-title p { max-width:760px; margin:6px 0 0; overflow:hidden; color:var(--muted); font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
+.line-unlock { padding:9px 12px; border:1px solid var(--rust); background:rgba(198,95,61,.08); color:var(--rust-bright); cursor:pointer; font:700 8px var(--mono); text-transform:uppercase; }
+.tree-progress { text-align:right; }
+.tree-progress strong { display:block; font:700 19px var(--display); }
+.tree-progress span { display:block; width:135px; height:3px; margin-top:7px; background:var(--border); }
+.tree-progress i { display:block; width:0; height:100%; background:var(--rust-bright); transition:width .2s; }
+.zoom-controls { display:flex; height:32px; border:1px solid var(--border); }
+.zoom-controls button { min-width:32px; border:0; border-right:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; }
+.zoom-controls button:last-child { border-right:0; }.zoom-controls button:hover { color:var(--text); background:var(--surface-3); }
+#zoomLabel { min-width:50px; font:8px var(--mono); }
+
+.graph-viewport { position:relative; height:clamp(420px,58vh,640px); overflow:auto; cursor:grab; background:
+  linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px),#090806;
+  background-size:32px 32px; scrollbar-color:var(--border-strong) var(--bg);
+}
+.graph-viewport.is-dragging { cursor:grabbing; user-select:none; }
+.graph-canvas { position:relative; width:1000px; height:520px; }
+.graph-world { position:absolute; inset:0 auto auto 0; transform-origin:top left; }
+.graph-edges { position:absolute; inset:0; overflow:visible; pointer-events:none; }
+.graph-edge { fill:none; stroke:#49443a; stroke-width:1.4; vector-effect:non-scaling-stroke; }
+.graph-edge.is-live { stroke:color-mix(in srgb,var(--line-accent) 68%,#4a4338); }
+.graph-edge.is-complete { stroke:var(--amber); }
+#arrow-default path { fill:#49443a; } #arrow-live path { fill:var(--line-accent); }
+.giver-root { position:absolute; display:grid; justify-items:center; width:118px; transform:translateY(-50%); }
+.giver-stack { position:relative; width:88px; height:92px; }
+.giver-portrait { position:absolute; display:block; width:76px; height:86px; overflow:hidden; border:1px solid var(--border-strong); background:var(--surface-3); box-shadow:0 8px 20px rgba(0,0,0,.4); clip-path:polygon(0 0,100% 0,100% 85%,84% 100%,0 100%); }
+.giver-portrait:nth-child(2){left:10px;top:6px}.giver-portrait:nth-child(3){left:20px;top:12px}
+.giver-portrait img { width:100%; height:100%; object-fit:var(--portrait-fit,contain); object-position:var(--portrait-position,center); filter:saturate(.82) contrast(1.08); }
+.giver-portrait span,.giver-portrait b { display:none; }
+.giver-root > strong { max-width:118px; margin-top:6px; overflow:hidden; color:var(--muted); font:8px var(--mono); text-align:center; text-overflow:ellipsis; white-space:nowrap; }
+
+.graph-node { position:absolute; display:grid; grid-template-columns:20px minmax(0,1fr); grid-template-rows:1fr auto; column-gap:9px; width:202px; min-height:70px; padding:11px; border:1px solid var(--border-strong); background:#14120e; box-shadow:0 7px 18px rgba(0,0,0,.28); clip-path:polygon(0 0,100% 0,100% 84%,94% 100%,0 100%); }
+.graph-node::before { content:""; position:absolute; inset:0 auto 0 0; width:2px; background:var(--line-accent); opacity:.42; }
+.graph-node:hover { z-index:2; border-color:var(--line-accent); }
+.graph-node[data-status="available"] { border-color:color-mix(in srgb,var(--line-accent) 60%,var(--border)); }
+.graph-node[data-status="complete"] { border-color:var(--amber); background:#171710; }
+.graph-node[data-status="locked"] { opacity:.42; }
+.graph-node.is-filtered { opacity:.08; pointer-events:none; }
+.node-flag { position:absolute; top:-11px; left:8px; max-width:184px; overflow:hidden; padding:2px 5px; border:1px solid #575757; background:#090909; color:#aaa; font:700 6px var(--mono); letter-spacing:.08em; text-overflow:ellipsis; white-space:nowrap; }
+.node-flag.is-optional { border-color:#8b7740; color:var(--amber); }
+.node-check { grid-row:1/3; align-self:center; width:18px; height:18px; padding:0; border:1px solid #655e50; background:var(--bg); color:transparent; cursor:pointer; }
+.node-check::after { content:"✓"; font-size:10px; }.node-check:hover { border-color:var(--amber); }.node-check:disabled { cursor:not-allowed; }
+.graph-node[data-status="complete"] .node-check { border-color:var(--amber); background:var(--amber); color:#16130d; }
+.node-link { align-self:center; overflow:hidden; text-decoration:none; font-size:11px; font-weight:600; line-height:1.25; text-overflow:ellipsis; }
+.node-link:hover { color:var(--rust-bright); }.node-link::after { content:" ↗"; color:var(--faint); font-size:8px; }
+.node-meta { grid-column:2; overflow:hidden; padding-right:48px; color:var(--faint); font:7px var(--mono); text-overflow:ellipsis; white-space:nowrap; }
+.node-items { position:absolute; right:7px; bottom:5px; padding:3px 5px; border:1px solid #5c5549; background:#0b0a08; color:#aaa18e; cursor:pointer; font:700 6px var(--mono); letter-spacing:.06em; }
+.node-items b,.item-quest-link b { color:var(--rust-bright); }
+.node-items:hover,.node-items:focus-visible { border-color:var(--rust-bright); color:#fff; }
+.graph-canvas.has-cross-highlight .graph-edge { opacity:.16; }
+.graph-node.is-cross-highlight { z-index:4; opacity:1!important; border-color:var(--rust-bright)!important; outline:2px solid rgba(242,56,34,.38); outline-offset:3px; box-shadow:0 0 22px rgba(242,56,34,.2); }
+.graph-node.is-cross-dimmed { opacity:.1!important; }
+.tree-view > .empty-state { position:absolute; z-index:4; inset:88px 0 0; pointer-events:none; background:rgba(9,8,6,.72); }
+
+.context-items { padding-bottom:22px; background:#0b0a08; }
+.compact-items { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:1px; padding:14px 18px; background:var(--border); }
+.compact-item { display:grid; grid-template-columns:42px minmax(0,1fr) auto; align-items:center; gap:10px; min-height:60px; padding:8px 10px; background:var(--surface); }
+.compact-item.is-ready { background:#171810; }
+.compact-item > div:nth-child(2) { min-width:0; }
+.compact-item strong { display:block; overflow:hidden; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+.compact-item small { display:block; margin-top:4px; overflow:hidden; color:var(--faint); font:7px var(--mono); text-overflow:ellipsis; white-space:nowrap; }
+.item-quest-link { margin-top:6px; padding:3px 6px; border:1px solid #575148; background:#0b0a08; color:#a7a092; cursor:pointer; font:700 6px var(--mono); letter-spacing:.07em; }
+.item-quest-link:hover,.item-quest-link:focus-visible { border-color:var(--rust-bright); color:#fff; }
+.compact-items.has-cross-highlight .compact-item.is-cross-highlight { position:relative; z-index:2; opacity:1; outline:2px solid var(--rust-bright); outline-offset:-2px; background:#211513; }
+.compact-items.has-cross-highlight .compact-item.is-cross-dimmed { opacity:.26; }
+.mini-count { display:grid; grid-template-columns:24px 42px 24px; align-items:center; }
+.mini-count button,.mini-count input { height:25px; border:1px solid var(--border); background:var(--bg); text-align:center; }
+.mini-count button { cursor:pointer; }.mini-count button:hover { border-color:var(--rust); color:var(--rust-bright); }
+.mini-count input { width:42px; border-width:1px 0; outline:0; appearance:textfield; font-size:9px; }
+.mini-count em { grid-column:1/4; margin-top:3px; color:var(--faint); font:normal 7px var(--mono); text-align:right; }
+.compact-item.is-ready .mini-count em { color:var(--olive); }
+.no-materials { margin:0; padding:16px; color:var(--faint); font:9px var(--mono); }
+
+.plain-header { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:88px; padding:16px 22px; border-bottom:1px solid var(--border); background:var(--surface); }
+.plain-header h1 { font-size:30px; }.plain-header p { margin:5px 0 0; color:var(--muted); font-size:9px; }
+.plain-header > strong { font:700 21px var(--display); }
+#radiantView,#itemsView,#hideoutView { grid-template-rows:auto minmax(0,1fr); }
+.radiant-list,.items-list,.upgrade-grid { overflow:auto; scrollbar-color:var(--border-strong) var(--bg); }
+
+.upgrade-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(440px,1fr)); align-content:start; gap:12px; padding:16px 18px 30px; }
+.upgrade-card { border:1px solid var(--border); background:var(--surface); box-shadow:0 10px 24px rgba(0,0,0,.18); }
+.upgrade-card[data-status="locked"] { opacity:.52; }
+.upgrade-card[data-status="complete"] { border-color:#646944; }
+.upgrade-card > header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:14px 15px 11px; border-bottom:1px solid var(--border); }
+.upgrade-card > header span { color:var(--rust-bright); font:700 7px var(--mono); letter-spacing:.14em; text-transform:uppercase; }
+.upgrade-card h2 { margin:5px 0 0; font:700 20px/1 var(--display); letter-spacing:.02em; text-transform:uppercase; }
+.upgrade-check { min-width:74px; padding:7px 8px; border:1px solid var(--border-strong); background:var(--bg); color:var(--muted); cursor:pointer; font:7px var(--mono); text-transform:uppercase; }
+.upgrade-check:hover:not(:disabled) { border-color:var(--rust); color:var(--rust-bright); }
+.upgrade-card[data-status="complete"] .upgrade-check { border-color:var(--olive); color:var(--olive); }
+.upgrade-card > p { min-height:36px; margin:0; padding:11px 15px; color:var(--muted); font-size:9px; }
+.upgrade-stats { display:grid; grid-template-columns:repeat(4,1fr); border-block:1px solid var(--border); background:var(--bg); }
+.upgrade-stats span { min-width:0; padding:9px 10px; border-right:1px solid var(--border); color:var(--faint); font:7px var(--mono); text-transform:uppercase; }
+.upgrade-stats span:last-child { border-right:0; }.upgrade-stats b { display:block; overflow:hidden; margin-bottom:3px; color:var(--text); font-size:9px; text-overflow:ellipsis; white-space:nowrap; text-transform:none; }
+.upgrade-items { display:grid; grid-template-columns:1fr 1fr; gap:1px; padding:1px; background:var(--border); }
+.upgrade-items .compact-item { min-height:54px; grid-template-columns:36px minmax(0,1fr) auto; padding:6px 8px; }
+.upgrade-items .item-icon { width:34px; height:34px; }
+.upgrade-items .mini-count { grid-template-columns:20px 34px 20px; }.upgrade-items .mini-count input { width:34px; }
+
+.radiant-list,.items-list { padding:10px 18px 28px; }
+.radiant-row { display:grid; grid-template-columns:24px 40px minmax(220px,1.1fr) minmax(150px,.55fr) minmax(140px,.55fr) 78px; align-items:center; gap:12px; min-height:58px; padding:7px 12px; border-bottom:1px solid var(--border); }
+.radiant-row:hover,.item-row:hover { background:var(--surface); }.radiant-row.is-complete { color:var(--muted); }
+.radiant-check { width:17px; height:17px; border:1px solid var(--border-strong); background:transparent; color:transparent; cursor:pointer; }
+.radiant-check::after { content:"✓"; font-size:10px; }.radiant-row.is-complete .radiant-check { border-color:var(--amber); background:var(--amber); color:#14110c; }
+.radiant-faction-icon { width:36px; height:36px; padding:3px; border:1px solid #4b4b4b; background:#0b0b0b; object-fit:contain; filter:saturate(.8) contrast(1.1); }
+.radiant-name { min-width:0; text-decoration:none; font-size:11px; }.radiant-name:hover { color:var(--rust-bright); }
+.radiant-name small,.radiant-faction small { display:block; overflow:hidden; margin-top:3px; color:var(--faint); font:7px var(--mono); text-overflow:ellipsis; white-space:nowrap; }
+.radiant-faction b { color:var(--text); font-size:9px; font-weight:600; }
+.radiant-cell { overflow:hidden; color:var(--muted); font-size:9px; text-overflow:ellipsis; white-space:nowrap; }
+.radiant-badge { justify-self:end; padding:3px 6px; border:1px solid #62593e; color:var(--amber); font:7px var(--mono); text-transform:uppercase; }
+
+.item-totals { display:grid; grid-template-columns:auto auto 140px; align-items:center; gap:13px; color:var(--muted); font:8px var(--mono); }
+.item-totals b { color:var(--text); }.item-totals i { width:140px; height:3px; background:var(--border); }.item-totals i b { display:block; width:0; height:100%; background:var(--rust-bright); }
+.item-totals small { grid-column:3; margin-top:-10px; text-align:right; }
+.item-row { display:grid; grid-template-columns:48px minmax(170px,.8fr) 105px minmax(200px,1.2fr) auto; align-items:center; gap:14px; min-height:62px; padding:6px 12px; border-bottom:1px solid var(--border); }
+.item-row.is-ready { background:rgba(154,163,106,.04); }
+.item-icon { position:relative; display:grid; place-items:center; width:42px; height:42px; border:1px solid var(--border); background:var(--surface-2); text-decoration:none; clip-path:polygon(0 0,100% 0,100% 80%,80% 100%,0 100%); }
+.item-icon span { color:var(--amber); font:700 18px var(--mono); }
+.item-icon img { width:100%; height:100%; padding:3px; object-fit:contain; filter:saturate(.82) contrast(1.06); }
+.item-icon img.is-missing { display:none; }
+.kind-medical span { color:#b86f5e; }.kind-tool span { color:#a8a28d; }.kind-circuit span { color:#80979a; }.kind-supply span { color:#ae8d56; }.kind-drop span { color:#728c9b; }
+.item-name { min-width:0; }.item-name strong { display:block; overflow:hidden; font-size:11px; text-overflow:ellipsis; white-space:nowrap; }
+.item-name small,.item-quests { display:block; margin-top:4px; overflow:hidden; color:var(--faint); font:7px var(--mono); text-overflow:ellipsis; white-space:nowrap; }
+.item-group { color:var(--muted); font:8px var(--mono); }
+.item-count { display:grid; grid-template-columns:28px 50px 28px auto; align-items:center; }
+.item-count button,.item-count input { height:28px; border:1px solid var(--border); background:transparent; text-align:center; }
+.item-count button { cursor:pointer; }.item-count button:hover { border-color:var(--rust); color:var(--rust-bright); }
+.item-count input { width:50px; border-width:1px 0; outline:0; background:var(--bg); appearance:textfield; }
+.item-count small { min-width:60px; margin-left:10px; color:var(--muted); font:8px var(--mono); }.item-row.is-ready .item-count small { color:var(--olive); }
+
+.empty-state { display:grid; place-items:center; padding:40px; color:var(--muted); }
+.is-hidden { display:none !important; }
+footer { display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-top:1px solid var(--border); background:#090806; color:var(--faint); font:7px var(--mono); }
+footer a { color:var(--muted); }
+.toast { position:fixed; z-index:30; right:16px; bottom:42px; max-width:330px; padding:10px 13px; border:1px solid var(--rust); background:var(--surface-3); box-shadow:0 12px 35px rgba(0,0,0,.45); opacity:0; transform:translateY(8px); pointer-events:none; font:9px var(--mono); transition:.15s ease; }
+.toast.is-visible { opacity:1; transform:none; }
+:focus-visible { outline:2px solid var(--rust-bright); outline-offset:2px; }
+
+/* In-game terminal treatment */
+.section-label,.plain-header { background:linear-gradient(90deg,#181818,rgba(11,11,11,.98)); }
+.section-label > span { width:38px; height:38px; border-color:var(--rust-bright); background:#121212; font-size:10px; }
+.section-label h1,.section-label h2,.plain-header h1 { letter-spacing:.055em; }
+.section-label p,.plain-header p,.tree-title p { color:#999; font-family:var(--mono); }
+.section-label > button,.reset-button,.line-unlock { border-color:#555; background:#151515; }
+.section-label > button:hover,.reset-button:hover,.line-unlock:hover { border-color:var(--rust-bright); color:var(--rust-bright); }
+.filter.is-active { background:var(--rust-bright); color:#080808; }
+.search-box,.select-wrap,.filter-group { border-color:#515151; background:#111; }
+
+.campaign-map { height:clamp(380px,48vh,520px); background:
+  linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),#080808;
+  background-size:28px 28px;
+}
+.campaign-world { width:auto; height:auto; }
+.campaign-edge { stroke:#777; stroke-width:1.25; }
+.campaign-edge.is-milestone { stroke:#777; stroke-dasharray:6 5; }
+.campaign-edge.is-live { stroke:var(--rust-bright); }
+.campaign-edge-label { fill:#929292; stroke:#080808; stroke-width:5px; paint-order:stroke; font:700 7px var(--mono); letter-spacing:.08em; text-anchor:middle; }
+#campaign-arrow path { fill:#8a8a8a; }
+.campaign-card { width:216px; height:76px; border-color:#484848; background:rgba(18,18,18,.98); box-shadow:none; }
+.campaign-card::before { width:4px; opacity:.7; }
+.campaign-card.is-unlocked { border-color:#747474; }
+.campaign-card.is-selected { outline:2px solid var(--rust-bright); outline-offset:2px; }
+.campaign-card.is-complete { background:#202020; }
+.campaign-card.is-locked { filter:grayscale(1); opacity:.48; }
+.campaign-select { gap:3px; padding:9px 61px 8px 12px; }
+.campaign-select strong { font:700 15px/1 var(--display); letter-spacing:.045em; text-transform:uppercase; }
+.campaign-select small { color:#8b8b8b; font:7px var(--mono); }
+.campaign-status { color:var(--line-accent); font-size:7px; }
+.campaign-gate { border-color:#8e2f27; background:repeating-linear-gradient(135deg,#151515 0,#151515 7px,#1a1211 7px,#1a1211 9px); }
+.campaign-gate-icon { position:absolute; z-index:0; right:5px; top:5px; width:58px; height:64px; object-fit:contain; opacity:.38; filter:grayscale(.35) contrast(1.12); pointer-events:none; }
+.campaign-gate .campaign-select { position:relative; z-index:1; }
+.campaign-gate::after { content:"INNARDS"; position:absolute; right:-16px; top:28px; color:#77352e; font:700 6px var(--mono); letter-spacing:.16em; transform:rotate(90deg); }
+.campaign-gate .campaign-status { color:var(--rust-bright); }
+.mini-unlock { right:7px; bottom:8px; width:49px; padding:5px 3px; border-color:#5b5b5b; background:#101010; font-size:6px; }
+
+.tree-header { min-height:84px; border-color:#454545; background:rgba(12,12,12,.97); }
+.giver-chip,.giver-portrait { border-color:#7a7a7a; background:#181818; clip-path:none; }
+.giver-chip img,.giver-portrait img { filter:saturate(.78) contrast(1.08); }
+.line-unlock { background:#31100d; border-color:var(--rust-bright); }
+.tree-progress span { background:#333; }
+.tree-progress i { background:var(--rust-bright); }
+.zoom-controls { border-color:#555; }
+.graph-viewport { background:
+  linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),#070707;
+  background-size:28px 28px;
+}
+.graph-edge { stroke:#666; }
+.graph-edge.is-live { stroke:color-mix(in srgb,var(--line-accent) 72%,#a0a0a0); }
+.graph-edge.is-complete { stroke:var(--rust-bright); }
+.graph-node { border-color:#5b5b5b; background:#171717; box-shadow:none; clip-path:none; }
+.graph-node[data-status="complete"] { border-color:var(--rust-bright); background:#201413; }
+.graph-node[data-status="locked"] { opacity:.32; }
+.graph-node[data-status="complete"] .node-check { border-color:var(--rust-bright); background:var(--rust-bright); }
+.node-meta { color:#818181; }
+
+.context-items { background:#090909; }
+.compact-items { background:#353535; }
+.compact-item,.item-row { background:#141414; }
+.compact-item.is-ready,.item-row.is-ready { background:#181e1b; }
+.mini-count button:hover,.item-count button:hover { border-color:var(--rust-bright); color:var(--rust-bright); }
+
+#hideoutView { grid-template-rows:auto minmax(0,1fr); }
+.upgrade-catalog { overflow:auto; padding:0 0 34px; scrollbar-color:var(--border-strong) var(--bg); }
+.upgrade-columns { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; }
+.upgrade-category { min-width:0; border-bottom:1px solid #3f3f3f; }
+.upgrade-category:only-child { grid-column:1/-1; }
+.upgrade-category + .upgrade-category { border-left:1px solid #454545; }
+.upgrade-category > header { position:sticky; z-index:3; top:0; display:flex; align-items:center; justify-content:space-between; min-height:68px; padding:10px 18px; border-block:1px solid #454545; background:rgba(9,9,9,.97); backdrop-filter:blur(8px); }
+.upgrade-category > header > div { display:flex; align-items:center; gap:13px; }
+.upgrade-category > header span { display:grid; place-items:center; width:34px; height:34px; border:1px solid var(--rust-bright); color:var(--rust-bright); font:700 9px var(--mono); }
+.upgrade-category > header h2 { margin:0; font:700 22px/1 var(--display); letter-spacing:.06em; text-transform:uppercase; }
+.upgrade-category > header p { margin:4px 0 0; color:#878787; font:8px var(--mono); }
+.upgrade-category > header > strong { color:#9d9d9d; font:8px var(--mono); }
+.upgrade-category[data-category="welfare"] > header span { border-color:#8e8e8e; color:#bdbdbd; }
+.upgrade-family-list { display:grid; gap:14px; padding:14px 16px 24px; }
+.upgrade-family { overflow:hidden; border:1px solid #4c4c4c; background:#0d0d0d; }
+.upgrade-family > header { display:grid; grid-template-columns:52px minmax(0,1fr) auto; align-items:center; gap:11px; min-height:64px; padding:7px 10px; border-bottom:1px solid #454545; background:#171717; }
+.upgrade-family-icon { width:48px; height:48px; border:1px solid #515151; background:#090909; object-fit:contain; filter:saturate(.72) contrast(1.12); }
+.upgrade-family > header span { color:var(--rust-bright); font:700 7px var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+.upgrade-family > header h3 { margin:4px 0 0; font:700 18px/1 var(--display); letter-spacing:.05em; text-transform:uppercase; }
+.upgrade-family > header > strong { color:#969696; font:8px var(--mono); }
+.upgrade-family-tiers { display:grid; gap:1px; background:#3b3b3b; }
+.upgrade-card { border:0; background:#151515; box-shadow:none; }
+.upgrade-card[data-status="complete"] { border-color:var(--rust-bright); }
+.upgrade-card[data-status="locked"] { opacity:.38; }
+.upgrade-card > header { display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:center; gap:9px; min-height:58px; padding:9px 10px; border-color:#444; }
+.upgrade-card > header span { color:var(--rust-bright); }
+.upgrade-card h2 { font-size:16px; letter-spacing:.04em; }
+.upgrade-tier { min-width:54px; padding:6px 7px; border:1px solid #595959; color:#c7c7c7; font:700 7px var(--mono); text-align:center; }
+.upgrade-check { border-color:#666; background:#101010; }
+.upgrade-card[data-status="complete"] .upgrade-check { border-color:var(--rust-bright); color:var(--rust-bright); }
+.upgrade-card > p { min-height:0; color:#999; font-family:var(--mono); }
+.upgrade-stats { background:#0b0b0b; }
+.upgrade-items { background:#393939; }
+
+.radiant-badge { border-color:#777; color:#d0d0d0; }
+.radiant-row.is-complete .radiant-check { border-color:var(--rust-bright); background:var(--rust-bright); }
+.item-icon { border-color:#555; background:#111; clip-path:none; }
+.item-icon img { filter:saturate(.9) contrast(1.08); }
+.toast { border-color:var(--rust-bright); background:#171717; }
+
+@media (max-width: 1050px) {
+  .topbar { grid-template-columns:245px 1fr 120px; }.tab { min-width:88px; padding-inline:10px; }
+  .data-counts { display:none; }.upgrade-columns { grid-template-columns:1fr; }.upgrade-category + .upgrade-category { border-left:0; }
+  .tree-header { grid-template-columns:auto minmax(190px,1fr) auto auto; }.tree-progress { display:none; }
+}
+@media (max-width: 760px) {
+  body { grid-template-rows:auto auto minmax(0,1fr) 28px; }
+  .topbar { grid-template-columns:auto 1fr; min-height:58px; }.brand { padding:10px 14px; }.brand > span:last-child,.top-stats span { display:none; }
+  .top-stats { grid-column:2; grid-row:1; }.tabs { grid-column:1/-1; grid-row:2; height:44px; border-top:1px solid var(--border); }
+  .tab { min-width:0; flex:1; font-size:8px; }.controls { flex-wrap:wrap; }.search-box { width:100%; }
+  .filter-group { order:5; width:100%; margin:0; }.filter { flex:1; }.select-wrap { flex:1; min-width:0; }.select-wrap select { min-width:0; width:100%; }
+  .tree-header { grid-template-columns:auto 1fr auto; gap:10px; }.line-unlock { grid-column:2; width:max-content; }.zoom-controls { grid-column:3; grid-row:1/3; }
+  .tree-title h2 { font-size:21px; }.giver-chip { width:44px; height:50px; }
+  .compact-items { grid-template-columns:1fr; }.upgrade-family-list { padding:10px; }.upgrade-card > p { min-height:0; }
+  .upgrade-card > header { grid-template-columns:minmax(0,1fr) auto; gap:10px; }
+  .upgrade-check { grid-column:1/3; width:max-content; }
+  .upgrade-stats { grid-template-columns:1fr 1fr; }.upgrade-stats span:nth-child(2) { border-right:0; }.upgrade-items { grid-template-columns:1fr; }
+  .radiant-row { grid-template-columns:22px 34px minmax(0,1fr) 66px; gap:8px; }.radiant-cell { display:none; }.radiant-faction-icon { width:32px; height:32px; }
+  .item-row { grid-template-columns:44px minmax(0,1fr) auto; }.item-group,.item-quests { display:none; }
+  .item-totals { grid-template-columns:auto auto; }.item-totals i,.item-totals small { display:none; }
+}
+@media (max-width: 500px) {
+  footer { display:none; }.section-label h1,.section-label h2 { font-size:19px; }.section-label p { display:none; }
+  .tree-header { grid-template-columns:auto 1fr; }.zoom-controls { display:none; }.line-unlock { grid-column:2; }
+  .plain-header { min-height:76px; padding:12px 14px; }.plain-header h1 { font-size:25px; }
+  .item-count { grid-template-columns:24px 40px 24px; }.item-count input { width:40px; }.item-count small { display:none; }
+}
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="The Forever Winter operations map">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>FOREVER WINTER</strong><small>OPERATIONS MAP</small></span>
+    </a>
+    <nav class="tabs" aria-label="Tracker sections">
+      <button class="tab is-active" type="button" data-view="lines">Questlines</button>
+      <button class="tab" type="button" data-view="hideout">Innards</button>
+      <button class="tab" type="button" data-view="radiant">Radiant</button>
+      <button class="tab" type="button" data-view="items">Inventory</button>
+    </nav>
+    <div class="top-stats"><span><b id="overallPercent">0%</b> campaign</span><button class="reset-button" id="resetProgress" type="button">Reset</button></div>
+  </header>
+
+  <div class="controls">
+    <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search quests" autocomplete="off"></label>
+    <label class="select-wrap" id="lineSelectWrap"><span>Line</span><select id="lineFilter" aria-label="Questline"></select></label>
+    <label class="select-wrap is-hidden" id="itemSelectWrap"><span>Group</span><select id="itemGroupFilter" aria-label="Item group"><option value="all">All groups</option></select></label>
+    <label class="select-wrap is-hidden" id="hideoutSelectWrap"><span>Category</span><select id="hideoutGroupFilter" aria-label="Innards category"><option value="all">All categories</option></select></label>
+    <label class="select-wrap is-hidden" id="radiantFactionWrap"><span>Faction</span><select id="radiantFactionFilter" aria-label="Radiant faction"><option value="all">All factions</option></select></label>
+    <label class="select-wrap is-hidden" id="radiantSortWrap"><span>Sort</span><select id="radiantSort" aria-label="Radiant sort order"><option value="faction">Faction</option></select></label>
+    <div class="filter-group" id="statusFilters" role="group" aria-label="Status filter">
+      <button class="filter is-active" data-status="all" type="button">All</button><button class="filter" data-status="available" type="button">Ready</button><button class="filter" data-status="locked" type="button">Locked</button><button class="filter" data-status="complete" type="button">Done</button>
+    </div>
+    <div class="data-counts"><span><b id="questCount">0</b> quests</span><span><b id="lineCount">0</b> lines</span><span><b id="upgradeCount">0</b> upgrades</span><span><b id="itemCount">0</b> items</span></div>
+  </div>
+
+  <main>
+    <section class="view is-active tree-view" id="linesView" aria-label="Questlines">
+      <section class="campaign-panel">
+        <header class="section-label"><span>01</span><div><h1>Campaign dependency net</h1><p>Solid links are hard gates. Dashed links mark requirements reached partway through a line.</p></div><button type="button" id="collapseCampaign" aria-expanded="true">Collapse</button></header>
+        <div class="campaign-map" id="campaignMap"></div>
+      </section>
+
+      <section class="line-panel">
+        <header class="tree-header">
+          <div class="giver-list" id="giverList" aria-label="Quest givers"></div>
+          <div class="tree-title"><div class="eyebrow" id="lineState">Locked</div><h2 id="lineTitle">The Long Road In</h2><p id="lineUnlock"></p></div>
+          <button class="line-unlock" id="manualLineUnlock" type="button">Unlock line</button>
+          <div class="tree-progress"><strong id="lineProgress">0 / 0</strong><span><i id="lineProgressBar"></i></span></div>
+          <div class="zoom-controls" role="group" aria-label="Tree zoom"><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="fit" id="zoomLabel" title="Fit tree to viewport">100%</button><button type="button" data-zoom="in" aria-label="Zoom in">+</button></div>
+        </header>
+        <div class="graph-viewport" id="graphViewport"><div id="questLines" class="graph-canvas"></div></div>
+        <div class="empty-state is-hidden" id="linesEmpty">No matching quests in this line.</div>
+      </section>
+
+      <section class="context-items">
+        <header class="section-label compact"><span>02</span><div><h2>Items for this questline</h2><p>Select QUESTS to highlight graph nodes. Select it again, press Escape, or clear focus to return.</p></div><button class="is-hidden" type="button" id="clearItemFocus">Clear focus</button></header>
+        <div id="lineItems" class="compact-items"></div>
+      </section>
+    </section>
+
+    <section class="view" id="hideoutView" aria-label="Innards upgrades">
+      <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1><p>Terminal systems and Welfare facilities, grouped by their in-game upgrade tiers.</p></div><strong id="hideoutProgress">0 / 0</strong></header>
+      <div id="hideoutGrid" class="upgrade-catalog"></div><div class="empty-state is-hidden" id="hideoutEmpty">No matching upgrades.</div>
+    </section>
+
+    <section class="view" id="radiantView" aria-label="Radiant quests">
+      <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Independent contracts grouped by reputation faction. They never unlock or block a questline.</p></div><strong id="radiantProgress">0 / 0</strong></header>
+      <div id="radiantGrid" class="radiant-list"></div><div class="empty-state is-hidden" id="radiantEmpty">No matching radiant quests.</div>
+    </section>
+
+    <section class="view" id="itemsView" aria-label="Tracked inventory">
+      <header class="plain-header"><div><div class="eyebrow">SHARED STOCK</div><h1>Inventory</h1><p>One owned count feeds every questline and Innards build card.</p></div><div class="item-totals"><span><b id="itemsReady">0</b> ready</span><span><b id="itemsMissing">0</b> missing</span><i><b id="itemsProgressBar"></b></i><small id="itemsProgressText">0% stocked</small></div></header>
+      <div id="itemsGrid" class="items-list"></div><div class="empty-state is-hidden" id="itemsEmpty">No matching items.</div>
+    </section>
+  </main>
+
+  <footer><span>Data: <a href="https://theforeverwinter.wiki.gg/wiki/Quests" target="_blank" rel="noopener">The Forever Winter Wiki</a> · CC BY-SA 4.0</span><span>Snapshot <b id="snapshotDate">—</b></span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+const wikiUrl = (name) =>
+  `https://theforeverwinter.wiki.gg/wiki/${encodeURIComponent(name.replaceAll(" ", "_"))}`;
+
+const slug = (value) => value
+  .toLowerCase()
+  .normalize("NFKD")
+  .replace(/[’']/g, "")
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-|-$/g, "");
+
+const quest = (name, faction, location, objective, options = {}) => ({
+  id: slug(name),
+  name,
+  faction,
+  location,
+  objective,
+  wiki: wikiUrl(name),
+  ...options,
+});
+
+const line = (id, name, giver, unlock, accent, quests) => {
+  const normalized = quests.map((entry, index) => ({
+    ...entry,
+    lineId: id,
+    radiant: false,
+    requires: entry.requires === undefined
+      ? (index ? [quests[index - 1].id] : [])
+      : entry.requires,
+  }));
+  return { id, name, giver, unlock, accent, quests: normalized };
+};
+
+window.QUEST_LINES = [
+  line(
+    "tutorial",
+    "The Long Road In",
+    "Scavengers · Europa · Eurasia",
+    "Begins in the Innards. Side steps share the number of the main milestone they unlock after.",
+    "#d9ff54",
+    [
+      quest("Training", "Scavengers", "Innards", "Reach the Innards, deliver water, and extract alive.", { requires: [] }),
+      quest("Guts and All", "Scavengers", "Innards", "Visit the Innards terminals and the Ready Room.", { requires: ["training"] }),
+      quest("Preparations", "Scavengers", "Innards", "Buy a Small First Aid Kit and 5.45×39 surplus ammo.", { requires: ["guts-and-all"] }),
+      quest("Labyrinth", "Scavengers", "Tunnels", "Return to the Innards through Tunnel A.", { requires: ["preparations"] }),
+      quest("This Will Burn", "Scavengers", "Scorched Enclave / Ashen Mesa", "Travel to a surface map through Tunnel A.", { requires: ["labyrinth"] }),
+      quest("Blue Gold", "Scavengers", "Any", "Visit the water tank and deliver a barrel of water.", { requires: ["this-will-burn"], optional: true }),
+      quest("Bin Pigs", "Scavengers", "Any", "Loot containers and sell 50,000 CR of loot.", { requires: ["this-will-burn"], optional: true }),
+      quest("Thirsty Work", "Scavengers", "Scorched Enclave / Ashen Mesa", "Use fast travel to a surface map.", { requires: ["this-will-burn"] }),
+      quest("Stashed Away", "Scavengers", "Innards", "Find the Secret Storage Vault.", { requires: ["thirsty-work"] }),
+      quest("Seek and Destroy", "Europa", "Scorched Enclave", "Mark a Eurasian and eliminate six Eurasian units.", { requires: ["stashed-away"] }),
+      quest("Steel on High", "Eurasia", "Any", "Eliminate Europan drones and deliver three drone components.", { requires: ["seek-and-destroy"] }),
+      quest("Kane's Favored", "Eurasia", "Any", "Reach trusted reputation with Eurasia.", { requires: ["steel-on-high"], optional: true }),
+      quest("Go Home, Conscript", "Eurasia", "Any", "Eliminate eight Europan Conscripts and deliver five level-1 IFF chips.", { requires: ["steel-on-high"], optional: true }),
+      quest("Violence of Action", "Eurasia", "Scorched Enclave", "Use Adrenaline and extract in 90 seconds.", { requires: ["steel-on-high"] }),
+      quest("Run the Mesa", "Europa", "Ashen Mesa", "Survive and extract from Ashen Mesa.", { requires: ["violence-of-action"], optional: true }),
+      quest("Burst Transmission", "Europa", "Scorched Enclave", "Hack three Radar Walkers.", { requires: ["violence-of-action"], optional: true }),
+      quest("Eye on the Sky", "Europa", "Scorched Enclave", "Activate the radar tower.", { requires: ["violence-of-action"], optional: true }),
+      quest("Triggerman", "Europa", "Any", "Reach level 5 with any weapon.", { requires: ["violence-of-action"], optional: true }),
+      quest("Gun Nutty", "Europa", "Ashen Mesa", "Defeat ten Eurasian units with a modified weapon.", { requires: ["violence-of-action"], optional: true }),
+      quest("Under Phosphor Skies", "Europa", "Any", "Eliminate Cyborg Runners and Crawlers.", { requires: ["violence-of-action"], optional: true }),
+      quest("Surface Tension", "Eurasia", "Scorched Enclave", "Access the locked bunker and deliver a barrel of water.", { requires: ["violence-of-action"] }),
+      quest("The Hobo King", "Scavengers", "Any", "Reach prestige level 5 with the active scav.", { requires: ["surface-tension"] }),
+      quest("Roll Deep", "Scavengers", "Ashen Mesa", "Extract with a Skirmisher recruit.", { requires: ["the-hobo-king"] }),
+      quest("Cathode Hearth", "Scavengers", "Any", "Build the television screens Innards upgrade.", { requires: ["roll-deep"], optional: true }),
+      quest("Toyetic Action", "Scavengers", "Any", "Deliver a Toy Dinosaur, Toy Car, and Toy Train.", { requires: ["roll-deep"] }),
+      quest("Big Rig", "Scavengers", "Ashen Mesa", "Extract with a modified rig and 50,000 CR of loot.", { requires: ["toyetic-action"] }),
+      quest("All Tooled Up", "Scavengers", "Tunnels", "Extract from Tunnel A with a Pneumatic Jump equipped.", { requires: ["big-rig"] }),
+      quest("That Guy", "Scavengers", "Ashen Mesa", "Trigger Hunter Killers and extract.", { requires: ["all-tooled-up"] }),
+    ],
+  ),
+  line(
+    "railgun",
+    "Railgun",
+    "Bunco",
+    "Unlock Bunco at maximum Scavenger standing, then meet his approval conditions. Parts 1–10 prove your worth; parts 11–19 assemble the weapon.",
+    "#ff745c",
+    [
+      quest("Trial by Extraction Pt. 1", "Scavengers (Bunco)", "Elephant Mausoleum", "Extract from Elephant Mausoleum."),
+      quest("Trial by Extraction Pt. 2", "Scavengers (Bunco)", "Mech Trenches", "Extract from Mech Trenches."),
+      quest("Down to the Last Drop Pt. 1", "Scavengers (Bunco)", "Stairway Gate", "Bring back a Barrel of Water."),
+      quest("Down to the Last Drop Pt. 2", "Scavengers (Bunco)", "Ashen Mesa", "Bring back a Barrel of Water."),
+      quest("Down to the Last Drop Pt. 3", "Scavengers (Bunco)", "Underground Cemetery", "Bring back a Barrel of Water."),
+      quest("Bunco's Bounties Pt. 1", "Scavengers (Bunco)", "Scorched Enclave", "Eliminate 15 Europans before extracting."),
+      quest("Bunco's Bounties Pt. 2", "Scavengers (Bunco)", "Scrapyard Nexus", "Eliminate 10 Euruskans before extracting."),
+      quest("Bunco's Bounties Pt. 3", "Scavengers (Bunco)", "Frozen Swamp", "Eliminate 15 Eurasians before extracting."),
+      quest("Ghosts of the Enclave", "Scavengers (Bunco)", "Scorched Enclave", "Extract unnoticed."),
+      quest("Dead Men Walking", "Scavengers (Bunco)", "Elephant Mausoleum", "Extract in a full party without incapacitation."),
+      quest("Electro-Magnetic Railway Pt. 1", "Scavengers (Bunco)", "Elephant Mausoleum", "Collect the rail component in the hangar."),
+      quest("Electro-Magnetic Railway Pt. 2", "Scavengers (Bunco)", "Scrapyard Nexus", "Collect the breech component."),
+      quest("Electro-Magnetic Railway Pt. 3", "Scavengers (Bunco)", "Ashen Mesa", "Collect the breech component."),
+      quest("Electro-Magnetic Railway Pt. 4", "Scavengers (Bunco)", "Frozen Swamp", "Eliminate four Wardens at the tower."),
+      quest("Electro-Magnetic Railway Pt. 5", "Scavengers (Bunco)", "Mech Trenches", "Collect the cooling system component."),
+      quest("Electro-Magnetic Railway Pt. 6", "Scavengers (Bunco)", "Frozen Swamp", "Collect the control system component."),
+      quest("Electro-Magnetic Railway Pt. 7", "Scavengers (Bunco)", "Stairway Gate", "Collect four deployable leg components."),
+      quest("Electro-Magnetic Railway Pt. 8", "Scavengers (Bunco)", "Scorched Enclave", "Collect the structural framework component."),
+      quest("Electro-Magnetic Railway Pt. 9", "Scavengers (Bunco)", "Ashen Mesa", "Collect the ammo component."),
+    ],
+  ),
+  line(
+    "lordoss",
+    "Lordoss",
+    "Lordoss",
+    "Meet Lordoss in the Innards. His 17-step cigarette and restoration chain needs no Bar; the story resumes at Transmission Tower Pt. 3 after Bar V3 and Tower construction.",
+    "#a48cff",
+    [
+      quest("Tobacco Journey Pt. 1", "Euruska (Lordoss)", "Any", "Bring 3 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 2", "Euruska (Lordoss)", "Any", "Bring 2 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 3", "Euruska (Lordoss)", "Any", "Bring 1 Premium Cigarette.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 4", "Euruska (Lordoss)", "Any", "Bring 8 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 5", "Euruska (Lordoss)", "Any", "Bring 5 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 6", "Euruska (Lordoss)", "Any", "Bring 3 Premium Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 7", "Euruska (Lordoss)", "Any", "Bring 15 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 8", "Euruska (Lordoss)", "Any", "Bring 8 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 9", "Euruska (Lordoss)", "Any", "Bring 5 Premium Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 10", "Euruska (Lordoss)", "Any", "Bring 20 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Fresh Start", "Lordoss", "Innards", "Remove Lordoss' bayonet.", { phase: "NO BAR · RESTORATION" }),
+      quest("Breath of Fresh Smoke", "Lordoss", "Any", "Find 3 cybernetic lungs.", { phase: "NO BAR · RESTORATION" }),
+      quest("Backbones for the Backbone", "Lordoss", "Any", "Find 10 modular spine components.", { phase: "NO BAR · RESTORATION" }),
+      quest("Nervous Upgrade", "Lordoss", "Elephant Mausoleum", "Find a current-generation wetware system.", { phase: "NO BAR · RESTORATION" }),
+      quest("Oiled Joints", "Lordoss", "Any", "Find 8 advanced joints.", { phase: "NO BAR · RESTORATION" }),
+      quest("Target Awareness", "Lordoss", "Any", "Find a targeting software chip.", { phase: "NO BAR · RESTORATION" }),
+      quest("Giant's Senses", "Lordoss", "Elephant Mausoleum", "Find an artificial nervous system.", { phase: "CONTINUES AT TOWER PT. 3" }),
+    ],
+  ),
+  line(
+    "transmission-tower",
+    "Transmission Tower",
+    "Velko · Sura · Octogirl",
+    "Fully upgrade the Bar to start. Build the Transmission Tower after Pt. 1. Pt. 3 also requires Giant's Senses.",
+    "#5dc8ff",
+    [
+      quest("Transmission Tower Pt. 1", "Scavengers (Velko)", "Elephant Mausoleum / Frozen Swamp / Babel", "Place nine Frequency Taps near Radar Walkers.", { phase: "BAR V3" }),
+      quest("Transmission Tower Pt. 2", "Scavengers (Sura)", "Tunnels", "Obtain Sura's code, use the tower, and meet Octogirl.", { requiresUpgrades: ["transmission-tower-build"], phase: "TOWER BUILT" }),
+      quest("Transmission Tower Pt. 3", "Scavengers (Octogirl)", "Underground Cemetery", "Intercept supply comms and find Octogirl's Tool Set.", {
+        requires: ["transmission-tower-pt-2", "giants-senses"], phase: "LORDOSS CONTINUATION",
+      }),
+      quest("Transmission Tower Pt. 4", "Scavengers (Octogirl)", "Any", "Bring 10 Cyborg Immunosuppressants and 1 Processor Board."),
+    ],
+  ),
+  line(
+    "trophy-room",
+    "Trophy Room",
+    "Octogirl · Bunco",
+    "Complete Transmission Tower Pt. 4. Later steps also gate on MCU-3 Restriction Level 14 and the Trophy Room upgrades.",
+    "#f4b850",
+    [
+      quest("A Cost Will Be Paid Pt. 1", "Scavengers (Octogirl)", "Any", "Intercept the Water Thief signal; collect 5 Rotary Hammers and 2 Orga Codexes.", {
+        requires: ["transmission-tower-pt-4"],
+      }),
+      quest("A Cost Will Be Paid Pt. 2", "Scavengers (Octogirl)", "Ashen Mesa", "Talk to Father Malenko and find Power Schematics."),
+      quest("A Cost Will Be Paid Pt. 3", "Scavengers (Octogirl)", "Any", "Collect Industrial Sealant and Military Cables."),
+      quest("Achilles' Heel", "Scavengers (Bunco)", "Any", "Collect a Recovery Drone, 2 Power Cells, 5 Explosive Charges, and 3 Super Glue."),
+      quest("A Cost Will Be Paid Pt. 4", "Scavengers (Octogirl)", "Any", "Disable Mother Courage and recover the required trophy."),
+      quest("Build Mother Courage's Body Rack", "Scavengers (Octogirl)", "Any", "Collect sheet metal, screws, bolts, nuts, and clamps."),
+      quest("Build Mother Courage's Upper Torso", "Scavengers (Octogirl)", "Any", "Destroy Mother Courage and recover the upper torso."),
+      quest("Collect Sand-Diver HK Components", "Scavengers (Octogirl)", "Any", "Collect cortical arrays, memory interfaces, and interface cores."),
+      quest("Collect HK Components", "Scavengers (Octogirl)", "Any", "Collect 6 Mnemonic Indexes from Assault HKs."),
+    ],
+  ),
+  line(
+    "shifting-tide",
+    "Shifting Tide",
+    "Scavengers",
+    "A five-part campaign following the Water Thieves across Scorched Enclave, Frozen Swamp, Downtown, and the Cemetery.",
+    "#57d6b0",
+    [
+      quest("Shifting Tide", "Scavengers", "Scorched Enclave", "Help the Water Thief escape."),
+      quest("Shifting Tide Pt. 2", "Scavengers", "Frozen Swamp", "Hack the laptop in the Water Thief camp."),
+      quest("Shifting Tide Pt. 3", "Scavengers", "Downtown Lost Angels", "Find the sewer plans."),
+      quest("Shifting Tide Pt. 4", "Scavengers", "Underground Cemetery", "Pull the control lever."),
+      quest("Shifting Tide Pt. 5", "Scavengers", "Downtown Lost Angels", "Access Riptide's sewer den and extract."),
+    ],
+  ),
+  line("vip-treatment", "VIP Treatment", "СПЕЦНАЗ Commission", "Pt. 2 unlocks after delivering the personnel data from Pt. 1.", "#ff668f", [
+    quest("VIP Treatment Pt. 1", "СПЕЦНАЗ Commission", "Stairway Gate", "Collect Personnel Data."),
+    quest("VIP Treatment Pt. 2", "СПЕЦНАЗ Commission", "Stairway Gate", "Eliminate the VIP."),
+  ]),
+  line("memento", "Memento", "Scavengers · Western Embassy", "Each recovered clue unlocks the next location.", "#f08ed6", [
+    quest("Memento Pt. 1", "Scavengers", "Ashen Mesa", "Bring back the picture."),
+    quest("Memento Pt. 2", "Western Embassy", "Scorched Enclave", "Collect Weapon Tech."),
+    quest("Memento Pt. 3", "Western Embassy", "Elephant Mausoleum", "Collect Precision Components."),
+  ]),
+  line("doctor-morrow", "Doctor Morrow", "Doctor Morrow", "Find the doctor's frequency code in Elephant Mausoleum and dial it at the Transmission Tower. Each medical delivery unlocks the next.", "#5dd8e8", [
+    quest("Doctor Morrow Pt. 1", "Europa (Doctor Morrow)", "Elephant Mausoleum", "Deliver 20 Diagnostic Scanners."),
+    quest("Doctor Morrow Pt. 2", "Europa (Doctor Morrow)", "Elephant Mausoleum", "Deliver 10 Assorted Medicine."),
+    quest("Doctor Morrow Pt. 3", "Europa (Doctor Morrow)", "Elephant Mausoleum", "Deliver 30 Medical Alcohol."),
+    quest("Doctor Morrow Pt. 4", "Europa (Doctor Morrow)", "Elephant Mausoleum", "Deliver 10 Dogboro, 10 Hinoko, and 10 Nucky Gold Cigarettes."),
+  ]),
+  line("garage-days", "Garage Days", "Bunco", "A three-part Bunco chain: tools, motor-pool scouting, then the gas diversion.", "#f5a15d", [
+    quest("Garage Days Pt. 1", "Scavengers (Bunco)", "Any", "Collect four specialist toolsets."),
+    quest("Garage Days Pt. 2", "Scavengers (Bunco)", "Elephant Mausoleum", "Scout both motor-pool locations."),
+    quest("Garage Days Pt. 3", "Scavengers (Bunco)", "Frozen Swamp", "Divert natural gas to Bunco."),
+  ]),
+  line("hidden-water", "Hidden Water", "Western Embassy", "The map from Ashen Mesa reveals the water pickup at Elephant Mausoleum.", "#7cb2ff", [
+    quest("Hidden Water Pt. 1", "Western Embassy", "Ashen Mesa", "Collect the water map."),
+    quest("Hidden Water Pt. 2", "Western Embassy", "Elephant Mausoleum", "Collect the hidden water."),
+  ]),
+  line("scav-scrap", "Scav Scrap", "Scavengers", "Steal the train schedule before tagging the Frozen Swamp cargo.", "#b9c26a", [
+    quest("Scav Scrap Pt. 1", "Scavengers", "Frozen Swamp", "Steal the train schedule."),
+    quest("Scav Scrap Pt. 2", "Scavengers", "Frozen Swamp", "Tag the cargo for the Scavs."),
+  ]),
+  line("summon-the-pain", "Summon the Pain", "Scavengers · Western Embassy", "The Eurasian elimination contract leads to the Scrapyard crate recovery.", "#d47b61", [
+    quest("Summon the Pain Pt. 1", "Scavengers", "Any", "Destroy 20 Eurasian Armed Forces."),
+    quest("Summon the Pain Pt. 2", "Western Embassy", "Scrapyard Nexus", "Collect the crates."),
+  ]),
+];
+
+// Campaign selectors and overview columns follow when lines become relevant in
+// normal progression. Railgun is a late Bunco line unlocked at maximum Scavenger
+// standing, not an opening-column campaign.
+window.QUESTLINE_APPEARANCE_ORDER = [
+  "tutorial", "lordoss", "hidden-water", "scav-scrap", "summon-the-pain",
+  "shifting-tide", "vip-treatment", "memento", "garage-days", "railgun",
+  "transmission-tower", "doctor-morrow", "trophy-room",
+];
+const appearanceIndex = new Map(window.QUESTLINE_APPEARANCE_ORDER.map((id, index) => [id, index]));
+window.QUEST_LINES.sort((a, b) => appearanceIndex.get(a.id) - appearanceIndex.get(b.id));
+
+const chainIds = new Set(window.QUEST_LINES.flatMap((entry) => entry.quests.map((item) => item.id)));
+
+const radiantNames = [
+  "A Light in the Dark", "AA Tech Extraction", "Aerial Scavenge", "Against One's Camp", "Alpha Threat",
+  "Altitude Adjustment", "Armor Harvest", "Armored Treasure", "Avenge the Fallen", "Bond of Brothers",
+  "Bring Her In", "Burying Secrets", "Clear Skies", "Cleared to Ascend", "Communication Breakdown",
+  "Connecting the Dots", "Cracked Open", "Cull the Herd", "Cybernetic Heist", "Data Heist", "Data Waves",
+  "Defeat the Uplinks", "Discover the Truth", "Elephant Mausoleum Sortie", "Enclave Strike", "Errand of Mercy",
+  "Extract from the Innards", "Fetch Bar Supplies", "Flames of Disruption", "Food Chain Interrupted",
+  "Freed from Shadows", "Goose Chase", "Harvest Tech", "Harvest Upgraded Mechanicals", "Hind Nav Comp",
+  "Hostile Expungement", "Hunt the Hunters", "Icon at Stake", "Immobile Death", "In Search of Vex",
+  "In the Crosshairs", "Insignia Retrieval", "Investigate Ashen Mesa", "King of Kings", "Kursk's Children",
+  "Liberate the Innards", "Lost Angels' Lowdown", "Lost Cache", "Lost Signals", "Manufactured Heist",
+  "Marked for Observation", "Mech Wreck", "Mechanical Momentum", "Med Bay Access", "Mercy Killing",
+  "Plug Pull", "Psycho on the Loose", "Pyro Revealed", "Red Baron's Legacy", "Risky Cargo", "Rust In Peace",
+  "Scav's Prescription", "Science of Stimulants", "Scorched Enclave Recon", "Shadow Sweep", "Shantytown Recon",
+  "Sharp Memory", "Sick Harvest", "Silencing the Whispering Ghost", "Sniper Sweep", "Swamp Probing Mission",
+  "Target Locked", "Tech Theft Prevention", "Terror on Display", "The People's Icon", "Thief in the Night",
+  "Tobacco Journey Random Pt. 1", "Tobacco Journey Random Pt. 2", "Tobacco Journey Random Pt. 3",
+  "Tormentor's Trail", "Treasure in the Sky", "Trooper Disillusion", "Tunnel Vision",
+  "Unravel Euruskan Mysteries", "Up, Up, and Away", "Water Wars", "Whispers Beneath the Thunder",
+];
+
+const radiantDetails = {
+  "A Light in the Dark": ["Western Embassy", "Elephant Mausoleum", "Recover Basic, Import, and Premium Cigarettes."],
+  "AA Tech Extraction": ["СПЕЦНАЗ Commission", "Ashen Mesa", "Recover the anti-air targeting technology."],
+  "Aerial Scavenge": ["Western Embassy", "Any", "Retrieve 3 Eurasian Drone Components."],
+  "Against One's Camp": ["Western Embassy", "Frozen Swamp", "Eliminate the Water Thief Sniper."],
+  "Alpha Threat": ["Western Embassy", "Underground Cemetery", "Eliminate 3 Cyborg Pack Leaders."],
+  "Altitude Adjustment": ["Western Embassy", "Downtown Lost Angels", "Destroy the fuel tank."],
+  "Armor Harvest": ["Eastern Consulate", "Elephant Mausoleum", "Collect 3 Armor Shards."],
+  "Armored Treasure": ["Eastern Consulate", "Any", "Retrieve 3 Exo Components."],
+  "Avenge the Fallen": ["Western Embassy", "Any", "Destroy 10 Brawlers."],
+  "Bond of Brothers": ["Western Embassy", "Stairway Gate", "Find a dog tag."],
+  "Bring Her In": ["Scavengers", "Any", "Save and extract with an Exo Pilot."],
+  "Burying Secrets": ["Scavengers", "Underground Cemetery", "Collect the Logbook."],
+  "Clear Skies": ["Scavengers", "Frozen Swamp", "Plant a jammer near the Drone Hives."],
+  "Cleared to Ascend": ["Western Embassy", "Stairway Gate", "Eliminate the Sniper."],
+  "Communication Breakdown": ["Eastern Consulate", "Downtown Lost Angels", "Sabotage three Europan antennas."],
+  "Connecting the Dots": ["Scavengers", "Scrapyard Nexus / Scorched Enclave", "Activate the panel and recover the locked box."],
+  "Cracked Open": ["СПЕЦНАЗ Commission", "Downtown Lost Angels", "Find 2 Exo Hard Drives."],
+  "Cull the Herd": ["Western Embassy", "Any", "Destroy 15 Eurasian Armed Forces."],
+  "Cybernetic Heist": ["Western Embassy", "Any", "Retrieve 3 Brawler Components."],
+  "Data Heist": ["СПЕЦНАЗ Commission", "Mech Trenches", "Hack the servers and extract."],
+  "Data Waves": ["СПЕЦНАЗ Commission", "Frozen Swamp", "Transmit data from the Europa FOB."],
+  "Defeat the Uplinks": ["Eastern Consulate", "Ashen Mesa", "Retrieve 3 Uplinks."],
+  "Discover the Truth": ["Scavengers", "Scrapyard Nexus", "Retrieve the Battle Plans."],
+  "Elephant Mausoleum Sortie": ["Western Embassy", "Elephant Mausoleum", "Extract from Elephant Mausoleum."],
+  "Enclave Strike": ["Western Embassy", "Scorched Enclave", "Destroy 3 Assaulters."],
+  "Errand of Mercy": ["Western Embassy", "Scrapyard Nexus", "Collect a Teddy Bear.", "Scavengers"],
+  "Extract from the Innards": ["Scavengers", "Innards", "Survive the Water Thief assault and extract."],
+  "Fetch Bar Supplies": ["Scavengers (Bartender)", "Downtown Lost Angels", "Deliver the Bar Supplies."],
+  "Flames of Disruption": ["СПЕЦНАЗ Commission", "Mech Trenches", "Sabotage the mech in the hangar."],
+  "Food Chain Interrupted": ["Western Embassy", "Mech Trenches", "Deliver a spare part to the Grinder."],
+  "Freed from Shadows": ["Scavengers", "Underground Cemetery", "Help civilians escape."],
+  "Goose Chase": ["Western Embassy", "Stairway Gate", "Transmit false intel."],
+  "Harvest Tech": ["Western Embassy", "Any", "Retrieve 5 Cyborg Components."],
+  "Harvest Upgraded Mechanicals": ["Eastern Consulate", "Any", "Retrieve 3 Merkava Components."],
+  "Hind Nav Comp": ["Western Embassy", "Ashen Mesa", "Collect a HIND navigation computer."],
+  "Hostile Expungement": ["Eastern Consulate", "Any", "Destroy 15 Europan Armed Forces."],
+  "Hunt the Hunters": ["Eastern Consulate", "Any", "Retrieve 2 Hunter Killer Components."],
+  "Icon at Stake": ["Europa", "Scrapyard Nexus", "Find the totem and extract."],
+  "Immobile Death": ["Eastern Consulate", "Any", "Retrieve 3 Turret Components."],
+  "In Search of Vex": ["Scavengers", "Babel", "Help the Scav escape."],
+  "In the Crosshairs": ["Eastern Consulate", "Elephant Mausoleum", "Retrieve 3 Targeting Systems."],
+  "Insignia Retrieval": ["Western Embassy", "Any", "Collect 3 Elite Brawler Insignias."],
+  "Investigate Ashen Mesa": ["СПЕЦНАЗ Commission", "Ashen Mesa", "Extract from Ashen Mesa."],
+  "King of Kings": ["Scavengers", "Any", "Collect 25 Rat King Residue."],
+  "Kursk's Children": ["Western Embassy", "Any", "Retrieve 3 T90 Components."],
+  "Lost Angels' Lowdown": ["СПЕЦНАЗ Commission", "Downtown Lost Angels", "Extract from Downtown Lost Angels."],
+  "Lost Cache": ["Western Embassy", "Elephant Mausoleum", "Find the Data Cache."],
+  "Lost Signals": ["СПЕЦНАЗ Commission", "Underground Cemetery", "Collect 5 Communication Devices."],
+  "Liberate the Innards": ["Scavengers", "Innards", "Defend the Innards during a Water Thief assault."],
+  "Manufactured Heist": ["Eastern Consulate", "Frozen Swamp", "Recover the manufacturing shipment."],
+  "Marked for Observation": ["Western Embassy", "Babel", "Observe the marked target and extract.", "Scavengers"],
+  "Mech Wreck": ["СПЕЦНАЗ Commission", "Elephant Mausoleum", "Recover technology from the destroyed mech."],
+  "Mechanical Momentum": ["Western Embassy", "Mech Trenches", "Recover a Mech Part."],
+  "Med Bay Access": ["СПЕЦНАЗ Commission", "Elephant Mausoleum", "Access the medical bay and recover its data."],
+  "Mercy Killing": ["Western Embassy", "Any", "Eliminate the marked Eurasian target."],
+  "Plug Pull": ["СПЕЦНАЗ Commission", "Mech Trenches", "Unplug the life-support systems."],
+  "Psycho on the Loose": ["Scavengers", "Downtown Lost Angels", "Eliminate the Europan EOD officer."],
+  "Pyro Revealed": ["Eastern Consulate", "Scorched Enclave", "Find and eliminate Pyro."],
+  "Red Baron's Legacy": ["Eastern Consulate", "Elephant Mausoleum", "Collect the Red Baron's banner."],
+  "Risky Cargo": ["Scavengers", "Any", "Retrieve 2 Explosives."],
+  "Rust In Peace": ["СПЕЦНАЗ Commission", "Underground Cemetery", "Destroy the Europan Exo."],
+  "Scav's Prescription": ["Western Embassy", "Babel", "Recover the medical supplies.", "Scavengers"],
+  "Science of Stimulants": ["Western Embassy", "Stairway Gate", "Collect samples of combat stimulants."],
+  "Scorched Enclave Recon": ["СПЕЦНАЗ Commission", "Scorched Enclave", "Extract from Scorched Enclave."],
+  "Shadow Sweep": ["Eastern Consulate", "Scrapyard Nexus", "Eliminate 3 Europan Assassins."],
+  "Shantytown Recon": ["Western Embassy", "Babel", "Extract from Babel."],
+  "Sharp Memory": ["Western Embassy", "Babel", "Recover the lost family memento.", "Scavengers"],
+  "Sick Harvest": ["Western Embassy", "Babel", "Collect 5 Tissue Samples."],
+  "Silencing the Whispering Ghost": ["Western Embassy", "Babel", "Eliminate the Sniper."],
+  "Sniper Sweep": ["Western Embassy", "Ashen Mesa", "Collect the God Sniper's equipment."],
+  "Swamp Probing Mission": ["СПЕЦНАЗ Commission", "Frozen Swamp", "Extract from Frozen Swamp."],
+  "Target Locked": ["Western Embassy", "Scorched Enclave", "Eliminate the Euruskan Commander."],
+  "Tech Theft Prevention": ["Western Embassy", "Scrapyard Nexus", "Plant Explosives on the stripped mech."],
+  "Terror on Display": ["Scavengers", "Scorched Enclave / Ashen Mesa / Elephant Mausoleum", "Collect a Corpse Tank Control Panel."],
+  "The People's Icon": ["СПЕЦНАЗ Commission", "Scrapyard Nexus", "Find the Totem and extract."],
+  "Thief in the Night": ["Scavengers", "Mech Trenches", "Collect 3 Prized Alcohol from the Europan Thief."],
+  "Tobacco Journey Random Pt. 1": ["Lordoss", "Any", "Bring Basic Cigarettes."],
+  "Tobacco Journey Random Pt. 2": ["Lordoss", "Any", "Bring Import Cigarettes."],
+  "Tobacco Journey Random Pt. 3": ["Lordoss", "Any", "Bring Premium Cigarettes."],
+  "Tormentor's Trail": ["СПЕЦНАЗ Commission", "Ashen Mesa", "Stop the Europan Tormentor."],
+  "Treasure in the Sky": ["Eastern Consulate", "Any", "Retrieve 3 Europan Drone Flight Controllers."],
+  "Trooper Disillusion": ["Eastern Consulate", "Any", "Eliminate 3 Europan EOD Troopers."],
+  "Tunnel Vision": ["Scavengers", "Underground Cemetery", "Extract undetected."],
+  "Unravel Euruskan Mysteries": ["Western Embassy", "Scorched Enclave", "Retrieve 3 Euruskan Plans."],
+  "Up, Up, and Away": ["Eastern Consulate", "Stairway Gate", "Extract from Stairway Gate."],
+  "Water Wars": ["Scavengers", "Frozen Swamp", "Eliminate 15 Water Thieves."],
+  "Whispers Beneath the Thunder": ["Scavengers", "Elephant Mausoleum", "Help civilians escape the hangar."],
+};
+
+const providerFaction = {
+  "Western Embassy": "Europa",
+  "Europa": "Europa",
+  "Eastern Consulate": "Eurasia",
+  "СПЕЦНАЗ Commission": "Euruska",
+  "Lordoss": "Euruska",
+  "Scavengers": "Scavengers",
+  "Scavengers (Bartender)": "Scavengers",
+};
+
+window.RADIANT_QUESTS = radiantNames
+  .filter((name) => !chainIds.has(slug(name)))
+  .map((name) => {
+    const [provider, location, objective, factionOverride] = radiantDetails[name] ?? ["Scavengers", "Varies", "Open the wiki for current objectives and rewards."];
+    return {
+      id: slug(name), name, provider, faction: factionOverride ?? providerFaction[provider] ?? "Scavengers", location, objective, wiki: wikiUrl(name),
+      radiant: true, lineId: "radiant", requires: [],
+    };
+  });
+
+window.KEEP_ITEMS = [
+  { name: "Barrel of Water", needed: 6, group: "Quest cargo", quests: ["Blue Gold", "Surface Tension", "Down to the Last Drop Pt. 1–3"] },
+  { name: "Europan Drone Flight Controller", needed: 3, group: "Components", quests: ["Steel on High"] },
+  { name: "Europan IFF Chip LVL1", needed: 5, group: "Components", quests: ["Go Home, Conscript"] },
+  { name: "Toy Dinosaur", needed: 1, group: "Collectibles", quests: ["Toyetic Action"] },
+  { name: "Toy Car", needed: 1, group: "Collectibles", quests: ["Toyetic Action"] },
+  { name: "Toy Train", needed: 1, group: "Collectibles", quests: ["Toyetic Action"] },
+  { name: "Personnel Data", needed: 1, group: "Quest cargo", quests: ["VIP Treatment Pt. 1"] },
+  { name: "Frequency Tap", needed: 9, group: "Electronics", quests: ["Transmission Tower Pt. 1"] },
+  { name: "Cyborg Immunosuppressant", needed: 10, group: "Medical", quests: ["Transmission Tower Pt. 4"] },
+  { name: "Processor Board", needed: 1, group: "Electronics", quests: ["Transmission Tower Pt. 4"] },
+  { name: "Dogboro Cigarettes (Basic)", needed: 56, group: "Cigarettes", quests: ["Tobacco Journey Pt. 1, 4, 7, 10", "Doctor Morrow Pt. 4"] },
+  { name: "Hinoko Cigarettes (Import)", needed: 25, group: "Cigarettes", quests: ["Tobacco Journey Pt. 2, 5, 8", "Doctor Morrow Pt. 4"] },
+  { name: "Nucky Gold Cigarettes (Premium)", needed: 19, group: "Cigarettes", quests: ["Tobacco Journey Pt. 3, 6, 9", "Doctor Morrow Pt. 4"] },
+  { name: "Cybernetic Lungs", needed: 3, group: "Lordoss", quests: ["Breath of Fresh Smoke"] },
+  { name: "Brawler Spinal Joint", needed: 10, group: "Lordoss", quests: ["Backbones for the Backbone"] },
+  { name: "Wetware System", needed: 1, group: "Lordoss", quests: ["Nervous Upgrade"] },
+  { name: "Advanced Joint", needed: 8, group: "Lordoss", quests: ["Oiled Joints"] },
+  { name: "Gyroscopic Stabilizer", needed: 1, group: "Lordoss", quests: ["Target Awareness"] },
+  { name: "Orgamech Nervous System", needed: 1, group: "Lordoss", quests: ["Giant's Senses"] },
+  { name: "Rotary Hammer", needed: 6, group: "Trophy Room", quests: ["A Cost Will Be Paid Pt. 1", "Garage Days Pt. 1"] },
+  { name: "Orga Codex", needed: 2, group: "Trophy Room", quests: ["A Cost Will Be Paid Pt. 1"] },
+  { name: "Power Schematics", needed: 1, group: "Trophy Room", quests: ["A Cost Will Be Paid Pt. 2"] },
+  { name: "Industrial Sealant", needed: 1, group: "Trophy Room", quests: ["A Cost Will Be Paid Pt. 3"] },
+  { name: "Military Cables", needed: 1, group: "Trophy Room", quests: ["A Cost Will Be Paid Pt. 3"] },
+  { name: "Recovery Drone", needed: 1, group: "Trophy Room", quests: ["Achilles' Heel"] },
+  { name: "Power Cell", needed: 2, group: "Trophy Room", quests: ["Achilles' Heel"] },
+  { name: "Explosive Charge", needed: 5, group: "Trophy Room", quests: ["Achilles' Heel"] },
+  { name: "Super Glue", needed: 3, group: "Trophy Room", quests: ["Achilles' Heel"] },
+  { name: "Sheet Metal", needed: 20, group: "Trophy Room", quests: ["Build Mother Courage's Body Rack"] },
+  { name: "Screws", needed: 40, group: "Trophy Room", quests: ["Build Mother Courage's Body Rack"] },
+  { name: "Bolts", needed: 40, group: "Trophy Room", quests: ["Build Mother Courage's Body Rack"] },
+  { name: "Nuts", needed: 40, group: "Trophy Room", quests: ["Build Mother Courage's Body Rack"] },
+  { name: "Clamp", needed: 10, group: "Trophy Room", quests: ["Build Mother Courage's Body Rack"] },
+  { name: "Cortical Array", needed: 4, group: "Trophy Room", quests: ["Collect Sand-Diver HK Components"] },
+  { name: "Memory Interface", needed: 2, group: "Trophy Room", quests: ["Collect Sand-Diver HK Components"] },
+  { name: "Interface Core", needed: 3, group: "Trophy Room", quests: ["Collect Sand-Diver HK Components"] },
+  { name: "Mnemonic Index", needed: 6, group: "Trophy Room", quests: ["Collect HK Components"] },
+  { name: "Old Tool Set", needed: 1, group: "Tools", quests: ["Garage Days Pt. 1"] },
+  { name: "Diodegradable Multi-tool", needed: 1, group: "Tools", quests: ["Garage Days Pt. 1"] },
+  { name: "EDC Multi-tool", needed: 1, group: "Tools", quests: ["Garage Days Pt. 1"] },
+  { name: "Diagnostic Scanner", needed: 20, group: "Medical", quests: ["Doctor Morrow Pt. 1"] },
+  { name: "Assorted Medicine", needed: 10, group: "Medical", quests: ["Doctor Morrow Pt. 2"] },
+  { name: "Medical Alcohol", needed: 30, group: "Medical", quests: ["Doctor Morrow Pt. 3"] },
+  { name: "Eurasian Drone Component", needed: 3, group: "Radiant", quests: ["Aerial Scavenge"] },
+  { name: "Armor Shard", needed: 3, group: "Radiant", quests: ["Armor Harvest"] },
+  { name: "Exo Component", needed: 3, group: "Radiant", quests: ["Armored Treasure"] },
+  { name: "Dog Tag", needed: 1, group: "Radiant", quests: ["Bond of Brothers"] },
+  { name: "Exo Hard Drive", needed: 2, group: "Radiant", quests: ["Cracked Open"] },
+  { name: "Brawler Component", needed: 3, group: "Radiant", quests: ["Cybernetic Heist"] },
+  { name: "Uplink", needed: 3, group: "Radiant", quests: ["Defeat the Uplinks"] },
+  { name: "Teddy Bear", needed: 1, group: "Radiant", quests: ["Errand of Mercy"] },
+  { name: "Cyborg Component", needed: 5, group: "Radiant", quests: ["Harvest Tech"] },
+  { name: "Merkava Component", needed: 3, group: "Radiant", quests: ["Harvest Upgraded Mechanicals"] },
+  { name: "Hunter Killer Component", needed: 2, group: "Radiant", quests: ["Hunt the Hunters"] },
+  { name: "Turret Component", needed: 3, group: "Radiant", quests: ["Immobile Death"] },
+  { name: "Targeting System", needed: 3, group: "Radiant", quests: ["In the Crosshairs"] },
+  { name: "Elite Brawler Insignia", needed: 3, group: "Radiant", quests: ["Insignia Retrieval"] },
+  { name: "Rat King Residue", needed: 25, group: "Radiant", quests: ["King of Kings"] },
+  { name: "T90 Component", needed: 3, group: "Radiant", quests: ["Kursk's Children"] },
+  { name: "Communication Device", needed: 5, group: "Radiant", quests: ["Lost Signals"] },
+  { name: "Tissue Sample", needed: 5, group: "Radiant", quests: ["Sick Harvest"] },
+  { name: "Euruskan Plans", needed: 3, group: "Radiant", quests: ["Unravel Euruskan Mysteries"] },
+];
+
+window.QUEST_GIVERS = {
+  tutorial: [
+    { name: "Scavengers", page: "Scavengers", file: "Scavengers.png" },
+    { name: "Europa", page: "Europa", file: "Europa.png" },
+    { name: "Eurasia", page: "Eurasia", file: "Eurasia.png" },
+  ],
+  railgun: [{ name: "Bunco", page: "Bunco", file: "Bunco.png" }],
+  lordoss: [{ name: "Lordoss", page: "Lordoss", file: "Lordoss.png" }],
+  "transmission-tower": [
+    { name: "Velko", page: "Velko", file: "Velko.png" },
+    { name: "Sura", page: "Sura", file: "Sura.png" },
+    { name: "Octogirl", page: "Octogirl", file: "Octogirl.png" },
+  ],
+  "trophy-room": [
+    { name: "Octogirl", page: "Octogirl", file: "Octogirl.png" },
+    { name: "Bunco", page: "Bunco", file: "Bunco.png" },
+  ],
+  "shifting-tide": [{ name: "Scavengers", page: "Scavengers", file: "Scavengers.png" }],
+  "vip-treatment": [{ name: "Vladelets", page: "ВЛАДЕЛЕЦ_(Vladelets)", file: "Lordoss.png" }],
+  memento: [
+    { name: "Scavengers", page: "Scavengers", file: "Scavengers.png" },
+    { name: "Western Embassy", page: "Europa", file: "Europa.png" },
+  ],
+  "doctor-morrow": [{ name: "Doctor Morrow", page: "Doctor_Morrow", file: "Doctor Morrow.png" }],
+  "garage-days": [{ name: "Bunco", page: "Bunco", file: "Bunco.png" }],
+  "hidden-water": [{ name: "Western Embassy", page: "Europa", file: "Europa.png" }],
+  "scav-scrap": [{ name: "Scavengers", page: "Scavengers", file: "Scavengers.png" }],
+  "summon-the-pain": [
+    { name: "Scavengers", page: "Scavengers", file: "Scavengers.png" },
+    { name: "Western Embassy", page: "Europa", file: "Europa.png" },
+  ],
+};
+
+window.ITEM_ICON_ALIASES = {
+  "Barrel of Water": "Water",
+  "Europan Drone Component": "Europan Drone Flight Controller",
+  "Biodegradable Multi-tool": "Diodegradable Multi-tool",
+  "Old Toolset": "Old Tool Set",
+  "Dogboro Cigarettes (Basic)": "Dogboro Cigarettes",
+  "Hinoko Cigarettes (Import)": "Hinoko Cigarettes",
+  "Nucky Gold Cigarettes (Premium)": "Nucky Gold Cigarettes",
+  "Modular Spine Component": "Brawler Spinal Joint",
+  "Current-Generation Wetware System": "Wetware System",
+  "Advanced Joint": "Advanced Joint",
+  "Targeting Software Chip": "Gyroscopic Stabilizer",
+  "Artificial Nervous System": "Orgamech Nervous System",
+  "Clamps": "Clamp",
+  "Power Schematics": "Power Schematics",
+  "Memory Interface": "Memory Interfaces",
+  "Interface Core": "Interface Cores",
+  "Mnemonic Index": "Mnemonic Indexes",
+};
+
+// Old labels used by earlier tracker snapshots. Inventory migration treats each
+// pair as one physical stock item, so a rename can never create a second row.
+window.ITEM_NAME_ALIASES = {
+  "Europan Drone Component": "Europan Drone Flight Controller",
+  "Modular Spine Component": "Brawler Spinal Joint",
+  "Current-Generation Wetware System": "Wetware System",
+  "Targeting Software Chip": "Gyroscopic Stabilizer",
+  "Artificial Nervous System": "Orgamech Nervous System",
+  "Clamps": "Clamp",
+  "Old Toolset": "Old Tool Set",
+  "Biodegradable Multi-tool": "Diodegradable Multi-tool",
+};
+
+window.QUESTLINE_GATES = {
+  tutorial: { defaultUnlocked: true, label: "Starting path", requiresLines: [], requiresUpgrades: [] },
+  railgun: { label: "Bunco approval", requiresLines: [], requiresUpgrades: [] },
+  lordoss: { label: "Meet Lordoss in the Innards", requiresLines: [], requiresUpgrades: [] },
+  "transmission-tower": { label: "Build Bar V3", requiresLines: [], requiresUpgrades: ["bar-v3"] },
+  "trophy-room": { label: "Complete Transmission Tower Pt. 4", requiresLines: ["transmission-tower"], requiresUpgrades: [] },
+  "shifting-tide": { label: "Discover the Water Thief contact", requiresLines: [], requiresUpgrades: [] },
+  "vip-treatment": { label: "Receive the SPETSNAZ commission", requiresLines: [], requiresUpgrades: [] },
+  memento: { label: "Recover the first clue", requiresLines: [], requiresUpgrades: [] },
+  "doctor-morrow": { label: "Build the tower and find Morrow's code", requiresLines: [], requiresUpgrades: ["transmission-tower-build"] },
+  "garage-days": { label: "Gain Bunco's approval", requiresLines: [], requiresUpgrades: [] },
+  "hidden-water": { label: "Receive the Western Embassy lead", requiresLines: [], requiresUpgrades: [] },
+  "scav-scrap": { label: "Receive the Scav contract", requiresLines: [], requiresUpgrades: [] },
+  "summon-the-pain": { label: "Receive the elimination contract", requiresLines: [], requiresUpgrades: [] },
+};
+
+// The overview includes real Innards gates and partial-line milestones instead of
+// pretending every relationship is a full questline-to-questline dependency.
+window.CAMPAIGN_MAP_NODES = [
+  { id:"line:tutorial", kind:"line", ref:"tutorial", column:0, row:2 },
+  { id:"line:lordoss", kind:"line", ref:"lordoss", column:1, row:0 },
+  { id:"line:hidden-water", kind:"line", ref:"hidden-water", column:1, row:1 },
+  { id:"line:scav-scrap", kind:"line", ref:"scav-scrap", column:1, row:2 },
+  { id:"line:summon-the-pain", kind:"line", ref:"summon-the-pain", column:1, row:3 },
+  { id:"line:shifting-tide", kind:"line", ref:"shifting-tide", column:1, row:4 },
+  { id:"line:vip-treatment", kind:"line", ref:"vip-treatment", column:2, row:0 },
+  { id:"line:memento", kind:"line", ref:"memento", column:2, row:1 },
+  { id:"line:garage-days", kind:"line", ref:"garage-days", column:2, row:2 },
+  { id:"upgrade:bar-v3", kind:"upgrade", ref:"bar-v3", column:2, row:3, label:"BAR V3", detail:"Fully upgrade the Bar" },
+  { id:"line:railgun", kind:"line", ref:"railgun", column:2, row:4 },
+  { id:"upgrade:garage", kind:"upgrade", ref:"garage", column:3, row:1, label:"GARAGE", detail:"Innards fast-travel facility", depends:[{ id:"line:garage-days", label:"COMPLETE PT. 3", hard:true }] },
+  { id:"line:transmission-tower", kind:"line", ref:"transmission-tower", column:3, row:3, depends:[{ id:"upgrade:bar-v3", label:"STARTS LINE", hard:true }, { id:"line:lordoss", label:"REQUIRED AT PT. 3", hard:false }] },
+  { id:"upgrade:transmission-tower-build", kind:"upgrade", ref:"transmission-tower-build", column:4, row:3, label:"TRANSMISSION TOWER", detail:"Blueprint awarded after Pt. 1", depends:[{ id:"line:transmission-tower", label:"AFTER PT. 1", hard:false }] },
+  { id:"line:doctor-morrow", kind:"line", ref:"doctor-morrow", column:5, row:2, depends:[{ id:"upgrade:transmission-tower-build", label:"TOWER + CODE", hard:true }] },
+  { id:"line:trophy-room", kind:"line", ref:"trophy-room", column:5, row:4, depends:[{ id:"line:transmission-tower", label:"COMPLETE PT. 4", hard:true }] },
+  { id:"upgrade:cognition-cradle", kind:"upgrade", ref:"cognition-cradle", column:6, row:4, label:"COGNITION CRADLE", detail:"Trophy Room construction branch", depends:[{ id:"line:trophy-room", label:"AFTER COST PT. 4", hard:false }] },
+];
+
+window.QUESTLINE_ITEM_NAMES = {
+  tutorial: ["Barrel of Water", "Europan Drone Flight Controller", "Europan IFF Chip LVL1", "Toy Dinosaur", "Toy Car", "Toy Train"],
+  railgun: ["Barrel of Water"],
+  lordoss: ["Dogboro Cigarettes (Basic)", "Hinoko Cigarettes (Import)", "Nucky Gold Cigarettes (Premium)", "Cybernetic Lungs", "Brawler Spinal Joint", "Wetware System", "Advanced Joint", "Gyroscopic Stabilizer", "Orgamech Nervous System"],
+  "transmission-tower": ["Frequency Tap", "Cyborg Immunosuppressant", "Processor Board"],
+  "trophy-room": ["Rotary Hammer", "Orga Codex", "Power Schematics", "Industrial Sealant", "Military Cables", "Recovery Drone", "Power Cell", "Explosive Charge", "Super Glue", "Sheet Metal", "Screws", "Bolts", "Nuts", "Clamp", "Cortical Array", "Memory Interface", "Interface Core", "Mnemonic Index"],
+  "vip-treatment": ["Personnel Data"],
+  "doctor-morrow": ["Diagnostic Scanner", "Assorted Medicine", "Medical Alcohol", "Dogboro Cigarettes (Basic)", "Hinoko Cigarettes (Import)", "Nucky Gold Cigarettes (Premium)"],
+  "garage-days": ["Rotary Hammer", "Old Tool Set", "Diodegradable Multi-tool", "EDC Multi-tool"],
+};
+
+const upgrade = (id, group, name, effect, water, credits, time, items, prerequisite = null, unlocks = null) => ({
+  id, group, name, effect, water, credits, time, items: items.map(([name, needed]) => ({ name, needed })), prerequisite, unlocks,
+});
+
+window.HIDEOUT_UPGRADES = [
+  upgrade("munitions-printer", "Crafting", "Munitions Printer", "Craft ammo and grenades.", 12, 150000, "2h", [["Basic Pliers",1],["Leather Hole Punch",1],["Intermediate Tool Set",1],["Fuse",6],["Gunpowder",6]]),
+  upgrade("workshop", "Crafting", "Workshop", "Craft Railgun parts, rig equipment and utility drones.", 8, 75000, "2h", [["Sewing Kit",1],["Scavenger's Tool Kit",1],["Old Tool Set",1],["Printing Resin",6],["Metal Fragments",6]]),
+  upgrade("repair-bench", "Crafting", "Repair Bench", "Restore destroyed firearms with faction IFFs.", 16, 150000, "1h", [["Clamp",1],["Field Repair Kit",1],["Eurasian IFF Chip LVL1",3],["Europan IFF Chip LVL1",3],["Euruskan IFF Chip LVL1",3]]),
+  upgrade("manufacture-booster", "Crafting", "Manufacture Booster", "Reduce manufacturing time at all crafting terminals.", 50, 332800, "2h", [["Basic Pliers",1],["Leather Hole Punch",1],["Intermediate Tool Set",1],["Fuse",6],["Gunpowder",6]]),
+  upgrade("water-capacity-16", "Water", "+16 days", "Raise the tank capacity to 71 days.", 10, 175000, "1h", [["Valve Adjustment Tool",1],["Intermediate Tool Set",1],["Pressure Gauge",2],["Metal Pipe",12],["Bolts",15]]),
+  upgrade("water-capacity-28", "Water", "+28 days", "Raise the tank capacity to 99 days.", 20, 750000, "6h", [["Sledgehammer",1],["Mother Courage Codex",1],["Industrial Sealant",3],["Construction Drone",3],["Carbon Fiber",8]], "water-capacity-16"),
+  upgrade("water-bots-v1", "Water", "Water Bots V1", "Deliver 1 day of water every 2 days; may attract Water Thieves.", 25, 50000, "1h", [["Screwdriver",1],["Machine Parts",3],["Liquid Cooling Unit",3],["Eurasian Drone Cortex",5],["Europan Drone Flight Controller",5]]),
+  upgrade("water-bots-v2", "Water", "Water Bots V2", "Deliver 1–3 additional days of water; raid risk increases.", 50, 250000, "6h", [["Organoid Memory Board",1],["Organoid Plug",1],["Organoid Outlet",1],["Processor Board",5],["Brawler Spinal Joint",6]], "water-bots-v1"),
+  upgrade("water-bots-v3", "Water", "Water Bots V3", "Deliver 1–4 additional days of water; raid risk increases.", 75, 750000, "12h", [["Precision Tool Set",1],["Organoid Networking Board",1],["Orga Codex",1],["Multi-frequency Broadcaster",3],["EOD Armor Plate",6]], "water-bots-v2"),
+  upgrade("turrets-v1", "Defense", "Defense Turrets V1", "Install Innards defense turrets.", 25, 75000, "1h", [["Motherboard",2],["Gunpowder",3],["Weapon Parts",5],["Ball Bearings",8],["Turret Component",10]]),
+  upgrade("turrets-v2", "Defense", "Defense Turrets V2", "Install additional defensive turrets.", 50, 150000, "6h", [["Military Grade Lubricant",2],["Heavy-Duty Battery",3],["Electric Motor",3],["WD40",5],["Camera Lens",5]], "turrets-v1"),
+  upgrade("turrets-v3", "Defense", "Defense Turrets V3", "Complete the six-turret defense network.", 75, 500000, "12h", [["Wetware Processor",2],["Gyroscopic Stabilizer",2],["Telemetry Unit",3],["Military Battery",5],["Military Circuitry",6]], "turrets-v2"),
+  upgrade("shooting-range", "Facilities", "Shooting Range", "Unlock the Innards shooting range.", 6, 50000, "6h", [["Masking Tape",6],["Metal Pipe",8],["Wooden Plank",10],["Bolts",12],["Nuts",12]]),
+  upgrade("shooting-range-v1", "Facilities", "Shooting Range V1", "Unlock the damage test area.", 12, 125000, "12h", [["WD40",2],["Sheet Metal",8],["Drywall",8],["ES Lamp",8],["Nails",10]], "shooting-range"),
+  upgrade("shooting-range-v2", "Facilities", "Shooting Range V2", "Unlock the target practice area.", 24, 250000, "1d", [["Construction Drone",1],["Concrete Mixer",1],["Concrete Powder",3],["Industrial Sealant",5],["UV Light Bulb",6]], "shooting-range-v1"),
+  upgrade("shooting-range-v3", "Facilities", "Shooting Range V3", "Unlock live targets.", 48, 500000, "2d", [["Water Thief's Mask Bozo",1],["Water Thief's Mask Thirsty",1],["Shield Officer Codex",1],["Construction Foam",3],["Construction Drone",3]], "shooting-range-v2"),
+  upgrade("transmission-tower-build", "Facilities", "Transmission Tower", "Contact distant characters and unlock new quest paths.", 80, 5000000, "24h", [["Organoid Networking Board",2],["Wetware Processor",2],["Construction Drone",3],["Military Codebreaker",3],["Multi-frequency Broadcaster",3],["Construction Foam",5]], "bar-v3", "transmission-tower"),
+  upgrade("garage", "Facilities", "Garage", "Use Bunco's APC for credit-based fast travel.", 32, 2500000, "24h", [["Ratchet",1],["Precision Tool Set",1],["Hard Shell Laptop",1],["Portable Generator",2],["Construction Drone",3]], null, "garage-days"),
+  upgrade("cognition-cradle", "Facilities", "Cognition Cradle", "Unlock the endgame lore room.", 50, 2000000, "12h", [["Ventilation Regulator",2],["Construction Foam",3],["Concrete Powder",3],["Sentient Drill",3],["Construction Drone",3]], null, "trophy-room"),
+  upgrade("cognition-frame", "Facilities", "Cognition Cradle Frame", "Power the Cognition Cradle.", 60, 3500000, "1d", [["Military Power Cell",4],["Construction Drone",4],["Organoid Plug",5],["Organoid Outlet",5],["Carbon Fiber Tube",6]], "cognition-cradle"),
+  upgrade("cognition-containment", "Facilities", "Cognition Containment", "Complete the Cognition Cradle interaction chamber.", 70, 5000000, "2d", [["Military Codebreaker",3],["Rootkit Device",3],["Wetware Processor",4],["Construction Drone",5],["Quantum Hard Drive",5]], "cognition-frame"),
+  upgrade("transport-drone", "Facilities", "Transport Drone", "Access the Range, Bar, Tower, Garage and Cradle.", 0, 25000, "30m", []),
+  upgrade("quarters", "Welfare", "Personal Quarters", "Unlock a customizable private room.", 12, 250000, "6h", [["Scavenger's Tool Kit",1],["Hand Drill",3],["Explosives",8],["Wooden Plank",8],["Cleaner",8]]),
+  upgrade("quarters-v1", "Welfare", "Quarters V1", "+10% health until death; 24h recovery.", 26, 0, "12h", [["Intermediate Tool Set",1],["Medical Tools",5],["Fleece",6],["Drywall",8],["Light Bulb",12]], "quarters"),
+  upgrade("quarters-v2", "Welfare", "Quarters V2", "+15% health until death; 12h recovery.", 52, 750000, "1d", [["Construction Drone",1],["Heavy-Duty Trauma Kit",2],["Rotary Hammer",2],["OLED",5],["UV Light Bulb",8]], "quarters-v1"),
+  upgrade("quarters-v3", "Welfare", "Quarters V3", "+25% health until death; 6h recovery.", 72, 1500000, "2d", [["Diagnostic Scanner",1],["Toothy Codex",1],["Toilet Paper",3],["Zonophor Tablets",3],["Bulkhead Lights",5]], "quarters-v2"),
+  upgrade("tv-small", "Welfare", "TV Screens Small", "Install monitors showing the surface war.", 5, 75000, "30m", [["Battery Charger",1],["LCD",3],["Printed Circuit Board",3],["Wires",5],["Rechargeable Battery",6]]),
+  upgrade("tv-mega", "Welfare", "TV Screens Mega", "Broadcast combat on giant screens.", 8, 1000000, "90m", [["Quantum Hard Drive",1],["Solar Battery",1],["UMEGA Media Player",3],["OLED",5],["Relay",10]], "tv-small"),
+  upgrade("music-system", "Welfare", "Music System", "Connect the Innards intercom to music specialists.", 1, 25000, "2h", [["Neuralink Disc Player",1],["UMEGA Media Player",1],["Mini MD Drive",1],["Intelligence Cassette",3],["Wires",8]]),
+  upgrade("dog-house", "Welfare", "Dog House", "A dog may visit and retrieve Sealed Mystery Boxes.", 1, 250000, "1h", [["Measuring Tape",1],["Food Tin",1],["Glue",3],["Wooden Plank",12],["Sheet Metal",12]]),
+  upgrade("mech-shrine", "Welfare", "Mech Shrine", "Build a place to pray to the Mech God.", 5, 2500000, "1d", [["Preserved Cryo Coffee",1],["Smuggled Organs",1],["Water Thief's Mask Oni",1],["Rat King's Wake",1],["Heirloom Seeds",1]]),
+  upgrade("special-tree", "Welfare", "Special Tree", "A monument to generosity and altruism.", 1, 100000, "45m", [["ES Lamp",5],["Light Bulb",5],["UV Light Bulb",5],["Weapon Parts",5],["Metal Slats",10]]),
+  upgrade("bar", "Bar", "The Bar", "Open the Bar and meet Velko, Arbeits and Wahlkreise.", 32, 250000, "6h", [["Ribbed Tube",8],["Food Tin",10],["Vodka",10],["Metal Pipe",12],["Metal Fragments",15]]),
+  upgrade("bar-v1", "Bar", "Bar V1", "First Bar expansion.", 44, 750000, "12h", [["Clear Tube",6],["Printing Resin",8],["Goodies",8],["Rum",8],["Sheet Metal",12]], "bar"),
+  upgrade("bar-v2", "Bar", "Bar V2", "Euruskan patrons arrive; meet Sura and Father Malenko.", 56, 1500000, "1d", [["Construction Drone",1],["Concrete Mixer",2],["Concrete Powder",6],["MRE",6],["Tequila",6]], "bar-v1"),
+  upgrade("bar-v3", "Bar", "Bar V3", "Europan patrons arrive; Velko unlocks the Transmission Tower plan.", 68, 2500000, "2d", [["Rat King Codex",1],["Sentient Drill",2],["Construction Drone",3],["Bulkhead Lights",5]], "bar-v2", "transmission-tower"),
+];
+
+window.HIDEOUT_UPGRADES.find((entry) => entry.id === "transmission-tower-build").requiresQuest = "transmission-tower-pt-1";
+window.HIDEOUT_UPGRADES.find((entry) => entry.id === "garage").requiresQuest = "garage-days-pt-3";
+window.HIDEOUT_UPGRADES.find((entry) => entry.id === "cognition-cradle").requiresQuest = "a-cost-will-be-paid-pt-4";
+
+window.INNARDS_FAMILIES = [
+  { category:"Terminal", name:"Water Tank", ids:["water-capacity-16","water-capacity-28"] },
+  { category:"Terminal", name:"Water Delivery Bots", ids:["water-bots-v1","water-bots-v2","water-bots-v3"] },
+  { category:"Terminal", name:"Defense Turrets", ids:["turrets-v1","turrets-v2","turrets-v3"] },
+  { category:"Terminal", name:"Crafting", ids:["munitions-printer","workshop","repair-bench","manufacture-booster"], tiered:false },
+  { category:"Terminal", name:"Shooting Range", ids:["shooting-range","shooting-range-v1","shooting-range-v2","shooting-range-v3"] },
+  { category:"Terminal", name:"Transmission Tower", ids:["transmission-tower-build"] },
+  { category:"Terminal", name:"Garage", ids:["garage"] },
+  { category:"Terminal", name:"Cognition Cradle", ids:["cognition-cradle","cognition-frame","cognition-containment"] },
+  { category:"Terminal", name:"Transport Drone", ids:["transport-drone"] },
+  { category:"Welfare", name:"TV Screens", ids:["tv-small","tv-mega"] },
+  { category:"Welfare", name:"Music System", ids:["music-system"] },
+  { category:"Welfare", name:"Dog House", ids:["dog-house"] },
+  { category:"Welfare", name:"Shrine", ids:["mech-shrine"] },
+  { category:"Welfare", name:"Special Tree", ids:["special-tree"] },
+  { category:"Welfare", name:"Personal Quarters", ids:["quarters","quarters-v1","quarters-v2","quarters-v3"] },
+  { category:"Welfare", name:"Bar", ids:["bar","bar-v1","bar-v2","bar-v3"] },
+];
+
+const upgradeByLocalId = new Map(window.HIDEOUT_UPGRADES.map((entry) => [entry.id, entry]));
+window.INNARDS_FAMILIES.forEach((family, familyOrder) => family.ids.forEach((id, stageOrder) => {
+  const entry = upgradeByLocalId.get(id);
+  if (!entry) return;
+  entry.category = family.category;
+  entry.family = family.name;
+  entry.familyOrder = familyOrder;
+  entry.stageOrder = stageOrder;
+  entry.tier = family.tiered === false ? 1 : stageOrder + 1;
+  entry.tiered = family.tiered !== false;
+}));
+
+window.ASSET_PATHS = {
+  giver: {
+    "Scavengers": "assets/portraits/scavengers.png",
+    "Europa": "assets/portraits/europa.png",
+    "Western Embassy": "assets/portraits/europa.png",
+    "Eurasia": "assets/portraits/eurasia.png",
+    "Bunco": "assets/portraits/bunco.png",
+    "Lordoss": "assets/portraits/vladelets.png",
+    "Vladelets": "assets/portraits/vladelets.png",
+    "Velko": "assets/portraits/velko.png",
+    "Sura": "assets/portraits/sura.png",
+    "Octogirl": "assets/portraits/octogirl.png",
+    "Doctor Morrow": "assets/portraits/doctor-morrow.png",
+  },
+  questgiver: {
+    "Slade": "assets/portraits/scavengers.png",
+    "Luca": "assets/portraits/europa.png",
+    "Kane": "assets/portraits/eurasia.png",
+    "Bunco": "assets/portraits/bunco.png",
+    "Lordoss": "assets/portraits/vladelets.png",
+    "Vladelets": "assets/portraits/vladelets.png",
+    "Velko": "assets/portraits/velko.png",
+    "Sura": "assets/portraits/sura.png",
+    "Octogirl": "assets/portraits/octogirl.png",
+    "Doctor Morrow": "assets/portraits/doctor-morrow.png",
+    "Bartender": "assets/portraits/bartender.png",
+    "Arbeits": "assets/portraits/arbeits.png",
+    "Wahlkreise": "assets/portraits/wahlkreise.png",
+  },
+  faction: {
+    "Scavengers": "assets/factions/scavengers.png",
+    "Europa": "assets/factions/europa.png",
+    "Eurasia": "assets/factions/eurasia.png",
+    "Euruska": "assets/factions/euruska.png",
+  },
+  portraitDisplay: {
+    "Scavengers": { fit: "contain", position: "center bottom" },
+    "Europa": { fit: "contain", position: "center" },
+    "Eurasia": { fit: "contain", position: "center" },
+    "Lordoss": { fit: "contain", position: "center" },
+    "Vladelets": { fit: "contain", position: "center" },
+    "Bunco": { fit: "contain", position: "center 34%" },
+    "Sura": { fit: "cover", position: "center 28%" },
+    "Velko": { fit: "cover", position: "center 30%" },
+    "Octogirl": { fit: "contain", position: "center" },
+    "Doctor Morrow": { fit: "contain", position: "center" },
+  },
+  trader: {
+    "Heisenburg": "assets/traders/heisenburg.png",
+    "Slade": "assets/traders/slade.png",
+    "Bunco": "assets/traders/bunco.png",
+    "Luca": "assets/traders/luca.png",
+    "Kane": "assets/traders/kane.png",
+    "Bundleton": "assets/traders/bundleton.png",
+    "Auto-Vendor": "assets/traders/auto-vendor.png",
+  },
+  item: {
+    "Cybernetic Lungs": "assets/wiki/T_Item_Cyberlung.png",
+    "Wetware System": "assets/items/current-generation-wetware-system.png",
+    "Orgamech Nervous System": "assets/items/artificial-nervous-system.png",
+    "Cyborg Immunosuppressant": "assets/wiki/T_Portrait_JunkEcon_123_CyborgImmunosuppresant.png",
+    "Dogboro Cigarettes (Basic)": "assets/wiki/100px-T_Item_Cigarettes01.png",
+    "Hinoko Cigarettes (Import)": "assets/wiki/100px-T_Item_Cigarettes02.png",
+    "Nucky Gold Cigarettes (Premium)": "assets/wiki/100px-T_Item_Cigarettes03.png",
+    "Europan Drone Component": "assets/wiki/60px-T_Item_Quest_EuropaDroneParts.png",
+    "Europan Drone Flight Controller": "assets/wiki/60px-T_Item_Quest_EuropaDroneParts.png",
+    "Eurasian Drone Component": "assets/wiki/60px-T_Item_Quest_EurasiaDroneParts.png",
+    "Brawler Component": "assets/wiki/100px-T_Item_Quest_BrawlerParts.png",
+    "Cyborg Component": "assets/wiki/T_Item_Quest_CyborgParts.png",
+    "Targeting System": "assets/wiki/T_Item_Quest_PortableTargeting.png",
+    "Elite Brawler Insignia": "assets/wiki/100px-T_Item_Quest_BrawlersInsignias.png",
+    "Explosive Charge": "assets/wiki/60px-T_Item_Explosive_BossKiller.png",
+    "Clamps": "assets/wiki/60px-T_ReleaseClamp.png",
+    "Military Cables": "assets/wiki/T_Portrait_JunkEcon_43_MilitaryCables.png",
+    "Old Toolset": "assets/wiki/60px-T_NormalToolset.png",
+    "Old Tool Set": "assets/wiki/60px-T_NormalToolset.png",
+    "Diodegradable Multi-tool": "assets/items/biodegradable-multi-tool.png",
+    "Power Cell": "assets/wiki/60px-T_JunkEcon_11_PowerCell.png",
+    "Recovery Drone": "assets/wiki/60px-T_Drone_Recovery.png",
+    "Targeting Software Chip": "assets/wiki/T_Item_GyroscopicStabilizer.png",
+    "Brawler Spinal Joint": "assets/items/brawler-spinal-joint.png",
+    "Basic Pliers": "assets/wiki/60px-T_Pliers.png",
+    "Fuse": "assets/wiki/60px-T_Portrait_GRN_ingredient_GrenadeFuse.png",
+    "Gunpowder": "assets/wiki/60px-T_Portrait_GRN_ingredient_Gunpowder.png",
+    "Sewing Kit": "assets/wiki/60px-T_JunkEcon_81_SewingKit.png",
+    "Printing Resin": "assets/wiki/60px-T_Printingmaterial.png",
+    "Metal Fragments": "assets/wiki/60px-T_Portrait_GRN_ingredient_MetalFragments.png",
+    "Clamp": "assets/wiki/60px-T_ReleaseClamp.png",
+    "Eurasian IFF Chip LVL1": "assets/wiki/60px-T_Portrait_IFFCard_Eurasia1.png",
+    "Europan IFF Chip LVL1": "assets/wiki/60px-T_Portrait_IFFCard_Europa1.png",
+    "Euruskan IFF Chip LVL1": "assets/wiki/60px-T_Portrait_IFFCard_Euruska1.png",
+    "Valve Adjustment Tool": "assets/wiki/60px-T_JunkEcon_90_ValveAdjustmentTool.png",
+    "Pressure Gauge": "assets/wiki/60px-T_JunkEcon_38_PressureGauge.png",
+    "Metal Pipe": "assets/wiki/60px-T_Portrait_GRN_ingredient_MetalPipe.png",
+    "Sledgehammer": "assets/wiki/60px-T_SledgeHammer.png",
+    "Industrial Sealant": "assets/wiki/60px-T_Sealant_BuildingGlue.png",
+    "Construction Drone": "assets/wiki/60px-T_Drone_Construction.png",
+    "Carbon Fiber": "assets/wiki/60px-T_JunkEcon_127_CarbonFiber.png",
+    "Screwdriver": "assets/wiki/60px-T_ScrewDriver.png",
+    "Machine Parts": "assets/wiki/60px-T_MachineParts.png",
+    "Liquid Cooling Unit": "assets/wiki/60px-T_Portrait_JunkEcon_33_LiquidCoolingUnit.png",
+    "Organoid Networking Board": "assets/wiki/60px-T_Portrait_JunkEcon_60_AdvancedNetworkBoard.png",
+    "Organoid Plug": "assets/wiki/60px-T_Portrait_JunkEcon_75_PlugCord.png",
+    "Organoid Outlet": "assets/wiki/60px-T_Portrait_JunkEcon_74_OutletPort.png",
+    "Hand Drill": "assets/wiki/60px-T_Hand_Drill.png",
+    "Explosives": "assets/wiki/60px-T_Explosives.png",
+    "Cleaner": "assets/wiki/60px-T_Cleaner.png",
+    "Medical Tools": "assets/wiki/60px-T_MedicalTools.png",
+    "Fleece": "assets/wiki/60px-T_JunkEcon_125_Fleece.png",
+    "Drywall": "assets/wiki/60px-T_JunkEcon_141_Sheetrock.png",
+    "Light Bulb": "assets/wiki/60px-T_Lightbulb.png",
+    "UV Light Bulb": "assets/wiki/60px-T_UV_Lightbulb.png",
+    "Sheet Metal": "assets/wiki/60px-T_Sheetmetal.png",
+    "Nuts": "assets/wiki/60px-T_Nuts.png",
+    "Wires": "assets/wiki/60px-T_Portrait_JunkEcon_25_Wires.png",
+    "LCD": "assets/wiki/60px-T_Portrait_JunkEcon_64_LCD.png",
+    "OLED": "assets/wiki/60px-T_Portrait_JunkEcon_65_OLED.png",
+    "Rechargeable Battery": "assets/wiki/60px-T_RechargeableBattery.png",
+    "Battery Charger": "assets/wiki/60px-T_JunkEcon_92_RechargeableBatteryCharger.png",
+    "Electric Motor": "assets/wiki/Electric_Motor.png",
+    "Gyroscopic Stabilizer": "assets/wiki/T_Item_GyroscopicStabilizer.png",
+    "Sentient Drill": "assets/wiki/60px-T_Portrait_JunkEcon_85_SentientDrill.png",
+    "Toilet Paper": "assets/wiki/60px-T_ToiletPaper.png",
+    "MRE": "assets/wiki/60px-ItemPortrait_GDC_CerealBox_mre.png",
+    "Goodies": "assets/wiki/100px-T_Goodies.png",
+    "Bolts": "assets/wiki/T_Bolts.png",
+    "Camera Lens": "assets/wiki/T_Camera_Lens.png",
+    "Diagnostic Scanner": "assets/wiki/T_Portrait_JunkEcon_114_MedicalScanner.png",
+    "Assorted Medicine": "assets/wiki/T_MiscMedication.png",
+    "Leather Hole Punch": "assets/wiki/T_JunkEcon_77_Punch.png",
+    "Pipe Wrench": "assets/wiki/T_Pipe_Wrench.png",
+    "Processor Board": "assets/wiki/T_Portrait_JunkEcon_30_CPU.png",
+    "Teddy Bear": "assets/wiki/T_Item_Quest_TeddyBearDoll.png",
+    "Tourniquet": "assets/wiki/T_Tourniquet.png",
+    "Syringe": "assets/wiki/T_Syringe.png",
+    "Repair Bench": "assets/wiki/T_Menu_HubCustom_RepairStation_Thumb.png",
+    "Lighter": "assets/wiki/T_SurvivalLighter.png",
+  },
+  upgrade: {
+    "munitions-printer": "assets/wiki/T_Menu_HubCustom_Crafting_Thumb.png",
+    "workshop": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Crafting.png",
+    "repair-bench": "assets/wiki/T_Menu_HubCustom_RepairStation_Thumb.png",
+    "manufacture-booster": "assets/wiki/T_Menu_HubCustom_Crafting_Booster_Thumb.png",
+    "water-capacity-16": "assets/wiki/T_Menu_HubCustom_WaterTank_Thumb.png",
+    "water-capacity-28": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Watertank.png",
+    "water-bots-v1": "assets/wiki/T_Menu_HubCustom_WaterBot_Thumb.png",
+    "water-bots-v2": "assets/wiki/128px-T_Menu_Icon_Hubcustom_WaterBot.png",
+    "water-bots-v3": "assets/wiki/128px-T_Menu_Icon_Hubcustom_WaterBot.png",
+    "turrets-v1": "assets/wiki/T_Menu_HubCustom_TurretsDefensive_Thumb_V1.png",
+    "turrets-v2": "assets/wiki/T_Menu_HubCustom_TurretsDefensive_Thumb_V2.png",
+    "turrets-v3": "assets/wiki/T_Menu_HubCustom_TurretsDefensive_Thumb_V3.png",
+    "shooting-range": "assets/wiki/128px-T_Menu_Icon_Hubcustom_ShootingRange.png",
+    "shooting-range-v1": "assets/wiki/128px-T_Menu_Icon_Hubcustom_ShootingRange.png",
+    "shooting-range-v2": "assets/wiki/128px-T_Menu_Icon_Hubcustom_ShootingRange.png",
+    "shooting-range-v3": "assets/wiki/128px-T_Menu_Icon_Hubcustom_ShootingRange.png",
+    "transmission-tower-build": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Transmission.png",
+    "garage": "assets/wiki/128px-T_Menu_Icon_Hubcustom_BuncoGarage.png",
+    "cognition-cradle": "assets/wiki/128px-T_Menu_Icon_Hubcustom_TrophyRoom.png",
+    "cognition-frame": "assets/wiki/128px-T_Menu_Icon_Hubcustom_TrophyRoom.png",
+    "cognition-containment": "assets/wiki/128px-T_Menu_Icon_Hubcustom_TrophyRoom.png",
+    "transport-drone": "assets/wiki/T_Drone_FastTravel.png",
+    "quarters": "assets/wiki/T_Menu_HubCustom_PersonalQuarters_Thumb_Lvl0.png",
+    "quarters-v1": "assets/wiki/T_Menu_HubCustom_PersonalQuarters_Thumb_Lvl1.png",
+    "quarters-v2": "assets/wiki/T_Menu_HubCustom_PersonalQuarters_Thumb_Lvl2.png",
+    "quarters-v3": "assets/wiki/T_Menu_HubCustom_PersonalQuarters_Thumb_Lvl3.png",
+    "tv-small": "assets/wiki/T_Menu_HubCustom_TV_Thumb_V1.png",
+    "tv-mega": "assets/wiki/T_Menu_HubCustom_TV_Thumb_V2.png",
+    "music-system": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Music.png",
+    "dog-house": "assets/wiki/128px-T_Menu_Icon_Hubcustom_DogHouse.png",
+    "mech-shrine": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Shrine.png",
+    "special-tree": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Tree.png",
+    "bar": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Bar.png",
+    "bar-v1": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Bar.png",
+    "bar-v2": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Bar.png",
+    "bar-v3": "assets/wiki/128px-T_Menu_Icon_Hubcustom_Bar.png",
+  },
+};
+
+window.DATA_META = {
+  source: "https://theforeverwinter.wiki.gg/wiki/Quests",
+  scraped: "2026-10-28",
+  license: "CC BY-SA 4.0",
+};
+
+  </script>
+  <script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "fwQuestTracker.v3";
+  const NODE_WIDTH = 202;
+  const NODE_HEIGHT = 70;
+  const LEVEL_GAP = 248;
+  const ROW_GAP = 112;
+  const ROOT_X = 24;
+  const FIRST_NODE_X = 212;
+  const allChainQuests = QUEST_LINES.flatMap((line) => line.quests);
+  const allQuests = [...allChainQuests, ...RADIANT_QUESTS];
+  const questById = new Map(allQuests.map((quest) => [quest.id, quest]));
+  const lineById = new Map(QUEST_LINES.map((line) => [line.id, line]));
+  const upgradeById = new Map(HIDEOUT_UPGRADES.map((upgrade) => [upgrade.id, upgrade]));
+
+  const defaultState = {
+    completed: {},
+    items: {},
+    upgrades: {},
+    unlockedLines: {},
+    view: "lines",
+    selectedLine: QUEST_LINES[0].id,
+    campaignCollapsed: false,
+  };
+
+  let state = loadState();
+  let search = "";
+  let statusFilter = "all";
+  let selectedItemGroup = "all";
+  let selectedHideoutGroup = "all";
+  let selectedRadiantFaction = "all";
+  let radiantSort = "faction";
+  let highlightedQuestIds = new Set();
+  let highlightedItemNames = new Set();
+  let zoom = 1;
+  let toastTimer;
+
+  const els = Object.fromEntries([
+    "questLines", "radiantGrid", "itemsGrid", "searchInput", "lineFilter", "itemGroupFilter",
+    "hideoutGroupFilter", "statusFilters", "linesEmpty", "radiantEmpty", "itemsEmpty", "hideoutEmpty",
+    "toast", "lineSelectWrap", "itemSelectWrap", "hideoutSelectWrap", "giverList", "lineTitle",
+    "lineUnlock", "lineState", "lineProgress", "lineProgressBar", "radiantProgress", "hideoutProgress",
+    "zoomLabel", "graphViewport", "campaignMap", "lineItems", "hideoutGrid", "manualLineUnlock",
+    "collapseCampaign", "clearItemFocus", "radiantFactionWrap", "radiantFactionFilter",
+    "radiantSortWrap", "radiantSort",
+  ].map((id) => [id.replace(/(?:^|[-_])(\w)/g, (_, c, i) => i ? c.toUpperCase() : c.toLowerCase()), document.querySelector(`#${id}`)]));
+
+  function loadState() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY))
+        ?? JSON.parse(localStorage.getItem("fwQuestTracker.v2"))
+        ?? JSON.parse(localStorage.getItem("fwQuestTracker.v1"));
+      if (!parsed || typeof parsed !== "object") return structuredClone(defaultState);
+      const items = { ...(parsed.items ?? {}) };
+      Object.entries(ITEM_NAME_ALIASES ?? {}).forEach(([oldName, canonicalName]) => {
+        const oldId = `item-${slugLocal(oldName)}`;
+        const canonicalId = inventoryId(canonicalName);
+        if (items[oldId] !== undefined) items[canonicalId] = Math.max(Number(items[canonicalId]) || 0, Number(items[oldId]) || 0);
+        if (oldId !== canonicalId) delete items[oldId];
+      });
+      return {
+        ...defaultState,
+        ...parsed,
+        completed: parsed.completed ?? {},
+        items,
+        upgrades: parsed.upgrades ?? {},
+        unlockedLines: parsed.unlockedLines ?? {},
+        selectedLine: lineById.has(parsed.selectedLine) ? parsed.selectedLine : defaultState.selectedLine,
+      };
+    } catch {
+      return structuredClone(defaultState);
+    }
+  }
+
+  function saveState(message = "") {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch { showToast("Browser storage is unavailable"); return; }
+    if (message) showToast(message);
+  }
+
+  function showToast(message) {
+    clearTimeout(toastTimer);
+    els.toast.textContent = message;
+    els.toast.classList.add("is-visible");
+    toastTimer = setTimeout(() => els.toast.classList.remove("is-visible"), 1500);
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>'"]/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;",
+    })[char]);
+  }
+
+  function slugLocal(value) {
+    return value.toLowerCase().normalize("NFKD").replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  function canonicalItemName(name) { return ITEM_NAME_ALIASES?.[name] ?? name; }
+
+  function questPartNumbers(specification) {
+    const numbers = new Set();
+    specification.split(/\s*,\s*/).forEach((token) => {
+      const range = token.match(/^(\d+)\s*[–—-]\s*(\d+)$/);
+      if (range) {
+        for (let number = Number(range[1]); number <= Number(range[2]); number += 1) numbers.add(number);
+        return;
+      }
+      const single = token.match(/\d+/);
+      if (single) numbers.add(Number(single[0]));
+    });
+    return numbers;
+  }
+
+  function requirementMatchesQuest(requirement, questName) {
+    if (requirement === questName) return true;
+    const requirementParts = requirement.match(/^(.*?)\s+Pt\.\s+(.+)$/);
+    const questParts = questName.match(/^(.*?)\s+Pt\.\s+(\d+)$/);
+    return Boolean(requirementParts && questParts
+      && requirementParts[1] === questParts[1]
+      && questPartNumbers(requirementParts[2]).has(Number(questParts[2])));
+  }
+
+  function questIdsForItem(line, itemName) {
+    const canonicalName = canonicalItemName(itemName);
+    const item = KEEP_ITEMS.find((entry) => canonicalItemName(entry.name) === canonicalName);
+    if (!item) return [];
+    return line.quests
+      .filter((quest) => item.quests.some((requirement) => requirementMatchesQuest(requirement, quest.name)))
+      .map((quest) => quest.id);
+  }
+
+  function itemNamesForQuest(line, quest) {
+    return (QUESTLINE_ITEM_NAMES[line.id] ?? []).filter((name) => questIdsForItem(line, name).includes(quest.id));
+  }
+
+  function clearCrossReference() {
+    highlightedQuestIds = new Set();
+    highlightedItemNames = new Set();
+  }
+
+  function sameSet(left, right) {
+    return left.size === right.size && [...left].every((value) => right.has(value));
+  }
+
+  function clearCrossReferenceFocus() {
+    if (!highlightedQuestIds.size && !highlightedItemNames.size) return;
+    clearCrossReference();
+    renderLines();
+    showToast("Item focus cleared");
+  }
+
+  function wikiPageUrl(title) {
+    return `https://theforeverwinter.wiki.gg/wiki/${encodeURIComponent(title.replaceAll(" ", "_"))}`;
+  }
+
+  function initials(value) {
+    return value.replace(/\([^)]*\)/g, "").trim().split(/\s+/).slice(0, 2).map((part) => part[0] ?? "").join("").toUpperCase();
+  }
+
+  function isComplete(id) { return Boolean(state.completed[id]); }
+  function isUpgradeComplete(id) { return Boolean(state.upgrades[id]); }
+  function isLineComplete(id) {
+    const line = lineById.get(id);
+    return Boolean(line?.quests.length) && line.quests.every((quest) => isComplete(quest.id));
+  }
+
+  function gateSatisfied(lineId) {
+    const gate = QUESTLINE_GATES[lineId] ?? {};
+    const requiredLines = gate.requiresLines ?? [];
+    const requiredUpgrades = gate.requiresUpgrades ?? [];
+    const hasGate = requiredLines.length + requiredUpgrades.length > 0;
+    return hasGate
+      && requiredLines.every(isLineComplete)
+      && requiredUpgrades.every(isUpgradeComplete);
+  }
+
+  function isLineUnlocked(lineId) {
+    const gate = QUESTLINE_GATES[lineId] ?? {};
+    return Boolean(gate.defaultUnlocked || state.unlockedLines[lineId] || gateSatisfied(lineId));
+  }
+
+  function questStatus(quest) {
+    if (quest.radiant) return isComplete(quest.id) ? "complete" : "available";
+    if (!isLineUnlocked(quest.lineId)) return "locked";
+    if (isComplete(quest.id)) return "complete";
+    const questsReady = quest.requires.every((id) => isComplete(id));
+    const upgradesReady = (quest.requiresUpgrades ?? []).every((id) => isUpgradeComplete(id));
+    return questsReady && upgradesReady ? "available" : "locked";
+  }
+
+  function upgradeStatus(upgrade) {
+    if (isUpgradeComplete(upgrade.id)) return "complete";
+    const upgradeReady = !upgrade.prerequisite || isUpgradeComplete(upgrade.prerequisite);
+    const questReady = !upgrade.requiresQuest || isComplete(upgrade.requiresQuest);
+    return upgradeReady && questReady ? "available" : "locked";
+  }
+
+  function matchesQuest(quest) {
+    const statusMatches = statusFilter === "all" || questStatus(quest) === statusFilter;
+    const searchMatches = !search || `${quest.name} ${quest.faction} ${quest.provider ?? ""} ${quest.location} ${quest.objective}`.toLowerCase().includes(search);
+    return statusMatches && searchMatches;
+  }
+
+  function giverMarkup(giver, className) {
+    const local = ASSET_PATHS.questgiver?.[giver.name] ?? ASSET_PATHS.giver[giver.name] ?? ASSET_PATHS.giver.Scavengers;
+    const fallback = local.replace(/\.png$/i, ".svg");
+    const display = ASSET_PATHS.portraitDisplay?.[giver.name] ?? { fit: "contain", position: "center" };
+    return `<a class="${className}" href="${wikiPageUrl(giver.page)}" target="_blank" rel="noopener" title="${escapeHtml(giver.name)}" style="--portrait-fit:${display.fit};--portrait-position:${display.position}">
+      <img src="${local}" data-fallback="${fallback}" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="${escapeHtml(giver.name)}" loading="lazy">
+      <span>${escapeHtml(giver.name)}</span><b>${escapeHtml(initials(giver.name))}</b>
+    </a>`;
+  }
+
+  function computeGraph(line) {
+    const ownIds = new Set(line.quests.map((quest) => quest.id));
+    const levels = new Map();
+    function levelOf(quest, trail = new Set()) {
+      if (levels.has(quest.id)) return levels.get(quest.id);
+      if (trail.has(quest.id)) return 0;
+      const dependencies = quest.requires.filter((id) => ownIds.has(id)).map((id) => questById.get(id)).filter(Boolean);
+      const level = dependencies.length ? Math.max(...dependencies.map((dependency) => levelOf(dependency, new Set(trail).add(quest.id)))) + 1 : 0;
+      levels.set(quest.id, level);
+      return level;
+    }
+    line.quests.forEach((quest) => levelOf(quest));
+    const columns = new Map();
+    line.quests.forEach((quest) => {
+      const level = levels.get(quest.id);
+      columns.set(level, [...(columns.get(level) ?? []), quest]);
+    });
+    const maxLevel = Math.max(...levels.values(), 0);
+    const maxRows = Math.max(...[...columns.values()].map((column) => column.length), 1);
+    const height = Math.max(480, maxRows * ROW_GAP + 150);
+    const width = FIRST_NODE_X + maxLevel * LEVEL_GAP + NODE_WIDTH + 80;
+    const positions = new Map();
+    for (const [level, column] of columns) {
+      column.forEach((quest, row) => {
+        const y = height / 2 + (row - (column.length - 1) / 2) * ROW_GAP - NODE_HEIGHT / 2;
+        positions.set(quest.id, { x: FIRST_NODE_X + level * LEVEL_GAP, y });
+      });
+    }
+    return { ownIds, positions, width, height };
+  }
+
+  function edgePath(from, to) {
+    const startX = from.x + (from.width ?? NODE_WIDTH);
+    const startY = from.y + (from.height ?? NODE_HEIGHT) / 2;
+    const endX = to.x;
+    const endY = to.y + (to.height ?? NODE_HEIGHT) / 2;
+    const bend = Math.max(48, (endX - startX) * .48);
+    return `M ${startX} ${startY} C ${startX + bend} ${startY}, ${endX - bend} ${endY}, ${endX} ${endY}`;
+  }
+
+  function edgeState(sourceId, targetQuest) {
+    if (isComplete(sourceId) && isComplete(targetQuest.id)) return "is-complete";
+    if (questStatus(targetQuest) !== "locked") return "is-live";
+    return "";
+  }
+
+  function renderCampaignMap() {
+    const cardWidth = 216;
+    const cardHeight = 76;
+    const columnGap = 252;
+    const rowGap = 102;
+    const offsetX = 28;
+    const offsetY = 28;
+    const positions = new Map(CAMPAIGN_MAP_NODES.map((node) => [node.id, {
+      x: offsetX + node.column * columnGap,
+      y: offsetY + node.row * rowGap,
+      width: cardWidth,
+      height: cardHeight,
+    }]));
+    const nodeById = new Map(CAMPAIGN_MAP_NODES.map((node) => [node.id, node]));
+    const worldWidth = offsetX * 2 + (Math.max(...CAMPAIGN_MAP_NODES.map((node) => node.column)) + 1) * columnGap;
+    const worldHeight = offsetY * 2 + (Math.max(...CAMPAIGN_MAP_NODES.map((node) => node.row)) + 1) * rowGap;
+    const dependencyDone = (source) => source.kind === "line" ? isLineComplete(source.ref) : isUpgradeComplete(source.ref);
+
+    const edgeParts = [];
+    CAMPAIGN_MAP_NODES.forEach((target) => (target.depends ?? []).forEach((dependency) => {
+      const source = nodeById.get(dependency.id);
+      const from = positions.get(dependency.id);
+      const to = positions.get(target.id);
+      if (!source || !from || !to) return;
+      const live = dependencyDone(source) ? "is-live" : "";
+      const soft = dependency.hard ? "" : "is-milestone";
+      const labelX = (from.x + from.width + to.x) / 2;
+      const labelY = (from.y + from.height / 2 + to.y + to.height / 2) / 2 - 7;
+      edgeParts.push(`<path class="campaign-edge ${live} ${soft}" d="${edgePath(from,to)}" marker-end="url(#campaign-arrow)"/><text class="campaign-edge-label" x="${labelX}" y="${labelY}">${escapeHtml(dependency.label)}</text>`);
+    }));
+
+    const cards = CAMPAIGN_MAP_NODES.map((node) => {
+      const position = positions.get(node.id);
+      if (node.kind === "upgrade") {
+        const upgrade = upgradeById.get(node.ref);
+        const status = upgradeStatus(upgrade);
+        const icon = ASSET_PATHS.upgrade?.[upgrade.id];
+        return `<article class="campaign-card campaign-gate ${status === "complete" ? "is-complete" : status === "locked" ? "is-locked" : "is-unlocked"}" style="left:${position.x}px;top:${position.y}px;--line-accent:#f23822">
+          ${icon ? `<img class="campaign-gate-icon" src="${icon}" alt="" loading="lazy">` : ""}
+          <button type="button" class="campaign-select" data-select-upgrade="${upgrade.id}">
+            <span class="campaign-status">INNARDS · TIER ${upgrade.tier}</span>
+            <strong>${escapeHtml(node.label ?? upgrade.name)}</strong>
+            <small>${status === "complete" ? "Built" : status === "locked" ? "Locked" : "Ready to build"} · ${escapeHtml(node.detail ?? upgrade.effect)}</small>
+          </button>
+        </article>`;
+      }
+      const line = lineById.get(node.ref);
+      const unlocked = isLineUnlocked(line.id);
+      const complete = isLineComplete(line.id);
+      const count = line.quests.filter((quest) => isComplete(quest.id)).length;
+      const gate = QUESTLINE_GATES[line.id];
+      return `<article class="campaign-card ${unlocked ? "is-unlocked" : "is-locked"} ${complete ? "is-complete" : ""} ${state.selectedLine === line.id ? "is-selected" : ""}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
+        <button type="button" class="campaign-select" data-select-line="${line.id}">
+          <span class="campaign-status">${complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
+          <strong>${escapeHtml(line.name)}</strong>
+          <small>${count}/${line.quests.length} · ${escapeHtml(gate?.label ?? line.unlock)}</small>
+        </button>
+        ${!unlocked ? `<button class="mini-unlock" type="button" data-unlock-line="${line.id}">Override</button>` : ""}
+      </article>`;
+    }).join("");
+    els.campaignMap.innerHTML = `<div class="campaign-world" style="width:${worldWidth}px;height:${worldHeight}px"><svg width="${worldWidth}" height="${worldHeight}" viewBox="0 0 ${worldWidth} ${worldHeight}" aria-hidden="true"><defs><marker id="campaign-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>${edgeParts.join("")}</svg>${cards}</div>`;
+    document.querySelector(".campaign-panel")?.classList.toggle("is-collapsed", state.campaignCollapsed);
+    els.collapseCampaign.textContent = state.campaignCollapsed ? "Expand" : "Collapse";
+    els.collapseCampaign.setAttribute("aria-expanded", String(!state.campaignCollapsed));
+  }
+
+  function renderLines({ center = false } = {}) {
+    const line = lineById.get(state.selectedLine) ?? QUEST_LINES[0];
+    state.selectedLine = line.id;
+    els.lineFilter.value = line.id;
+    els.lineTitle.textContent = line.name;
+    els.lineUnlock.textContent = line.unlock;
+    const unlocked = isLineUnlocked(line.id);
+    els.lineState.textContent = isLineComplete(line.id) ? "LINE COMPLETE" : unlocked ? "LINE OPEN" : `LOCKED · ${QUESTLINE_GATES[line.id]?.label ?? "Manual unlock"}`;
+    els.manualLineUnlock.classList.toggle("is-hidden", unlocked);
+
+    const completed = line.quests.filter((quest) => isComplete(quest.id)).length;
+    const progress = Math.round((completed / line.quests.length) * 100);
+    els.lineProgress.textContent = `${completed} / ${line.quests.length}`;
+    els.lineProgressBar.style.width = `${progress}%`;
+    const givers = QUEST_GIVERS[line.id] ?? [{ name: line.giver, page: "Quests" }];
+    els.giverList.innerHTML = givers.map((giver) => giverMarkup(giver, "giver-chip")).join("");
+
+    const layout = computeGraph(line);
+    const roots = line.quests.filter((quest) => !quest.requires.some((id) => layout.ownIds.has(id)));
+    const giverY = layout.height / 2;
+    const edgeParts = [`<defs><marker id="arrow-default" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 8 4 0 8z"/></marker><marker id="arrow-live" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>`];
+    roots.forEach((quest) => {
+      const status = questStatus(quest);
+      edgeParts.push(`<path class="graph-edge ${status !== "locked" ? "is-live" : ""}" d="${edgePath({x:ROOT_X,y:giverY-41,width:118,height:82},layout.positions.get(quest.id))}" marker-end="url(#${status !== "locked" ? "arrow-live" : "arrow-default"})"/>`);
+    });
+    line.quests.forEach((quest) => {
+      quest.requires.filter((id) => layout.ownIds.has(id)).forEach((id) => {
+        const stateClass = edgeState(id, quest);
+        edgeParts.push(`<path class="graph-edge ${stateClass}" d="${edgePath(layout.positions.get(id),layout.positions.get(quest.id))}" marker-end="url(#${stateClass ? "arrow-live" : "arrow-default"})"/>`);
+      });
+    });
+    const nodes = line.quests.map((quest) => {
+      const position = layout.positions.get(quest.id);
+      const status = questStatus(quest);
+      const requiredItems = itemNamesForQuest(line, quest);
+      const crossClass = highlightedQuestIds.size
+        ? highlightedQuestIds.has(quest.id) ? " is-cross-highlight" : " is-cross-dimmed"
+        : "";
+      return `<article class="graph-node${matchesQuest(quest) ? "" : " is-filtered"}${crossClass}" data-status="${status}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
+        ${quest.optional ? '<span class="node-flag is-optional">OPTIONAL</span>' : quest.phase ? `<span class="node-flag">${escapeHtml(quest.phase)}</span>` : ""}
+        <button class="node-check" type="button" data-quest-id="${quest.id}" ${status === "locked" ? "disabled" : ""} aria-label="${status === "complete" ? "Mark incomplete" : "Mark complete"}: ${escapeHtml(quest.name)}"></button>
+        <a class="node-link" href="${quest.wiki}" target="_blank" rel="noopener">${escapeHtml(quest.name)}</a>
+        <span class="node-meta">${escapeHtml(quest.location)}</span>
+        ${requiredItems.length ? `<button class="node-items" type="button" data-focus-quest-items="${quest.id}" title="${escapeHtml(requiredItems.join(" · "))}" aria-label="Show ${requiredItems.length} required item${requiredItems.length === 1 ? "" : "s"} for ${escapeHtml(quest.name)}">ITEMS <b>${requiredItems.length}</b></button>` : ""}
+      </article>`;
+    }).join("");
+    const portraits = givers.map((giver) => giverMarkup(giver, "giver-portrait")).join("");
+    const world = `<div class="graph-world" style="width:${layout.width}px;height:${layout.height}px;transform:scale(${zoom});--line-accent:${line.accent}">
+      <svg class="graph-edges" width="${layout.width}" height="${layout.height}" viewBox="0 0 ${layout.width} ${layout.height}" aria-hidden="true">${edgeParts.join("")}</svg>
+      <div class="giver-root" style="left:${ROOT_X}px;top:${giverY}px"><div class="giver-stack">${portraits}</div><strong>${escapeHtml(givers.map((giver)=>giver.name).join(" · "))}</strong></div>
+      ${nodes}</div>`;
+    els.questLines.style.width = `${layout.width * zoom}px`;
+    els.questLines.style.height = `${layout.height * zoom}px`;
+    els.questLines.classList.toggle("has-cross-highlight", highlightedQuestIds.size > 0);
+    els.questLines.innerHTML = world;
+    els.linesEmpty.classList.toggle("is-hidden", line.quests.some(matchesQuest));
+    els.zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+    renderLineItems(line);
+    if (center) {
+      els.graphViewport.scrollLeft = 0;
+      els.graphViewport.scrollTop = Math.max(0, (layout.height * zoom - els.graphViewport.clientHeight) / 2);
+    }
+  }
+
+  function inventoryId(name) { return `item-${slugLocal(canonicalItemName(name))}`; }
+  function itemPageName(name) { const canonical = canonicalItemName(name); return ITEM_ICON_ALIASES[canonical] ?? canonical; }
+  function owned(name) { return Math.max(0, Number(state.items[inventoryId(canonicalItemName(name))]) || 0); }
+
+  function iconKind(name, group = "") {
+    const value = `${name} ${group}`.toLowerCase();
+    if (/water|drink|vodka|rum|tequila|alcohol/.test(value)) return "drop";
+    if (/medical|scanner|medicine|lung|spine|joint|nervous|wetware|trauma|organoid/.test(value)) return "medical";
+    if (/tool|hammer|drill|pliers|clamp|wrench|screwdriver|tape/.test(value)) return "tool";
+    if (/board|processor|circuit|battery|relay|software|hard drive|electronics/.test(value)) return "circuit";
+    if (/cigarette|food|tin|mre|goodies/.test(value)) return "supply";
+    return "component";
+  }
+
+  function itemIcon(name, group = "") {
+    const canonicalName = canonicalItemName(name);
+    const kind = iconKind(canonicalName, group);
+    const localImage = ASSET_PATHS.item?.[canonicalName] ?? `assets/items/${slugLocal(canonicalName)}.png`;
+    const content = `<img src="${localImage}" onerror="this.classList.add('is-missing')" alt="" loading="lazy">`;
+    return `<a class="item-icon kind-${kind}" href="${wikiPageUrl(itemPageName(canonicalName))}" target="_blank" rel="noopener" title="${escapeHtml(canonicalName)}">${content}</a>`;
+  }
+
+  function compactItemMarkup(name, needed, note = "", questIds = []) {
+    const count = owned(name);
+    const ready = count >= needed;
+    const id = inventoryId(name);
+    const crossClass = questIds.length && highlightedItemNames.size
+      ? highlightedItemNames.has(name) ? " is-cross-highlight" : " is-cross-dimmed"
+      : "";
+    return `<article class="compact-item ${ready ? "is-ready" : ""}${crossClass}">${itemIcon(name)}
+      <div><strong>${escapeHtml(name)}</strong><small>${escapeHtml(note || `Need ${needed}`)}</small>${questIds.length ? `<button class="item-quest-link" type="button" data-focus-item="${escapeHtml(name)}" aria-label="Highlight ${questIds.length} quest${questIds.length === 1 ? "" : "s"} requiring ${escapeHtml(name)}">QUESTS <b>${questIds.length}</b></button>` : ""}</div>
+      <div class="mini-count"><button type="button" data-item-action="minus" data-item-id="${id}" aria-label="Remove one ${escapeHtml(name)}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}" aria-label="Add one ${escapeHtml(name)}">+</button><em>${count}/${needed}</em></div>
+    </article>`;
+  }
+
+  function renderLineItems(line) {
+    const names = QUESTLINE_ITEM_NAMES[line.id] ?? [];
+    els.clearItemFocus.classList.toggle("is-hidden", !highlightedQuestIds.size && !highlightedItemNames.size);
+    if (!names.length) {
+      els.lineItems.classList.remove("has-cross-highlight");
+      els.lineItems.innerHTML = `<p class="no-materials">No fixed hand-in items recorded for this line.</p>`;
+      return;
+    }
+    els.lineItems.classList.toggle("has-cross-highlight", highlightedItemNames.size > 0);
+    els.lineItems.innerHTML = names.map((name) => {
+      const item = KEEP_ITEMS.find((entry) => entry.name === name);
+      const questIds = questIdsForItem(line, name);
+      const questNames = questIds.map((id) => questById.get(id)?.name).filter(Boolean);
+      return compactItemMarkup(name, item?.needed ?? 1, questNames.join(" · ") || "Quest hand-in", questIds);
+    }).join("");
+  }
+
+  function scrollQuestReferenceIntoView(questId) {
+    const button = els.questLines.querySelector?.(`[data-quest-id="${questId}"]`);
+    button?.closest(".graph-node")?.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  }
+
+  function scrollItemReferenceIntoView(itemName) {
+    const buttons = Array.from(els.lineItems.querySelectorAll?.("[data-focus-item]") ?? []);
+    buttons.find((button) => button.dataset.focusItem === itemName)
+      ?.closest(".compact-item")?.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+  }
+
+  function focusItemInGraph(itemName) {
+    const line = lineById.get(state.selectedLine);
+    const questIds = questIdsForItem(line, itemName);
+    if (!questIds.length) return;
+    const nextQuestIds = new Set(questIds);
+    if (highlightedItemNames.size === 1 && highlightedItemNames.has(itemName) && sameSet(highlightedQuestIds, nextQuestIds)) {
+      clearCrossReferenceFocus();
+      return;
+    }
+    highlightedItemNames = new Set([itemName]);
+    highlightedQuestIds = nextQuestIds;
+    renderLines();
+    scrollQuestReferenceIntoView(questIds[0]);
+    showToast(`${itemName} · ${questIds.length} quest${questIds.length === 1 ? "" : "s"}`);
+  }
+
+  function focusQuestItems(questId) {
+    const line = lineById.get(state.selectedLine);
+    const quest = questById.get(questId);
+    const itemNames = quest ? itemNamesForQuest(line, quest) : [];
+    if (!quest || !itemNames.length) return;
+    const nextQuestIds = new Set([questId]);
+    const nextItemNames = new Set(itemNames);
+    if (sameSet(highlightedQuestIds, nextQuestIds) && sameSet(highlightedItemNames, nextItemNames)) {
+      clearCrossReferenceFocus();
+      return;
+    }
+    highlightedQuestIds = nextQuestIds;
+    highlightedItemNames = nextItemNames;
+    renderLines();
+    scrollItemReferenceIntoView(itemNames[0]);
+    showToast(`${quest.name} · ${itemNames.length} required item${itemNames.length === 1 ? "" : "s"}`);
+  }
+
+  function buildTrackedItems() {
+    const map = new Map();
+    KEEP_ITEMS.forEach((item) => {
+      const name = canonicalItemName(item.name);
+      map.set(name, {
+      name, needed: item.needed, group: item.group, questNeeded: item.needed,
+      sources: [...item.quests], contexts: ["Quest"],
+      });
+    });
+    HIDEOUT_UPGRADES.forEach((upgrade) => upgrade.items.forEach((requirement) => {
+      const name = canonicalItemName(requirement.name);
+      const current = map.get(name) ?? { name, needed: 0, group: "Innards", questNeeded: 0, sources: [], contexts: [] };
+      current.needed += requirement.needed;
+      current.sources.push(upgrade.name);
+      if (!current.contexts.includes("Innards")) current.contexts.push("Innards");
+      map.set(name, current);
+    }));
+    return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  function matchesItem(item) {
+    const groupMatches = selectedItemGroup === "all" || item.group === selectedItemGroup || item.contexts.includes(selectedItemGroup);
+    return groupMatches && (!search || `${item.name} ${item.group} ${item.sources.join(" ")}`.toLowerCase().includes(search));
+  }
+
+  function renderItems() {
+    const tracked = buildTrackedItems();
+    const visible = tracked.filter(matchesItem);
+    els.itemsGrid.innerHTML = visible.map((item) => {
+      const count = owned(item.name);
+      const ready = count >= item.needed;
+      const id = inventoryId(item.name);
+      return `<article class="item-row ${ready ? "is-ready" : ""}">${itemIcon(item.name, item.group)}
+        <div class="item-name"><strong>${escapeHtml(item.name)}</strong><small>Plan total ${item.needed}</small></div>
+        <span class="item-group">${escapeHtml(item.contexts.join(" + "))}</span>
+        <span class="item-quests">${escapeHtml(item.sources.join(" · "))}</span>
+        <div class="item-count"><button type="button" data-item-action="minus" data-item-id="${id}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(item.name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}">+</button><small>${ready ? "Ready" : `${count} / ${item.needed}`}</small></div>
+      </article>`;
+    }).join("");
+    els.itemsEmpty.classList.toggle("is-hidden", visible.length !== 0);
+    let ready = 0, missing = 0, target = 0, toward = 0;
+    tracked.forEach((item) => {
+      const count = owned(item.name);
+      if (count >= item.needed) ready += 1;
+      missing += Math.max(0, item.needed - count);
+      target += item.needed; toward += Math.min(count, item.needed);
+    });
+    const percent = target ? Math.round(toward / target * 100) : 0;
+    document.querySelector("#itemsReady").textContent = ready;
+    document.querySelector("#itemsMissing").textContent = missing;
+    document.querySelector("#itemsProgressText").textContent = `${percent}% stocked`;
+    document.querySelector("#itemsProgressBar").style.width = `${percent}%`;
+  }
+
+  function renderHideout() {
+    const visible = HIDEOUT_UPGRADES.filter((upgrade) => {
+      const groupMatch = selectedHideoutGroup === "all" || upgrade.category === selectedHideoutGroup;
+      const statusMatch = statusFilter === "all" || upgradeStatus(upgrade) === statusFilter;
+      const searchMatch = !search || `${upgrade.name} ${upgrade.group} ${upgrade.effect} ${upgrade.items.map((item)=>item.name).join(" ")}`.toLowerCase().includes(search);
+      return groupMatch && statusMatch && searchMatch;
+    });
+    const cardMarkup = (upgrade) => {
+      const status = upgradeStatus(upgrade);
+      const prereqs = [
+        upgrade.prerequisite ? upgradeById.get(upgrade.prerequisite)?.name : null,
+        upgrade.requiresQuest ? questById.get(upgrade.requiresQuest)?.name : null,
+      ].filter(Boolean);
+      const prereq = prereqs.length ? prereqs.join(" + ") : "None";
+      const stageLabel = upgrade.tiered ? `TIER ${upgrade.tier}` : "MODULE";
+      return `<article class="upgrade-card" data-status="${status}">
+        <header><div><span>${escapeHtml(upgrade.group)}</span><h2>${escapeHtml(upgrade.name)}</h2></div><b class="upgrade-tier">${stageLabel}</b><button class="upgrade-check" type="button" data-upgrade-id="${upgrade.id}" ${status === "locked" ? "disabled" : ""} aria-label="Toggle ${escapeHtml(upgrade.name)}">${status === "complete" ? "Built" : status === "locked" ? "Locked" : "Mark built"}</button></header>
+        <p>${escapeHtml(upgrade.effect)}</p>
+        <div class="upgrade-stats"><span><b>${upgrade.water}</b> water</span><span><b>${upgrade.credits.toLocaleString()}</b> CR</span><span><b>${upgrade.time}</b> build</span><span><b>${escapeHtml(prereq)}</b> prerequisite</span></div>
+        <div class="upgrade-items">${upgrade.items.length ? upgrade.items.map((item) => compactItemMarkup(item.name, item.needed)).join("") : '<p class="no-materials">No material items.</p>'}</div>
+      </article>`;
+    };
+    els.hideoutGrid.innerHTML = `<div class="upgrade-columns">${["Terminal", "Welfare"].map((category, categoryIndex) => {
+      const upgrades = visible.filter((upgrade) => upgrade.category === category);
+      if (!upgrades.length) return "";
+      const built = upgrades.filter((upgrade) => isUpgradeComplete(upgrade.id)).length;
+      const families = INNARDS_FAMILIES.filter((family) => family.category === category).map((family) => {
+        const stages = family.ids.map((id) => upgradeById.get(id)).filter((upgrade) => upgrades.includes(upgrade));
+        if (!stages.length) return "";
+        const allFamilyUpgrades = family.ids.map((id) => upgradeById.get(id)).filter(Boolean);
+        const familyBuilt = allFamilyUpgrades.filter((upgrade) => isUpgradeComplete(upgrade.id)).length;
+        const familyIcon = ASSET_PATHS.upgrade?.[allFamilyUpgrades[0]?.id];
+        return `<article class="upgrade-family"><header>${familyIcon ? `<img class="upgrade-family-icon" src="${familyIcon}" alt="" loading="lazy">` : ""}<div><span>${escapeHtml(category)}</span><h3>${escapeHtml(family.name)}</h3></div><strong>${familyBuilt}/${allFamilyUpgrades.length}</strong></header><div class="upgrade-family-tiers">${stages.map(cardMarkup).join("")}</div></article>`;
+      }).join("");
+      return `<section class="upgrade-category" data-category="${category.toLowerCase()}"><header><div><span>0${categoryIndex + 1}</span><div><h2>${category}</h2><p>${category === "Terminal" ? "Systems, defenses, crafting, and Innards services." : "Living, social, and atmosphere facilities."}</p></div></div><strong>${built}/${upgrades.length} BUILT</strong></header><div class="upgrade-family-list">${families}</div></section>`;
+    }).join("")}</div>`;
+    const complete = HIDEOUT_UPGRADES.filter((upgrade) => isUpgradeComplete(upgrade.id)).length;
+    els.hideoutProgress.textContent = `${complete} / ${HIDEOUT_UPGRADES.length}`;
+    els.hideoutEmpty.classList.toggle("is-hidden", visible.length !== 0);
+  }
+
+  function renderRadiants() {
+    const factionRank = { Scavengers: 0, Europa: 1, Eurasia: 2, Euruska: 3 };
+    const visible = RADIANT_QUESTS
+      .filter((quest) => matchesQuest(quest) && (selectedRadiantFaction === "all" || quest.faction === selectedRadiantFaction))
+      .sort((left, right) => {
+        if (radiantSort === "name") return left.name.localeCompare(right.name);
+        if (radiantSort === "location") return left.location.localeCompare(right.location) || left.name.localeCompare(right.name);
+        if (radiantSort === "status") return Number(isComplete(left.id)) - Number(isComplete(right.id)) || left.name.localeCompare(right.name);
+        return (factionRank[left.faction] ?? 99) - (factionRank[right.faction] ?? 99) || left.name.localeCompare(right.name);
+      });
+    els.radiantGrid.innerHTML = visible.map((quest) => `<article class="radiant-row ${isComplete(quest.id) ? "is-complete" : ""}">
+      <button class="radiant-check" type="button" data-quest-id="${quest.id}" aria-label="Toggle ${escapeHtml(quest.name)}"></button>
+      <img class="radiant-faction-icon" src="${ASSET_PATHS.faction[quest.faction]}" alt="" loading="lazy" onerror="this.hidden=true">
+      <a class="radiant-name" href="${quest.wiki}" target="_blank" rel="noopener">${escapeHtml(quest.name)}<small>${escapeHtml(quest.objective)}</small></a>
+      <span class="radiant-cell radiant-faction"><b>${escapeHtml(quest.faction)}</b><small>${escapeHtml(quest.provider)}</small></span>
+      <span class="radiant-cell">${escapeHtml(quest.location)}</span><span class="radiant-badge">Radiant</span>
+    </article>`).join("");
+    els.radiantProgress.textContent = `${RADIANT_QUESTS.filter((quest)=>isComplete(quest.id)).length} / ${RADIANT_QUESTS.length}`;
+    els.radiantEmpty.classList.toggle("is-hidden", visible.length !== 0);
+  }
+
+  function pruneInvalidCompletions() {
+    let removed = 0, changed = true;
+    while (changed) {
+      changed = false;
+      allChainQuests.forEach((quest) => {
+        if (!isComplete(quest.id)) return;
+        const missingUpgrade = (quest.requiresUpgrades ?? []).some((id) => !isUpgradeComplete(id));
+        if (!isLineUnlocked(quest.lineId) || quest.requires.some((id) => !isComplete(id)) || missingUpgrade) {
+          delete state.completed[quest.id]; removed += 1; changed = true;
+        }
+      });
+    }
+    return removed;
+  }
+
+  function pruneInvalidUpgrades() {
+    let removed = 0, changed = true;
+    while (changed) {
+      changed = false;
+      HIDEOUT_UPGRADES.forEach((upgrade) => {
+        if (!isUpgradeComplete(upgrade.id)) return;
+        const missingUpgrade = upgrade.prerequisite && !isUpgradeComplete(upgrade.prerequisite);
+        const missingQuest = upgrade.requiresQuest && !isComplete(upgrade.requiresQuest);
+        if (missingUpgrade || missingQuest) {
+          delete state.upgrades[upgrade.id]; removed += 1; changed = true;
+        }
+      });
+    }
+    return removed;
+  }
+
+  function toggleQuest(id) {
+    const quest = questById.get(id);
+    if (!quest || questStatus(quest) === "locked") return;
+    state.completed[id] = !isComplete(id);
+    let invalidated = 0;
+    if (!state.completed[id]) {
+      delete state.completed[id];
+      invalidated = pruneInvalidCompletions();
+      pruneInvalidUpgrades();
+    }
+    saveState(state.completed[id] ? `${quest.name} complete` : `${quest.name} reopened${invalidated ? ` · ${invalidated} dependent reset` : ""}`);
+    renderAll();
+  }
+
+  function toggleUpgrade(id) {
+    const upgrade = upgradeById.get(id);
+    if (!upgrade || upgradeStatus(upgrade) === "locked") return;
+    if (isUpgradeComplete(id)) {
+      delete state.upgrades[id];
+      pruneInvalidUpgrades();
+      pruneInvalidCompletions();
+    } else state.upgrades[id] = true;
+    saveState(isUpgradeComplete(id) ? `${upgrade.name} built` : `${upgrade.name} reopened`);
+    renderAll();
+  }
+
+  function setItem(id, value) {
+    state.items[id] = Math.max(0, Math.floor(Number(value) || 0));
+    saveState("");
+    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout();
+  }
+
+  function unlockLine(id) {
+    if (!lineById.has(id)) return;
+    state.unlockedLines[id] = true;
+    saveState(`${lineById.get(id).name} unlocked`);
+    renderAll();
+  }
+
+  function renderStats() {
+    const complete = allChainQuests.filter((quest) => isComplete(quest.id)).length;
+    document.querySelector("#questCount").textContent = allQuests.length;
+    document.querySelector("#lineCount").textContent = QUEST_LINES.length;
+    document.querySelector("#upgradeCount").textContent = HIDEOUT_UPGRADES.length;
+    document.querySelector("#itemCount").textContent = buildTrackedItems().length;
+    document.querySelector("#overallPercent").textContent = `${Math.round(complete / allChainQuests.length * 100)}%`;
+  }
+
+  function renderAll() {
+    renderCampaignMap(); renderLines(); renderHideout(); renderRadiants(); renderItems(); renderStats();
+  }
+
+  function switchView(view) {
+    state.view = view;
+    document.querySelectorAll(".tab").forEach((tab) => tab.classList.toggle("is-active", tab.dataset.view === view));
+    document.querySelectorAll(".view").forEach((panel) => panel.classList.toggle("is-active", panel.id === `${view}View`));
+    els.lineSelectWrap.classList.toggle("is-hidden", view !== "lines");
+    els.itemSelectWrap.classList.toggle("is-hidden", view !== "items");
+    els.hideoutSelectWrap.classList.toggle("is-hidden", view !== "hideout");
+    els.radiantFactionWrap.classList.toggle("is-hidden", view !== "radiant");
+    els.radiantSortWrap.classList.toggle("is-hidden", view !== "radiant");
+    els.statusFilters.classList.toggle("is-hidden", view === "items");
+    els.searchInput.placeholder = view === "items" ? "Search inventory" : view === "hideout" ? "Search upgrades" : view === "radiant" ? "Search radiant contracts" : "Search quests";
+    saveState("");
+  }
+
+  function setZoom(nextZoom) {
+    zoom = Math.min(1.35, Math.max(.5, Math.round(nextZoom * 20) / 20));
+    renderLines();
+  }
+
+  function fitGraph() {
+    const line = lineById.get(state.selectedLine) ?? QUEST_LINES[0];
+    const availableWidth = Math.max(320, (els.graphViewport.clientWidth || 1000) - 32);
+    setZoom(Math.min(1, availableWidth / computeGraph(line).width));
+  }
+
+  function populateFilters() {
+    els.lineFilter.replaceChildren();
+    QUEST_LINES.forEach((line) => els.lineFilter.add(new Option(line.name, line.id)));
+    els.lineFilter.value = state.selectedLine;
+    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"));
+    [...new Set(KEEP_ITEMS.map((item) => item.group))].sort().forEach((group) => els.itemGroupFilter.add(new Option(group, group)));
+    els.hideoutGroupFilter.replaceChildren(new Option("All categories", "all"), new Option("Terminal", "Terminal"), new Option("Welfare", "Welfare"));
+    els.radiantFactionFilter.replaceChildren(new Option("All factions", "all"), ...["Scavengers", "Europa", "Eurasia", "Euruska"].map((faction) => new Option(faction, faction)));
+    els.radiantSort.replaceChildren(new Option("Faction", "faction"), new Option("Quest name", "name"), new Option("Location", "location"), new Option("Incomplete first", "status"));
+  }
+
+  document.addEventListener("click", (event) => {
+    const itemReference = event.target.closest("[data-focus-item]");
+    if (itemReference) focusItemInGraph(itemReference.dataset.focusItem);
+    const questItemReference = event.target.closest("[data-focus-quest-items]");
+    if (questItemReference) focusQuestItems(questItemReference.dataset.focusQuestItems);
+    const questButton = event.target.closest("[data-quest-id]");
+    if (questButton) toggleQuest(questButton.dataset.questId);
+    const upgradeButton = event.target.closest("[data-upgrade-id]");
+    if (upgradeButton) toggleUpgrade(upgradeButton.dataset.upgradeId);
+    const itemButton = event.target.closest("[data-item-action]");
+    if (itemButton) {
+      const id = itemButton.dataset.itemId;
+      setItem(id, (Number(state.items[id]) || 0) + (itemButton.dataset.itemAction === "plus" ? 1 : -1));
+    }
+    const unlockButton = event.target.closest("[data-unlock-line]");
+    if (unlockButton) unlockLine(unlockButton.dataset.unlockLine);
+    const selectButton = event.target.closest("[data-select-line]");
+    if (selectButton) {
+      clearCrossReference();
+      state.selectedLine = selectButton.dataset.selectLine; els.lineFilter.value = state.selectedLine; zoom = 1; saveState("");
+      renderCampaignMap(); renderLines({ center: true });
+      document.querySelector(".line-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    const upgradeSelect = event.target.closest("[data-select-upgrade]");
+    if (upgradeSelect) {
+      const upgrade = upgradeById.get(upgradeSelect.dataset.selectUpgrade);
+      selectedHideoutGroup = upgrade?.category ?? "all";
+      els.hideoutGroupFilter.value = selectedHideoutGroup;
+      switchView("hideout");
+      renderHideout();
+    }
+    const tab = event.target.closest(".tab");
+    if (tab) switchView(tab.dataset.view);
+    const filter = event.target.closest(".filter");
+    if (filter) {
+      clearCrossReference();
+      statusFilter = filter.dataset.status;
+      document.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item === filter));
+      renderAll();
+    }
+    const zoomButton = event.target.closest("[data-zoom]");
+    if (zoomButton) zoomButton.dataset.zoom === "fit" ? fitGraph() : setZoom(zoomButton.dataset.zoom === "in" ? zoom + .1 : zoom - .1);
+  });
+
+  document.addEventListener("change", (event) => {
+    if (event.target.matches("[data-item-input]")) setItem(event.target.dataset.itemInput, event.target.value);
+  });
+  els.searchInput.addEventListener("input", (event) => { clearCrossReference(); search = event.target.value.trim().toLowerCase(); renderAll(); });
+  els.lineFilter.addEventListener("change", (event) => { clearCrossReference(); state.selectedLine = event.target.value; zoom = 1; saveState(""); renderCampaignMap(); renderLines({ center: true }); });
+  els.itemGroupFilter.addEventListener("change", (event) => { selectedItemGroup = event.target.value; renderItems(); });
+  els.hideoutGroupFilter.addEventListener("change", (event) => { selectedHideoutGroup = event.target.value; renderHideout(); });
+  els.radiantFactionFilter.addEventListener("change", (event) => { selectedRadiantFaction = event.target.value; renderRadiants(); });
+  els.radiantSort.addEventListener("change", (event) => { radiantSort = event.target.value; renderRadiants(); });
+  els.manualLineUnlock.addEventListener("click", () => unlockLine(state.selectedLine));
+  els.collapseCampaign.addEventListener("click", () => { state.campaignCollapsed = !state.campaignCollapsed; saveState(""); renderCampaignMap(); });
+  els.clearItemFocus.addEventListener("click", clearCrossReferenceFocus);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") clearCrossReferenceFocus();
+  });
+
+  document.querySelector("#resetProgress").addEventListener("click", () => {
+    if (!confirm("Reset all quest, Innards, unlock, and inventory progress?")) return;
+    state = structuredClone(defaultState);
+    try { ["fwQuestTracker.v1","fwQuestTracker.v2",STORAGE_KEY].forEach((key) => localStorage.removeItem(key)); } catch {}
+    zoom = 1; search = ""; statusFilter = "all"; els.searchInput.value = "";
+    populateFilters(); renderAll(); switchView("lines"); showToast("Progress reset");
+  });
+
+  let drag = null;
+  els.graphViewport.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || event.target.closest("a,button")) return;
+    drag = { x:event.clientX, y:event.clientY, left:els.graphViewport.scrollLeft, top:els.graphViewport.scrollTop };
+    els.graphViewport.classList.add("is-dragging");
+  });
+  els.graphViewport.addEventListener("pointermove", (event) => {
+    if (!drag) return;
+    els.graphViewport.scrollLeft = drag.left - (event.clientX - drag.x);
+    els.graphViewport.scrollTop = drag.top - (event.clientY - drag.y);
+  });
+  const endDrag = () => { drag = null; els.graphViewport.classList.remove("is-dragging"); };
+  ["pointerup","pointercancel","pointerleave"].forEach((type) => els.graphViewport.addEventListener(type, endDrag));
+
+  populateFilters();
+  document.querySelector("#snapshotDate").textContent = DATA_META.scraped;
+  switchView(["lines","hideout","radiant","items"].includes(state.view) ? state.view : "lines");
+  renderAll();
+})();
+
+  </script>
+</body>
+</html>

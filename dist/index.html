@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="Interactive questline, hideout, and item tracker for The Forever Winter.">
+  <title>The Forever Winter — Operations Map</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="The Forever Winter operations map">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>FOREVER WINTER</strong><small>OPERATIONS MAP</small></span>
+    </a>
+    <nav class="tabs" aria-label="Tracker sections">
+      <button class="tab is-active" type="button" data-view="lines">Questlines</button>
+      <button class="tab" type="button" data-view="hideout">Innards</button>
+      <button class="tab" type="button" data-view="radiant">Radiant</button>
+      <button class="tab" type="button" data-view="items">Inventory</button>
+    </nav>
+    <div class="top-stats"><span><b id="overallPercent">0%</b> campaign</span><button class="reset-button" id="resetProgress" type="button">Reset</button></div>
+  </header>
+
+  <div class="controls">
+    <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search quests" autocomplete="off"></label>
+    <label class="select-wrap" id="lineSelectWrap"><span>Line</span><select id="lineFilter" aria-label="Questline"></select></label>
+    <label class="select-wrap is-hidden" id="itemSelectWrap"><span>Group</span><select id="itemGroupFilter" aria-label="Item group"><option value="all">All groups</option></select></label>
+    <label class="select-wrap is-hidden" id="hideoutSelectWrap"><span>Category</span><select id="hideoutGroupFilter" aria-label="Innards category"><option value="all">All categories</option></select></label>
+    <label class="select-wrap is-hidden" id="radiantFactionWrap"><span>Faction</span><select id="radiantFactionFilter" aria-label="Radiant faction"><option value="all">All factions</option></select></label>
+    <label class="select-wrap is-hidden" id="radiantSortWrap"><span>Sort</span><select id="radiantSort" aria-label="Radiant sort order"><option value="faction">Faction</option></select></label>
+    <div class="filter-group" id="statusFilters" role="group" aria-label="Status filter">
+      <button class="filter is-active" data-status="all" type="button">All</button><button class="filter" data-status="available" type="button">Ready</button><button class="filter" data-status="locked" type="button">Locked</button><button class="filter" data-status="complete" type="button">Done</button>
+    </div>
+    <div class="data-counts"><span><b id="questCount">0</b> quests</span><span><b id="lineCount">0</b> lines</span><span><b id="upgradeCount">0</b> upgrades</span><span><b id="itemCount">0</b> items</span></div>
+  </div>
+
+  <main>
+    <section class="view is-active tree-view" id="linesView" aria-label="Questlines">
+      <section class="campaign-panel">
+        <header class="section-label"><span>01</span><div><h1>Campaign dependency net</h1><p>Solid links are hard gates. Dashed links mark requirements reached partway through a line.</p></div><button type="button" id="collapseCampaign" aria-expanded="true">Collapse</button></header>
+        <div class="campaign-map" id="campaignMap"></div>
+      </section>
+
+      <section class="line-panel">
+        <header class="tree-header">
+          <div class="giver-list" id="giverList" aria-label="Quest givers"></div>
+          <div class="tree-title"><div class="eyebrow" id="lineState">Locked</div><h2 id="lineTitle">The Long Road In</h2><p id="lineUnlock"></p></div>
+          <button class="line-unlock" id="manualLineUnlock" type="button">Unlock line</button>
+          <div class="tree-progress"><strong id="lineProgress">0 / 0</strong><span><i id="lineProgressBar"></i></span></div>
+          <div class="zoom-controls" role="group" aria-label="Tree zoom"><button type="button" data-zoom="out" aria-label="Zoom out">−</button><button type="button" data-zoom="fit" id="zoomLabel" title="Fit tree to viewport">100%</button><button type="button" data-zoom="in" aria-label="Zoom in">+</button></div>
+        </header>
+        <div class="graph-viewport" id="graphViewport"><div id="questLines" class="graph-canvas"></div></div>
+        <div class="empty-state is-hidden" id="linesEmpty">No matching quests in this line.</div>
+      </section>
+
+      <section class="context-items">
+        <header class="section-label compact"><span>02</span><div><h2>Items for this questline</h2><p>Select QUESTS to highlight graph nodes. Select it again, press Escape, or clear focus to return.</p></div><button class="is-hidden" type="button" id="clearItemFocus">Clear focus</button></header>
+        <div id="lineItems" class="compact-items"></div>
+      </section>
+    </section>
+
+    <section class="view" id="hideoutView" aria-label="Innards upgrades">
+      <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1><p>Terminal systems and Welfare facilities, grouped by their in-game upgrade tiers.</p></div><strong id="hideoutProgress">0 / 0</strong></header>
+      <div id="hideoutGrid" class="upgrade-catalog"></div><div class="empty-state is-hidden" id="hideoutEmpty">No matching upgrades.</div>
+    </section>
+
+    <section class="view" id="radiantView" aria-label="Radiant quests">
+      <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Independent contracts grouped by reputation faction. They never unlock or block a questline.</p></div><strong id="radiantProgress">0 / 0</strong></header>
+      <div id="radiantGrid" class="radiant-list"></div><div class="empty-state is-hidden" id="radiantEmpty">No matching radiant quests.</div>
+    </section>
+
+    <section class="view" id="itemsView" aria-label="Tracked inventory">
+      <header class="plain-header"><div><div class="eyebrow">SHARED STOCK</div><h1>Inventory</h1><p>One owned count feeds every questline and Innards build card.</p></div><div class="item-totals"><span><b id="itemsReady">0</b> ready</span><span><b id="itemsMissing">0</b> missing</span><i><b id="itemsProgressBar"></b></i><small id="itemsProgressText">0% stocked</small></div></header>
+      <div id="itemsGrid" class="items-list"></div><div class="empty-state is-hidden" id="itemsEmpty">No matching items.</div>
+    </section>
+  </main>
+
+  <footer><span>Data: <a href="https://theforeverwinter.wiki.gg/wiki/Quests" target="_blank" rel="noopener">The Forever Winter Wiki</a> · CC BY-SA 4.0</span><span>Snapshot <b id="snapshotDate">—</b></span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>

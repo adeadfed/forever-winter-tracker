@@ -1,0 +1,16 @@
+{
+  "name": "forever-winter-quest-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "scrape:wiki": "python3 scripts/scrape_wiki_assets.py --force",
+    "scrape:items": "python3 scripts/scrape_wiki_assets.py --group items --force",
+    "scrape:portraits": "python3 scripts/scrape_wiki_assets.py --group questgivers --force",
+    "scrape:questgivers": "python3 scripts/scrape_wiki_assets.py --group questgivers --force",
+    "scrape:factions": "python3 scripts/scrape_wiki_assets.py --group factions --force",
+    "scrape:traders": "python3 scripts/scrape_wiki_assets.py --group traders --force",
+    "scrape:urls": "python3 scripts/scrape_wiki_assets.py --urls-only",
+    "test": "node scripts/test.mjs"
+  }
+}

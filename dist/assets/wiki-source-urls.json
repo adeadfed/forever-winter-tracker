@@ -1,0 +1,897 @@
+{
+  "items/advanced-joint.png": {
+    "group": "items",
+    "page": "Advanced Joint",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_AdvancedJoint.png?a9cdbd"
+  },
+  "items/armor-shard.png": {
+    "group": "items",
+    "page": "Armor Shard",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_ArmorShards.png?1e7f94"
+  },
+  "items/artificial-nervous-system.png": {
+    "group": "items",
+    "page": "Orgamech Nervous System",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ANS.png?e74991"
+  },
+  "items/assorted-medicine.png": {
+    "group": "items",
+    "page": "Assorted Medicine",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_FirstAid.png?40dbff"
+  },
+  "items/ball-bearings.png": {
+    "group": "items",
+    "page": "Ball Bearings",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_12x76.png?ab9fe2"
+  },
+  "items/barrel-of-water.png": {
+    "group": "items",
+    "page": "Water",
+    "url": "https://theforeverwinter.wiki.gg/images/Water_Thief_Civilian.png?2850a5"
+  },
+  "items/basic-pliers.png": {
+    "group": "items",
+    "page": "Basic Pliers",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Pliers.png?4bcdc5"
+  },
+  "items/battery-charger.png": {
+    "group": "items",
+    "page": "Battery Charger",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_11_PowerCell.png?cf25df"
+  },
+  "items/biodegradable-multi-tool.png": {
+    "group": "items",
+    "page": "Diodegradable Multi-tool",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT09.png?92786b"
+  },
+  "items/bolts.png": {
+    "group": "items",
+    "page": "Bolts",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Bolts.png?9a8872"
+  },
+  "items/brawler-spinal-joint.png": {
+    "group": "items",
+    "page": "Brawler Spinal Joint",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ExoComponent.png?72c605"
+  },
+  "items/bulkhead-lights.png": {
+    "group": "items",
+    "page": "Bulkhead Lights",
+    "url": "https://theforeverwinter.wiki.gg/images/T_AdvancedLightBulbs.png?bcc5b5"
+  },
+  "items/camera-lens.png": {
+    "group": "items",
+    "page": "Camera Lens",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Camera_Lens.png?c88b7e"
+  },
+  "items/carbon-fiber.png": {
+    "group": "items",
+    "page": "Carbon Fiber",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_127_CarbonFiber.png?cbfb59"
+  },
+  "items/carbon-fiber-tube.png": {
+    "group": "items",
+    "page": "Carbon Fiber Tube",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_40_CarbonFiberTubes.png?6a40f6"
+  },
+  "items/clamp.png": {
+    "group": "items",
+    "page": "Clamp",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ReleaseClamp.png?863eca"
+  },
+  "items/clamps.png": {
+    "group": "items",
+    "page": "Clamp",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ReleaseClamp.png?863eca"
+  },
+  "items/cleaner.png": {
+    "group": "items",
+    "page": "Cleaner",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Cleaner.png?4a0ddc"
+  },
+  "items/clear-tube.png": {
+    "group": "items",
+    "page": "Clear Tube",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_42_ClearTube.png?537e82"
+  },
+  "items/concrete-mixer.png": {
+    "group": "items",
+    "page": "Concrete Mixer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ConcreteMixer.png?1f1ab7"
+  },
+  "items/concrete-powder.png": {
+    "group": "items",
+    "page": "Concrete Powder",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Concrete_Powder.png?b20817"
+  },
+  "items/construction-drone.png": {
+    "group": "items",
+    "page": "Construction Drone",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool10.png?1d9987"
+  },
+  "items/construction-foam.png": {
+    "group": "items",
+    "page": "Construction Foam",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ConstructionFoam.png?6b3626"
+  },
+  "items/cortical-array.png": {
+    "group": "items",
+    "page": "Cortical Array",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_HKDiver_Part_01.png?1b5157"
+  },
+  "items/current-generation-wetware-system.png": {
+    "group": "items",
+    "page": "Wetware System",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Wetware.png?6e4715"
+  },
+  "items/cybernetic-lungs.png": {
+    "group": "items",
+    "page": "Cybernetic Lungs",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Cyberlung.png?c39d58"
+  },
+  "items/cyborg-immunosuppressant.png": {
+    "group": "items",
+    "page": "Cyborg Immunosuppressant",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_123_CyborgImmunosuppresant.png?faa4ef"
+  },
+  "items/diagnostic-scanner.png": {
+    "group": "items",
+    "page": "Diagnostic Scanner",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_114_MedicalScanner.png?30ce0d"
+  },
+  "items/dogboro-cigarettes-basic.png": {
+    "group": "items",
+    "page": "Dogboro Cigarettes",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Cigarettes01.png?7b41b9"
+  },
+  "items/drywall.png": {
+    "group": "items",
+    "page": "Drywall",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_141_Sheetrock.png?722e57"
+  },
+  "items/edc-multi-tool.png": {
+    "group": "items",
+    "page": "EDC Multi-tool",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_133_multitool.png?8a4541"
+  },
+  "items/eod-armor-plate.png": {
+    "group": "items",
+    "page": "EOD Armor Plate",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_ArmorShards.png?1e7f94"
+  },
+  "items/es-lamp.png": {
+    "group": "items",
+    "page": "ES Lamp",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ESLamp.png?5b48bd"
+  },
+  "items/electric-motor.png": {
+    "group": "items",
+    "page": "Electric Motor",
+    "url": "https://theforeverwinter.wiki.gg/images/Electric_Motor.png?6724d8"
+  },
+  "items/eurasian-drone-cortex.png": {
+    "group": "items",
+    "page": "Eurasian Drone Cortex",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EurasiaDroneParts.png?17c8bd"
+  },
+  "items/eurasian-iff-chip-lvl1.png": {
+    "group": "items",
+    "page": "Eurasian IFF Chip LVL1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SMG04.png?e188cd"
+  },
+  "items/europan-drone-component.png": {
+    "group": "items",
+    "page": "Europan Drone Flight Controller",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuropaDroneParts.png?9a0180"
+  },
+  "items/europan-drone-flight-controller.png": {
+    "group": "items",
+    "page": "Europan Drone Flight Controller",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuropaDroneParts.png?9a0180"
+  },
+  "items/europan-iff-chip-lvl1.png": {
+    "group": "items",
+    "page": "Europan IFF Chip LVL1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PST03.png?f61e56"
+  },
+  "items/euruskan-iff-chip-lvl1.png": {
+    "group": "items",
+    "page": "Euruskan IFF Chip LVL1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_RFL01.png?7e6729"
+  },
+  "items/euruskan-plans.png": {
+    "group": "items",
+    "page": "Euruskan Plans",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuruskansPlan.png?7d822f"
+  },
+  "items/exo-component.png": {
+    "group": "items",
+    "page": "Exo Component",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_ExoParts.png?9885ec"
+  },
+  "items/exo-hard-drive.png": {
+    "group": "items",
+    "page": "Exo Hard Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan03.png?da443f"
+  },
+  "items/explosive-charge.png": {
+    "group": "items",
+    "page": "Explosive Charge",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_40mm.png?39606c"
+  },
+  "items/explosives.png": {
+    "group": "items",
+    "page": "Explosives",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+  },
+  "items/field-repair-kit.png": {
+    "group": "items",
+    "page": "Field Repair Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool01.png?b58696"
+  },
+  "items/fleece.png": {
+    "group": "items",
+    "page": "Fleece",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_125_Fleece.png?f59d17"
+  },
+  "items/food-tin.png": {
+    "group": "items",
+    "page": "Food Tin",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_ShitCow.png?26e7dd"
+  },
+  "items/frequency-tap.png": {
+    "group": "items",
+    "page": "Frequency Tap",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_Octogirl_Tool.png?bb4a36"
+  },
+  "items/fuse.png": {
+    "group": "items",
+    "page": "Fuse",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_GRN_ingredient_GrenadeFuse.png?9d4e15"
+  },
+  "items/glue.png": {
+    "group": "items",
+    "page": "Glue",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Glue.png?1d5597"
+  },
+  "items/goodies.png": {
+    "group": "items",
+    "page": "Goodies",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Goodies.png?a372b0"
+  },
+  "items/gunpowder.png": {
+    "group": "items",
+    "page": "Gunpowder",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_308.png?7f1b33"
+  },
+  "items/gyroscopic-stabilizer.png": {
+    "group": "items",
+    "page": "Gyroscopic Stabilizer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_GyroscopicStabilizer.png?cb6580"
+  },
+  "items/hand-drill.png": {
+    "group": "items",
+    "page": "Hand Drill",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Hand_Drill.png?6a40d3"
+  },
+  "items/hard-shell-laptop.png": {
+    "group": "items",
+    "page": "Hard Shell Laptop",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan09.png?afc97c"
+  },
+  "items/heavy-duty-battery.png": {
+    "group": "items",
+    "page": "Heavy-Duty Battery",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool11.png?6ecf75"
+  },
+  "items/heavy-duty-trauma-kit.png": {
+    "group": "items",
+    "page": "Heavy-Duty Trauma Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Alcohol.png?db4637"
+  },
+  "items/heirloom-seeds.png": {
+    "group": "items",
+    "page": "Heirloom Seeds",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_137_ApocSeeds.png?85e39b"
+  },
+  "items/hinoko-cigarettes-import.png": {
+    "group": "items",
+    "page": "Hinoko Cigarettes",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Cigarettes03.png?3f938e"
+  },
+  "items/industrial-sealant.png": {
+    "group": "items",
+    "page": "Industrial Sealant",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Sealant_BuildingGlue.png?c562ec"
+  },
+  "items/intelligence-cassette.png": {
+    "group": "items",
+    "page": "Intelligence Cassette",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan01.png?ebc08a"
+  },
+  "items/intermediate-tool-set.png": {
+    "group": "items",
+    "page": "Intermediate Tool Set",
+    "url": "https://theforeverwinter.wiki.gg/images/T_MasterToolset.png?65043d"
+  },
+  "items/lcd.png": {
+    "group": "items",
+    "page": "LCD",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_64_LCD.png?5b2383"
+  },
+  "items/leather-hole-punch.png": {
+    "group": "items",
+    "page": "Leather Hole Punch",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_77_Punch.png?98acd0"
+  },
+  "items/light-bulb.png": {
+    "group": "items",
+    "page": "Light Bulb",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemRigFlashlight.png?7441e6"
+  },
+  "items/liquid-cooling-unit.png": {
+    "group": "items",
+    "page": "Liquid Cooling Unit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_33_LiquidCoolingUnit.png?9ad018"
+  },
+  "items/mre.png": {
+    "group": "items",
+    "page": "MRE",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood01.png?a4933b"
+  },
+  "items/machine-parts.png": {
+    "group": "items",
+    "page": "Machine Parts",
+    "url": "https://theforeverwinter.wiki.gg/images/Electric_Motor.png?6724d8"
+  },
+  "items/masking-tape.png": {
+    "group": "items",
+    "page": "Masking Tape",
+    "url": "https://theforeverwinter.wiki.gg/images/T_MaskingTape.png?3c7c02"
+  },
+  "items/measuring-tape.png": {
+    "group": "items",
+    "page": "Measuring Tape",
+    "url": "https://theforeverwinter.wiki.gg/images/T_MeasuringTape.png?22e11c"
+  },
+  "items/medical-alcohol.png": {
+    "group": "items",
+    "page": "Medical Alcohol",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Alcohol.png?db4637"
+  },
+  "items/medical-tools.png": {
+    "group": "items",
+    "page": "Medical Tools",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_med_FirstAidKit.png?915f35"
+  },
+  "items/metal-fragments.png": {
+    "group": "items",
+    "page": "Metal Fragments",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_9x19.png?e3c6be"
+  },
+  "items/metal-pipe.png": {
+    "group": "items",
+    "page": "Metal Pipe",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SM_GRN02.png?7ef31a"
+  },
+  "items/metal-slats.png": {
+    "group": "items",
+    "page": "Metal Slats",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_144_slats.png?d5f2d7"
+  },
+  "items/military-battery.png": {
+    "group": "items",
+    "page": "Military Battery",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Drone_Recovery.png?d2a9bf"
+  },
+  "items/military-cables.png": {
+    "group": "items",
+    "page": "Military Cables",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_RIGEQUIPMENT_TacCam_v1.png?e3e5c9"
+  },
+  "items/military-circuitry.png": {
+    "group": "items",
+    "page": "Military Circuitry",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_info03.png?b8ae62"
+  },
+  "items/military-codebreaker.png": {
+    "group": "items",
+    "page": "Military Codebreaker",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_GDC_PDA.png?b9feef"
+  },
+  "items/military-grade-lubricant.png": {
+    "group": "items",
+    "page": "Military Grade Lubricant",
+    "url": "https://theforeverwinter.wiki.gg/images/T_HRF05.png?efc588"
+  },
+  "items/military-power-cell.png": {
+    "group": "items",
+    "page": "Military Power Cell",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Drone_Beacon_BossPartRetreive.png?d0c9ea"
+  },
+  "items/mini-md-drive.png": {
+    "group": "items",
+    "page": "Mini MD Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_31_PortableHardDrive.png?3133e8"
+  },
+  "items/modular-spine-component.png": {
+    "group": "items",
+    "page": "Brawler Spinal Joint",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ExoComponent.png?72c605"
+  },
+  "items/mother-courage-codex.png": {
+    "group": "items",
+    "page": "Mother Courage Codex",
+    "url": "https://theforeverwinter.wiki.gg/images/Codex.png?352058"
+  },
+  "items/motherboard.png": {
+    "group": "items",
+    "page": "Motherboard",
+    "url": "https://theforeverwinter.wiki.gg/images/T_MotherBoard.png?2c8779"
+  },
+  "items/multi-frequency-broadcaster.png": {
+    "group": "items",
+    "page": "Multi-frequency Broadcaster",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_GRN_ingredient_SignalScrambler.png?b09fc5"
+  },
+  "items/nails.png": {
+    "group": "items",
+    "page": "Nails",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Nails.png?20590e"
+  },
+  "items/neuralink-disc-player.png": {
+    "group": "items",
+    "page": "Neuralink Disc Player",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SM_GRN10.png?f82070"
+  },
+  "items/nucky-gold-cigarettes-premium.png": {
+    "group": "items",
+    "page": "Nucky Gold Cigarettes",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Cigarettes02.png?e3d5ba"
+  },
+  "items/nuts.png": {
+    "group": "items",
+    "page": "Nuts",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Nuts.png?a4c470"
+  },
+  "items/oled.png": {
+    "group": "items",
+    "page": "OLED",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_65_OLED.png?398e9e"
+  },
+  "items/old-tool-set.png": {
+    "group": "items",
+    "page": "Old Tool Set",
+    "url": "https://theforeverwinter.wiki.gg/images/T_NormalToolset.png?8fa9ea"
+  },
+  "items/old-toolset.png": {
+    "group": "items",
+    "page": "Old Tool Set",
+    "url": "https://theforeverwinter.wiki.gg/images/T_NormalToolset.png?8fa9ea"
+  },
+  "items/orga-codex.png": {
+    "group": "items",
+    "page": "Orga Codex",
+    "url": "https://theforeverwinter.wiki.gg/images/Codex.png?352058"
+  },
+  "items/organoid-memory-board.png": {
+    "group": "items",
+    "page": "Organoid Memory Board",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_29_GPC.png?90d60c"
+  },
+  "items/organoid-networking-board.png": {
+    "group": "items",
+    "page": "Organoid Networking Board",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_NeuroUplink.png?26960c"
+  },
+  "items/organoid-outlet.png": {
+    "group": "items",
+    "page": "Organoid Outlet",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_74_OutletPort.png?1ab077"
+  },
+  "items/organoid-plug.png": {
+    "group": "items",
+    "page": "Organoid Plug",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/personnel-data.png": {
+    "group": "items",
+    "page": "Personnel Data",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_VIPTreatmentPrt1.png?41a634"
+  },
+  "items/portable-generator.png": {
+    "group": "items",
+    "page": "Portable Generator",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool05.png?5dde10"
+  },
+  "items/power-cell.png": {
+    "group": "items",
+    "page": "Power Cell",
+    "url": "https://theforeverwinter.wiki.gg/images/Item20mmTurret.png?964857"
+  },
+  "items/power-schematics.png": {
+    "group": "items",
+    "page": "Power Schematics",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_WaterMap.png?e20062"
+  },
+  "items/precision-tool-set.png": {
+    "group": "items",
+    "page": "Precision Tool Set",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool10.png?1d9987"
+  },
+  "items/preserved-cryo-coffee.png": {
+    "group": "items",
+    "page": "Preserved Cryo Coffee",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_131_CryoCoffee.png?d72da5"
+  },
+  "items/pressure-gauge.png": {
+    "group": "items",
+    "page": "Pressure Gauge",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_38_PressureGauge.png?5b06bb"
+  },
+  "items/printed-circuit-board.png": {
+    "group": "items",
+    "page": "Printed Circuit Board",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+  },
+  "items/printing-resin.png": {
+    "group": "items",
+    "page": "Printing Resin",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Printingmaterial.png?46f83e"
+  },
+  "items/processor-board.png": {
+    "group": "items",
+    "page": "Processor Board",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_GDC_PDA.png?b9feef"
+  },
+  "items/quantum-hard-drive.png": {
+    "group": "items",
+    "page": "Quantum Hard Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_27_SolidState.png?78cd8e"
+  },
+  "items/rat-king-codex.png": {
+    "group": "items",
+    "page": "Rat King Codex",
+    "url": "https://theforeverwinter.wiki.gg/images/Codex.png?352058"
+  },
+  "items/rat-king-residue.png": {
+    "group": "items",
+    "page": "Rat King Residue",
+    "url": "https://theforeverwinter.wiki.gg/images/Rat_King_Residue.png?73ec87"
+  },
+  "items/rat-kings-wake.png": {
+    "group": "items",
+    "page": "Rat King's Wake",
+    "url": "https://theforeverwinter.wiki.gg/images/Rat_King_Debris.png?985d54"
+  },
+  "items/ratchet.png": {
+    "group": "items",
+    "page": "Ratchet",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Ratchet.png?18628d"
+  },
+  "items/rechargeable-battery.png": {
+    "group": "items",
+    "page": "Rechargeable Battery",
+    "url": "https://theforeverwinter.wiki.gg/images/T_RechargeableBattery.png?9982cc"
+  },
+  "items/recovery-drone.png": {
+    "group": "items",
+    "page": "Recovery Drone",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Drone_Beacon_BossPartRetreive.png?d0c9ea"
+  },
+  "items/relay.png": {
+    "group": "items",
+    "page": "Relay",
+    "url": "https://theforeverwinter.wiki.gg/images/Relay.png?8f2404"
+  },
+  "items/ribbed-tube.png": {
+    "group": "items",
+    "page": "Ribbed Tube",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_41_RibbedTube.png?1ba25f"
+  },
+  "items/rootkit-device.png": {
+    "group": "items",
+    "page": "Rootkit Device",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_info01.png?43c37a"
+  },
+  "items/rotary-hammer.png": {
+    "group": "items",
+    "page": "Rotary Hammer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PowerDrill.png?f1a310"
+  },
+  "items/rum.png": {
+    "group": "items",
+    "page": "Rum",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool12.png?3c9760"
+  },
+  "items/scavengers-tool-kit.png": {
+    "group": "items",
+    "page": "Scavenger's Tool Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool06.png?fcaaf6"
+  },
+  "items/screwdriver.png": {
+    "group": "items",
+    "page": "Screwdriver",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ScrewDriver.png?3217bb"
+  },
+  "items/screws.png": {
+    "group": "items",
+    "page": "Screws",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Screws.png?70aa26"
+  },
+  "items/sentient-drill.png": {
+    "group": "items",
+    "page": "Sentient Drill",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_75_PlugCord.png?ded0c2"
+  },
+  "items/sewing-kit.png": {
+    "group": "items",
+    "page": "Sewing Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_81_SewingKit.png?98b571"
+  },
+  "items/sheet-metal.png": {
+    "group": "items",
+    "page": "Sheet Metal",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Sheetmetal.png?982ef2"
+  },
+  "items/shield-officer-codex.png": {
+    "group": "items",
+    "page": "Shield Officer Codex",
+    "url": "https://theforeverwinter.wiki.gg/images/Codex.png?352058"
+  },
+  "items/sledgehammer.png": {
+    "group": "items",
+    "page": "Sledgehammer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SledgeHammer.png?a860fa"
+  },
+  "items/smuggled-organs.png": {
+    "group": "items",
+    "page": "Smuggled Organs",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan08.png?dd97b7"
+  },
+  "items/solar-battery.png": {
+    "group": "items",
+    "page": "Solar Battery",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_91_SolarBattery.png?138b76"
+  },
+  "items/super-glue.png": {
+    "group": "items",
+    "page": "Super Glue",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SuperGlueSmall.png?ea66da"
+  },
+  "items/targeting-software-chip.png": {
+    "group": "items",
+    "page": "Gyroscopic Stabilizer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_GyroscopicStabilizer.png?cb6580"
+  },
+  "items/teddy-bear.png": {
+    "group": "items",
+    "page": "Teddy Bear",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_TeddyBearDoll.png?5ba9d5"
+  },
+  "items/telemetry-unit.png": {
+    "group": "items",
+    "page": "Telemetry Unit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan06.png?128da4"
+  },
+  "items/tequila.png": {
+    "group": "items",
+    "page": "Tequila",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool08.png?2b2e6c"
+  },
+  "items/tissue-sample.png": {
+    "group": "items",
+    "page": "Tissue Sample",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TissueSample.png?d659ed"
+  },
+  "items/toilet-paper.png": {
+    "group": "items",
+    "page": "Toilet Paper",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ToiletPaper.png?edbde0"
+  },
+  "items/toothy-codex.png": {
+    "group": "items",
+    "page": "Toothy Codex",
+    "url": "https://theforeverwinter.wiki.gg/images/Codex.png?352058"
+  },
+  "items/toy-car.png": {
+    "group": "items",
+    "page": "Toy Car",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ChildrenToy02.png?9208c0"
+  },
+  "items/toy-dinosaur.png": {
+    "group": "items",
+    "page": "Toy Dinosaur",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ChildrenToy01.png?e39606"
+  },
+  "items/toy-train.png": {
+    "group": "items",
+    "page": "Toy Train",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ChildrenToy03.png?62cd9d"
+  },
+  "items/turret-component.png": {
+    "group": "items",
+    "page": "Turret Component",
+    "url": "https://theforeverwinter.wiki.gg/images/Item20mmTurret.png?964857"
+  },
+  "items/umega-media-player.png": {
+    "group": "items",
+    "page": "UMEGA Media Player",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_57_BluRayPlayer.png?e7265c"
+  },
+  "items/uv-light-bulb.png": {
+    "group": "items",
+    "page": "UV Light Bulb",
+    "url": "https://theforeverwinter.wiki.gg/images/T_UV_Lightbulb.png?c1d2d5"
+  },
+  "items/uplink.png": {
+    "group": "items",
+    "page": "Uplink",
+    "url": "https://theforeverwinter.wiki.gg/images/T_AshenMesa_LootObject_01.png?404666"
+  },
+  "items/valve-adjustment-tool.png": {
+    "group": "items",
+    "page": "Valve Adjustment Tool",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_90_ValveAdjustmentTool.png?26350b"
+  },
+  "items/ventilation-regulator.png": {
+    "group": "items",
+    "page": "Ventilation Regulator",
+    "url": "https://theforeverwinter.wiki.gg/images/Ventilation_Regulator.png?a180ac"
+  },
+  "items/vodka.png": {
+    "group": "items",
+    "page": "Vodka",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool10.png?1c2f77"
+  },
+  "items/wd40.png": {
+    "group": "items",
+    "page": "WD40",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_13_WD40v2.png?bccfad"
+  },
+  "items/weapon-parts.png": {
+    "group": "items",
+    "page": "Weapon Parts",
+    "url": "https://theforeverwinter.wiki.gg/images/T_HRF05.png?efc588"
+  },
+  "items/wetware-processor.png": {
+    "group": "items",
+    "page": "Wetware Processor",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_85_SentientDrill.png?ea0bcb"
+  },
+  "items/wires.png": {
+    "group": "items",
+    "page": "Wires",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+  },
+  "items/wooden-plank.png": {
+    "group": "items",
+    "page": "Wooden Plank",
+    "url": "https://theforeverwinter.wiki.gg/images/T_2x4s.png?87340f"
+  },
+  "items/zonophor-tablets.png": {
+    "group": "items",
+    "page": "Zonophor Tablets",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Vitamins.png?26c504"
+  },
+  "factions/scavengers.png": {
+    "group": "factions",
+    "page": "Scavengers",
+    "url": "https://theforeverwinter.wiki.gg/images/Scav_Flag.png?f2a07a"
+  },
+  "factions/europa.png": {
+    "group": "factions",
+    "page": "Europa",
+    "url": "https://theforeverwinter.wiki.gg/images/Europan_Emblem.png?c965ec"
+  },
+  "factions/eurasia.png": {
+    "group": "factions",
+    "page": "Eurasia",
+    "url": "https://theforeverwinter.wiki.gg/images/Eurasian_Emblem.png?81d156"
+  },
+  "factions/euruska.png": {
+    "group": "factions",
+    "page": "Euruska",
+    "url": "https://theforeverwinter.wiki.gg/images/Euruskan_Emblem.png?2e0802"
+  },
+  "portraits/scavengers.png": {
+    "group": "questgivers",
+    "page": "Slade",
+    "url": "https://theforeverwinter.wiki.gg/images/Quest_Giver_Scav_Slade.png?b85fad"
+  },
+  "portraits/europa.png": {
+    "group": "questgivers",
+    "page": "Luca",
+    "url": "https://theforeverwinter.wiki.gg/images/Quest_Giver_Europa_Western_Embassy_Luca.png?b58327"
+  },
+  "portraits/eurasia.png": {
+    "group": "questgivers",
+    "page": "Kane",
+    "url": "https://theforeverwinter.wiki.gg/images/Quest_Giver_Eurasia_Eastern_Consulate_Kane.png?d835a8"
+  },
+  "portraits/bunco.png": {
+    "group": "questgivers",
+    "page": "Bunco",
+    "url": "https://theforeverwinter.wiki.gg/images/BUNCO.png?dcb81f"
+  },
+  "portraits/lordoss.png": {
+    "group": "questgivers",
+    "page": "Lordoss",
+    "url": "https://theforeverwinter.wiki.gg/images/%D0%92%D0%9B%D0%90%D0%94%D0%95%D0%9B%D0%95%D0%A6_Vladelets_Euruska_Quest_Giver.png?233a5f"
+  },
+  "portraits/vladelets.png": {
+    "group": "questgivers",
+    "page": "ВЛАДЕЛЕЦ (Vladelets)",
+    "url": "https://theforeverwinter.wiki.gg/images/%D0%92%D0%9B%D0%90%D0%94%D0%95%D0%9B%D0%95%D0%A6_Vladelets_Euruska_Quest_Giver.png?233a5f"
+  },
+  "portraits/velko.png": {
+    "group": "questgivers",
+    "page": "Velko",
+    "url": "https://theforeverwinter.wiki.gg/images/Velko.jpg?916def"
+  },
+  "portraits/sura.png": {
+    "group": "questgivers",
+    "page": "Sura",
+    "url": "https://theforeverwinter.wiki.gg/images/Sura_bar.jpg?a4e1d8"
+  },
+  "portraits/octogirl.png": {
+    "group": "questgivers",
+    "page": "Octogirl",
+    "url": "https://theforeverwinter.wiki.gg/images/UI_transmissionroom_portrait_Octo1.png?5dfd9e"
+  },
+  "portraits/doctor-morrow.png": {
+    "group": "questgivers",
+    "page": "Doctor Morrow",
+    "url": "https://theforeverwinter.wiki.gg/images/UI_transmissionroom_portrait_DrMorrow1.png?643a80"
+  },
+  "portraits/bartender.png": {
+    "group": "questgivers",
+    "page": "Bartender",
+    "url": "https://theforeverwinter.wiki.gg/images/FW_Bar_Bartender_Character.png?ff02f5"
+  },
+  "portraits/arbeits.png": {
+    "group": "questgivers",
+    "page": "Arbeits",
+    "url": "https://theforeverwinter.wiki.gg/images/Arbeits_bar.jpg?bfd86d"
+  },
+  "portraits/wahlkreise.png": {
+    "group": "questgivers",
+    "page": "Wahlkreise",
+    "url": "https://theforeverwinter.wiki.gg/images/Wahlkreise.png?4308f8"
+  },
+  "traders/heisenburg.png": {
+    "group": "traders",
+    "page": "Heisenburg",
+    "url": "https://theforeverwinter.wiki.gg/images/Heisenburg.PNG?5c66d7"
+  },
+  "traders/slade.png": {
+    "group": "traders",
+    "page": "Slade",
+    "url": "https://theforeverwinter.wiki.gg/images/Quest_Giver_Scav_Slade.png?b85fad"
+  },
+  "traders/bunco.png": {
+    "group": "traders",
+    "page": "Bunco",
+    "url": "https://theforeverwinter.wiki.gg/images/BUNCO.png?dcb81f"
+  },
+  "traders/luca.png": {
+    "group": "traders",
+    "page": "Luca",
+    "url": "https://theforeverwinter.wiki.gg/images/Quest_Giver_Europa_Western_Embassy_Luca.png?b58327"
+  },
+  "traders/kane.png": {
+    "group": "traders",
+    "page": "Kane",
+    "url": "https://theforeverwinter.wiki.gg/images/Quest_Giver_Eurasia_Eastern_Consulate_Kane.png?d835a8"
+  },
+  "traders/bundleton.png": {
+    "group": "traders",
+    "page": "Bundleton",
+    "url": "https://theforeverwinter.wiki.gg/images/Bundleton.PNG?db80f4"
+  },
+  "traders/auto-vendor.png": {
+    "group": "traders",
+    "page": "Auto-Vendor",
+    "url": "https://theforeverwinter.wiki.gg/images/Auto-Vendor_Notice.jpg?43976e"
+  }
+}
