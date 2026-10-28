@@ -309,16 +309,13 @@ footer a { color:var(--muted); }
 .campaign-card.is-starting.is-selected { outline-color:var(--line-accent); }
 .campaign-card.is-starting .campaign-select { padding-right:10px; }
 .campaign-card.is-starting .campaign-status { color:var(--line-accent); }
-.campaign-start-badge { position:absolute; z-index:3; top:-14px; left:-2px; padding:3px 7px; border:1px solid var(--line-accent); background:#0b0d09; color:var(--line-accent); font:700 6px var(--mono); letter-spacing:.12em; }
 .campaign-select { gap:3px; padding:9px 61px 8px 12px; }
 .campaign-select strong { font:700 15px/1 var(--display); letter-spacing:.045em; text-transform:uppercase; }
 .campaign-select small { color:#8b8b8b; font:7px var(--mono); }
 .campaign-select small.campaign-note { color:#bca9d6; }
 .campaign-status { color:var(--line-accent); font-size:7px; }
-.campaign-lane-label { position:absolute; z-index:3; color:#7c7c7c; font:700 7px var(--mono); letter-spacing:.18em; }
 .campaign-lane-divider { position:absolute; z-index:0; right:0; left:0; height:1px; background:#4a332f; }
 .campaign-lane-divider::after { content:""; position:absolute; inset:1px 0 auto; height:44px; background:linear-gradient(rgba(240,57,36,.045),transparent); }
-.campaign-lane-divider span { position:absolute; top:8px; left:28px; color:var(--rust-bright); font:700 7px var(--mono); letter-spacing:.16em; }
 .campaign-gate { border-color:#8e2f27; background:repeating-linear-gradient(135deg,#151515 0,#151515 7px,#1a1211 7px,#1a1211 9px); }
 .campaign-gate-icon { position:absolute; z-index:0; right:5px; top:5px; width:58px; height:64px; object-fit:contain; opacity:.38; filter:grayscale(.35) contrast(1.12); pointer-events:none; }
 .campaign-gate .campaign-select { position:relative; z-index:1; }
@@ -455,7 +452,7 @@ footer a { color:var(--muted); }
   <main>
     <section class="view is-active tree-view" id="linesView" aria-label="Questlines">
       <section class="campaign-panel">
-        <header class="section-label"><span>01</span><div><h1>Campaign dependency net</h1><p>Start with The Long Road In. Side questlines and the Innards-gated late story are separated below.</p></div><button type="button" id="collapseCampaign" aria-expanded="true">Collapse</button></header>
+        <header class="section-label"><span>01</span><div><h1>Questlines</h1><p>Solid = required · Dashed = later milestone</p></div><button type="button" id="collapseCampaign" aria-expanded="true">Collapse</button></header>
         <div class="campaign-map" id="campaignMap"></div>
       </section>
 
@@ -472,23 +469,23 @@ footer a { color:var(--muted); }
       </section>
 
       <section class="context-items">
-        <header class="section-label compact"><span>02</span><div><h2>Items for this questline</h2><p>Select QUESTS to highlight graph nodes. Select it again, press Escape, or clear focus to return.</p></div><button class="is-hidden" type="button" id="clearItemFocus">Clear focus</button></header>
+        <header class="section-label compact"><span>02</span><div><h2>Items for this questline</h2></div><button class="is-hidden" type="button" id="clearItemFocus">Clear focus</button></header>
         <div id="lineItems" class="compact-items"></div>
       </section>
     </section>
 
     <section class="view" id="hideoutView" aria-label="Innards upgrades">
-      <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1><p>Terminal systems and Welfare facilities, grouped by their in-game upgrade tiers.</p></div><strong id="hideoutProgress">0 / 0</strong></header>
+      <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1></div><strong id="hideoutProgress">0 / 0</strong></header>
       <div id="hideoutGrid" class="upgrade-catalog"></div><div class="empty-state is-hidden" id="hideoutEmpty">No matching upgrades.</div>
     </section>
 
     <section class="view" id="radiantView" aria-label="Radiant quests">
-      <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Independent contracts grouped by reputation faction. They never unlock or block a questline.</p></div><strong id="radiantProgress">0 / 0</strong></header>
+      <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Does not affect questlines.</p></div><strong id="radiantProgress">0 / 0</strong></header>
       <div id="radiantGrid" class="radiant-list"></div><div class="empty-state is-hidden" id="radiantEmpty">No matching radiant quests.</div>
     </section>
 
     <section class="view" id="itemsView" aria-label="Tracked inventory">
-      <header class="plain-header"><div><div class="eyebrow">SHARED STOCK</div><h1>Inventory</h1><p>One owned count feeds every questline and Innards build card.</p></div><div class="item-totals"><span><b id="itemsReady">0</b> ready</span><span><b id="itemsMissing">0</b> missing</span><i><b id="itemsProgressBar"></b></i><small id="itemsProgressText">0% stocked</small></div></header>
+      <header class="plain-header"><div><div class="eyebrow">SHARED STOCK</div><h1>Inventory</h1></div><div class="item-totals"><span><b id="itemsReady">0</b> ready</span><span><b id="itemsMissing">0</b> missing</span><i><b id="itemsProgressBar"></b></i><small id="itemsProgressText">0% stocked</small></div></header>
       <div id="itemsGrid" class="items-list"></div><div class="empty-state is-hidden" id="itemsEmpty">No matching items.</div>
     </section>
   </main>
@@ -598,35 +595,35 @@ window.QUEST_LINES = [
     "lordoss-cigarettes",
     "Lordoss I · Cigarettes",
     "Lordoss",
-    "Meet Lordoss in the Innards and complete his ten cigarette deliveries. No Bar upgrade is required.",
+    "No Bar required.",
     "#a48cff",
     [
-      quest("Tobacco Journey Pt. 1", "Euruska (Lordoss)", "Any", "Bring 3 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 2", "Euruska (Lordoss)", "Any", "Bring 2 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 3", "Euruska (Lordoss)", "Any", "Bring 1 Premium Cigarette.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 4", "Euruska (Lordoss)", "Any", "Bring 8 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 5", "Euruska (Lordoss)", "Any", "Bring 5 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 6", "Euruska (Lordoss)", "Any", "Bring 3 Premium Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 7", "Euruska (Lordoss)", "Any", "Bring 15 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 8", "Euruska (Lordoss)", "Any", "Bring 8 Import Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 9", "Euruska (Lordoss)", "Any", "Bring 5 Premium Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
-      quest("Tobacco Journey Pt. 10", "Euruska (Lordoss)", "Any", "Bring 20 Basic Cigarettes.", { phase: "NO BAR · CIGARETTES" }),
+      quest("Tobacco Journey Pt. 1", "Euruska (Lordoss)", "Any", "Bring 3 Basic Cigarettes."),
+      quest("Tobacco Journey Pt. 2", "Euruska (Lordoss)", "Any", "Bring 2 Import Cigarettes."),
+      quest("Tobacco Journey Pt. 3", "Euruska (Lordoss)", "Any", "Bring 1 Premium Cigarette."),
+      quest("Tobacco Journey Pt. 4", "Euruska (Lordoss)", "Any", "Bring 8 Basic Cigarettes."),
+      quest("Tobacco Journey Pt. 5", "Euruska (Lordoss)", "Any", "Bring 5 Import Cigarettes."),
+      quest("Tobacco Journey Pt. 6", "Euruska (Lordoss)", "Any", "Bring 3 Premium Cigarettes."),
+      quest("Tobacco Journey Pt. 7", "Euruska (Lordoss)", "Any", "Bring 15 Basic Cigarettes."),
+      quest("Tobacco Journey Pt. 8", "Euruska (Lordoss)", "Any", "Bring 8 Import Cigarettes."),
+      quest("Tobacco Journey Pt. 9", "Euruska (Lordoss)", "Any", "Bring 5 Premium Cigarettes."),
+      quest("Tobacco Journey Pt. 10", "Euruska (Lordoss)", "Any", "Bring 20 Basic Cigarettes."),
     ],
   ),
   line(
     "lordoss-restoration",
     "Lordoss II · Restoration",
     "Lordoss",
-    "Complete Tobacco Journey Pt. 10, then restore Lordoss through seven hidden quests. No Bar upgrade is required; Giant's Senses is needed later at Transmission Tower Pt. 3.",
+    "Requires Lordoss I. No Bar required. Giant's Senses gates Tower Pt. 3.",
     "#c09bff",
     [
-      quest("Fresh Start", "Lordoss", "Innards", "Remove Lordoss' bayonet.", { phase: "NO BAR · RESTORATION" }),
-      quest("Breath of Fresh Smoke", "Lordoss", "Any", "Find 3 cybernetic lungs.", { phase: "NO BAR · RESTORATION" }),
-      quest("Backbones for the Backbone", "Lordoss", "Any", "Find 10 modular spine components.", { phase: "NO BAR · RESTORATION" }),
-      quest("Nervous Upgrade", "Lordoss", "Elephant Mausoleum", "Find a current-generation wetware system.", { phase: "NO BAR · RESTORATION" }),
-      quest("Oiled Joints", "Lordoss", "Any", "Find 8 advanced joints.", { phase: "NO BAR · RESTORATION" }),
-      quest("Target Awareness", "Lordoss", "Any", "Find a targeting software chip.", { phase: "NO BAR · RESTORATION" }),
-      quest("Giant's Senses", "Lordoss", "Elephant Mausoleum", "Find an artificial nervous system.", { phase: "CONTINUES AT TOWER PT. 3" }),
+      quest("Fresh Start", "Lordoss", "Innards", "Remove Lordoss' bayonet."),
+      quest("Breath of Fresh Smoke", "Lordoss", "Any", "Find 3 cybernetic lungs."),
+      quest("Backbones for the Backbone", "Lordoss", "Any", "Find 10 modular spine components."),
+      quest("Nervous Upgrade", "Lordoss", "Elephant Mausoleum", "Find a current-generation wetware system."),
+      quest("Oiled Joints", "Lordoss", "Any", "Find 8 advanced joints."),
+      quest("Target Awareness", "Lordoss", "Any", "Find a targeting software chip."),
+      quest("Giant's Senses", "Lordoss", "Elephant Mausoleum", "Find an artificial nervous system."),
     ],
   ),
   line(
@@ -636,10 +633,10 @@ window.QUEST_LINES = [
     "Fully upgrade the Bar to start. Build the Transmission Tower after Pt. 1. Pt. 3 also requires Giant's Senses.",
     "#5dc8ff",
     [
-      quest("Transmission Tower Pt. 1", "Scavengers (Velko)", "Elephant Mausoleum / Frozen Swamp / Babel", "Place nine Frequency Taps near Radar Walkers.", { phase: "BAR V3" }),
-      quest("Transmission Tower Pt. 2", "Scavengers (Sura)", "Tunnels", "Obtain Sura's code, use the tower, and meet Octogirl.", { requiresUpgrades: ["transmission-tower-build"], phase: "TOWER BUILT" }),
+      quest("Transmission Tower Pt. 1", "Scavengers (Velko)", "Elephant Mausoleum / Frozen Swamp / Babel", "Place nine Frequency Taps near Radar Walkers."),
+      quest("Transmission Tower Pt. 2", "Scavengers (Sura)", "Tunnels", "Obtain Sura's code, use the tower, and meet Octogirl.", { requiresUpgrades: ["transmission-tower-build"] }),
       quest("Transmission Tower Pt. 3", "Scavengers (Octogirl)", "Underground Cemetery", "Intercept supply comms and find Octogirl's Tool Set.", {
-        requires: ["transmission-tower-pt-2", "giants-senses"], phase: "LORDOSS CONTINUATION",
+        requires: ["transmission-tower-pt-2", "giants-senses"],
       }),
       quest("Transmission Tower Pt. 4", "Scavengers (Octogirl)", "Any", "Bring 10 Cyborg Immunosuppressants and 1 Processor Board."),
     ],
@@ -1621,22 +1618,20 @@ window.DATA_META = {
       const complete = isLineComplete(line.id);
       const count = line.quests.filter((quest) => isComplete(quest.id)).length;
       const gate = QUESTLINE_GATES[line.id];
-      const startingStatus = complete ? "STARTING QUESTLINE · COMPLETE" : "START HERE · MAIN QUEST";
-      const detail = node.starting ? "The Long Road In is the campaign entry point" : node.note ?? gate?.label ?? line.unlock;
+      const detail = node.starting ? "" : node.note ?? gate?.label ?? line.unlock;
+      const detailMarkup = detail ? ` · ${escapeHtml(detail)}` : "";
       return `<article class="campaign-card ${node.starting ? "is-starting" : ""} ${unlocked ? "is-unlocked" : "is-locked"} ${complete ? "is-complete" : ""} ${state.selectedLine === line.id ? "is-selected" : ""}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
-        ${node.starting ? '<span class="campaign-start-badge">STARTING QUESTLINE</span>' : ""}
         <button type="button" class="campaign-select" data-select-line="${line.id}">
-          <span class="campaign-status">${node.starting ? startingStatus : complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
+          <span class="campaign-status">${node.starting ? "STARTING LINE" : complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
           <strong>${escapeHtml(line.name)}</strong>
-          <small class="${node.note ? "campaign-note" : ""}">${count}/${line.quests.length} · ${escapeHtml(detail)}</small>
+          <small class="${node.note ? "campaign-note" : ""}">${count}/${line.quests.length}${detailMarkup}</small>
         </button>
         ${!unlocked ? `<button class="mini-unlock" type="button" data-unlock-line="${line.id}">Override</button>` : ""}
       </article>`;
     }).join("");
     const laneDividerY = offsetY + 5.22 * rowGap;
     els.campaignMap.innerHTML = `<div class="campaign-world" style="width:${worldWidth}px;height:${worldHeight}px">
-      <span class="campaign-lane-label" style="left:${offsetX + columnGap}px;top:7px">SIDE QUESTLINES</span>
-      <div class="campaign-lane-divider" style="top:${laneDividerY}px"><span>INNARDS-GATED STORY</span></div>
+      <div class="campaign-lane-divider" style="top:${laneDividerY}px"></div>
       <svg width="${worldWidth}" height="${worldHeight}" viewBox="0 0 ${worldWidth} ${worldHeight}" aria-hidden="true"><defs><marker id="campaign-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>${edgeParts.join("")}</svg>${cards}</div>`;
     document.querySelector(".campaign-panel")?.classList.toggle("is-collapsed", state.campaignCollapsed);
     els.collapseCampaign.textContent = state.campaignCollapsed ? "Expand" : "Collapse";
@@ -1892,7 +1887,7 @@ window.DATA_META = {
         const familyIcon = ASSET_PATHS.upgrade?.[allFamilyUpgrades[0]?.id];
         return `<article class="upgrade-family"><header>${familyIcon ? `<img class="upgrade-family-icon" src="${familyIcon}" alt="" loading="lazy">` : ""}<div><span>${escapeHtml(category)}</span><h3>${escapeHtml(family.name)}</h3></div><strong>${familyBuilt}/${allFamilyUpgrades.length}</strong></header><div class="upgrade-family-tiers">${stages.map(cardMarkup).join("")}</div></article>`;
       }).join("");
-      return `<section class="upgrade-category" data-category="${category.toLowerCase()}"><header><div><span>0${categoryIndex + 1}</span><div><h2>${category}</h2><p>${category === "Terminal" ? "Systems, defenses, crafting, and Innards services." : "Living, social, and atmosphere facilities."}</p></div></div><strong>${built}/${upgrades.length} BUILT</strong></header><div class="upgrade-family-list">${families}</div></section>`;
+      return `<section class="upgrade-category" data-category="${category.toLowerCase()}"><header><div><span>0${categoryIndex + 1}</span><div><h2>${category}</h2></div></div><strong>${built}/${upgrades.length} BUILT</strong></header><div class="upgrade-family-list">${families}</div></section>`;
     }).join("")}</div>`;
     const complete = HIDEOUT_UPGRADES.filter((upgrade) => isUpgradeComplete(upgrade.id)).length;
     els.hideoutProgress.textContent = `${complete} / ${HIDEOUT_UPGRADES.length}`;

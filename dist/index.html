@@ -39,7 +39,7 @@
   <main>
     <section class="view is-active tree-view" id="linesView" aria-label="Questlines">
       <section class="campaign-panel">
-        <header class="section-label"><span>01</span><div><h1>Campaign dependency net</h1><p>Start with The Long Road In. Side questlines and the Innards-gated late story are separated below.</p></div><button type="button" id="collapseCampaign" aria-expanded="true">Collapse</button></header>
+        <header class="section-label"><span>01</span><div><h1>Questlines</h1><p>Solid = required · Dashed = later milestone</p></div><button type="button" id="collapseCampaign" aria-expanded="true">Collapse</button></header>
         <div class="campaign-map" id="campaignMap"></div>
       </section>
 
@@ -56,23 +56,23 @@
       </section>
 
       <section class="context-items">
-        <header class="section-label compact"><span>02</span><div><h2>Items for this questline</h2><p>Select QUESTS to highlight graph nodes. Select it again, press Escape, or clear focus to return.</p></div><button class="is-hidden" type="button" id="clearItemFocus">Clear focus</button></header>
+        <header class="section-label compact"><span>02</span><div><h2>Items for this questline</h2></div><button class="is-hidden" type="button" id="clearItemFocus">Clear focus</button></header>
         <div id="lineItems" class="compact-items"></div>
       </section>
     </section>
 
     <section class="view" id="hideoutView" aria-label="Innards upgrades">
-      <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1><p>Terminal systems and Welfare facilities, grouped by their in-game upgrade tiers.</p></div><strong id="hideoutProgress">0 / 0</strong></header>
+      <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1></div><strong id="hideoutProgress">0 / 0</strong></header>
       <div id="hideoutGrid" class="upgrade-catalog"></div><div class="empty-state is-hidden" id="hideoutEmpty">No matching upgrades.</div>
     </section>
 
     <section class="view" id="radiantView" aria-label="Radiant quests">
-      <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Independent contracts grouped by reputation faction. They never unlock or block a questline.</p></div><strong id="radiantProgress">0 / 0</strong></header>
+      <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Does not affect questlines.</p></div><strong id="radiantProgress">0 / 0</strong></header>
       <div id="radiantGrid" class="radiant-list"></div><div class="empty-state is-hidden" id="radiantEmpty">No matching radiant quests.</div>
     </section>
 
     <section class="view" id="itemsView" aria-label="Tracked inventory">
-      <header class="plain-header"><div><div class="eyebrow">SHARED STOCK</div><h1>Inventory</h1><p>One owned count feeds every questline and Innards build card.</p></div><div class="item-totals"><span><b id="itemsReady">0</b> ready</span><span><b id="itemsMissing">0</b> missing</span><i><b id="itemsProgressBar"></b></i><small id="itemsProgressText">0% stocked</small></div></header>
+      <header class="plain-header"><div><div class="eyebrow">SHARED STOCK</div><h1>Inventory</h1></div><div class="item-totals"><span><b id="itemsReady">0</b> ready</span><span><b id="itemsMissing">0</b> missing</span><i><b id="itemsProgressBar"></b></i><small id="itemsProgressText">0% stocked</small></div></header>
       <div id="itemsGrid" class="items-list"></div><div class="empty-state is-hidden" id="itemsEmpty">No matching items.</div>
     </section>
   </main>

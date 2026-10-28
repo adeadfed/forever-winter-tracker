@@ -57,7 +57,8 @@ const lordossCigarettes = QUEST_LINES.find((entry) => entry.id === "lordoss-ciga
 const lordossRestoration = QUEST_LINES.find((entry) => entry.id === "lordoss-restoration");
 assert.equal(lordossCigarettes.quests.length, 10, "Lordoss I must contain the ten cigarette quests");
 assert.equal(lordossRestoration.quests.length, 7, "Lordoss II must contain the seven restoration quests");
-assert.ok([...lordossCigarettes.quests, ...lordossRestoration.quests].every((entry) => entry.phase?.includes("NO BAR") || entry.id === "giants-senses"), "Both Lordoss parts must be identified as a no-Bar phase");
+assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-cigarettes"].requiresUpgrades), [], "Lordoss I must not require the Bar");
+assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-restoration"].requiresUpgrades), [], "Lordoss II must not require the Bar");
 assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-restoration"].requiresLines), ["lordoss-cigarettes"], "Lordoss II must unlock after Lordoss I");
 assert.deepEqual(Array.from(QUEST_LINES.find((entry) => entry.id === "transmission-tower").quests.find((entry) => entry.id === "transmission-tower-pt-3").requires), ["transmission-tower-pt-2", "giants-senses"], "Lordoss must rejoin the Bar/Tower story at Transmission Tower Pt. 3");
 

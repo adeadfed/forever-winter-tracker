@@ -315,22 +315,20 @@
       const complete = isLineComplete(line.id);
       const count = line.quests.filter((quest) => isComplete(quest.id)).length;
       const gate = QUESTLINE_GATES[line.id];
-      const startingStatus = complete ? "STARTING QUESTLINE · COMPLETE" : "START HERE · MAIN QUEST";
-      const detail = node.starting ? "The Long Road In is the campaign entry point" : node.note ?? gate?.label ?? line.unlock;
+      const detail = node.starting ? "" : node.note ?? gate?.label ?? line.unlock;
+      const detailMarkup = detail ? ` · ${escapeHtml(detail)}` : "";
       return `<article class="campaign-card ${node.starting ? "is-starting" : ""} ${unlocked ? "is-unlocked" : "is-locked"} ${complete ? "is-complete" : ""} ${state.selectedLine === line.id ? "is-selected" : ""}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
-        ${node.starting ? '<span class="campaign-start-badge">STARTING QUESTLINE</span>' : ""}
         <button type="button" class="campaign-select" data-select-line="${line.id}">
-          <span class="campaign-status">${node.starting ? startingStatus : complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
+          <span class="campaign-status">${node.starting ? "STARTING LINE" : complete ? "COMPLETE" : unlocked ? "OPEN" : "LOCKED"}</span>
           <strong>${escapeHtml(line.name)}</strong>
-          <small class="${node.note ? "campaign-note" : ""}">${count}/${line.quests.length} · ${escapeHtml(detail)}</small>
+          <small class="${node.note ? "campaign-note" : ""}">${count}/${line.quests.length}${detailMarkup}</small>
         </button>
         ${!unlocked ? `<button class="mini-unlock" type="button" data-unlock-line="${line.id}">Override</button>` : ""}
       </article>`;
     }).join("");
     const laneDividerY = offsetY + 5.22 * rowGap;
     els.campaignMap.innerHTML = `<div class="campaign-world" style="width:${worldWidth}px;height:${worldHeight}px">
-      <span class="campaign-lane-label" style="left:${offsetX + columnGap}px;top:7px">SIDE QUESTLINES</span>
-      <div class="campaign-lane-divider" style="top:${laneDividerY}px"><span>INNARDS-GATED STORY</span></div>
+      <div class="campaign-lane-divider" style="top:${laneDividerY}px"></div>
       <svg width="${worldWidth}" height="${worldHeight}" viewBox="0 0 ${worldWidth} ${worldHeight}" aria-hidden="true"><defs><marker id="campaign-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>${edgeParts.join("")}</svg>${cards}</div>`;
     document.querySelector(".campaign-panel")?.classList.toggle("is-collapsed", state.campaignCollapsed);
     els.collapseCampaign.textContent = state.campaignCollapsed ? "Expand" : "Collapse";
@@ -586,7 +584,7 @@
         const familyIcon = ASSET_PATHS.upgrade?.[allFamilyUpgrades[0]?.id];
         return `<article class="upgrade-family"><header>${familyIcon ? `<img class="upgrade-family-icon" src="${familyIcon}" alt="" loading="lazy">` : ""}<div><span>${escapeHtml(category)}</span><h3>${escapeHtml(family.name)}</h3></div><strong>${familyBuilt}/${allFamilyUpgrades.length}</strong></header><div class="upgrade-family-tiers">${stages.map(cardMarkup).join("")}</div></article>`;
       }).join("");
-      return `<section class="upgrade-category" data-category="${category.toLowerCase()}"><header><div><span>0${categoryIndex + 1}</span><div><h2>${category}</h2><p>${category === "Terminal" ? "Systems, defenses, crafting, and Innards services." : "Living, social, and atmosphere facilities."}</p></div></div><strong>${built}/${upgrades.length} BUILT</strong></header><div class="upgrade-family-list">${families}</div></section>`;
+      return `<section class="upgrade-category" data-category="${category.toLowerCase()}"><header><div><span>0${categoryIndex + 1}</span><div><h2>${category}</h2></div></div><strong>${built}/${upgrades.length} BUILT</strong></header><div class="upgrade-family-list">${families}</div></section>`;
     }).join("")}</div>`;
     const complete = HIDEOUT_UPGRADES.filter((upgrade) => isUpgradeComplete(upgrade.id)).length;
     els.hideoutProgress.textContent = `${complete} / ${HIDEOUT_UPGRADES.length}`;
