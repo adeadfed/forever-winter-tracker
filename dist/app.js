@@ -2,12 +2,12 @@
   "use strict";
 
   const STORAGE_KEY = "fwQuestTracker.v3";
-  const NODE_WIDTH = 202;
-  const NODE_HEIGHT = 70;
-  const LEVEL_GAP = 248;
-  const ROW_GAP = 112;
-  const ROOT_X = 24;
-  const FIRST_NODE_X = 212;
+  const NODE_WIDTH = 240;
+  const NODE_HEIGHT = 84;
+  const LEVEL_GAP = 290;
+  const ROW_GAP = 132;
+  const ROOT_X = 28;
+  const FIRST_NODE_X = 230;
   const allChainQuests = QUEST_LINES.flatMap((line) => line.quests);
   const allQuests = [...allChainQuests, ...RADIANT_QUESTS];
   const questById = new Map(allQuests.map((quest) => [quest.id, quest]));
@@ -265,12 +265,12 @@
   }
 
   function renderCampaignMap() {
-    const cardWidth = 210;
-    const cardHeight = 72;
-    const columnGap = 260;
-    const rowGap = 88;
-    const offsetX = 28;
-    const offsetY = 28;
+    const cardWidth = 244;
+    const cardHeight = 84;
+    const columnGap = 292;
+    const rowGap = 102;
+    const offsetX = 32;
+    const offsetY = 32;
     const positions = new Map(CAMPAIGN_MAP_NODES.map((node) => [node.id, {
       x: offsetX + node.column * columnGap,
       y: offsetY + node.row * rowGap,
@@ -358,7 +358,7 @@
     const edgeParts = [`<defs><marker id="arrow-default" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 8 4 0 8z"/></marker><marker id="arrow-live" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 8 4 0 8z"/></marker></defs>`];
     roots.forEach((quest) => {
       const status = questStatus(quest);
-      edgeParts.push(`<path class="graph-edge ${status !== "locked" ? "is-live" : ""}" d="${edgePath({x:ROOT_X,y:giverY-41,width:118,height:82},layout.positions.get(quest.id))}" marker-end="url(#${status !== "locked" ? "arrow-live" : "arrow-default"})"/>`);
+      edgeParts.push(`<path class="graph-edge ${status !== "locked" ? "is-live" : ""}" d="${edgePath({x:ROOT_X,y:giverY-48,width:132,height:96},layout.positions.get(quest.id))}" marker-end="url(#${status !== "locked" ? "arrow-live" : "arrow-default"})"/>`);
     });
     line.quests.forEach((quest) => {
       quest.requires.filter((id) => layout.ownIds.has(id)).forEach((id) => {
