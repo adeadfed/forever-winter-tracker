@@ -38,6 +38,10 @@ body {
 body::before { content:""; position:fixed; z-index:100; inset:0; pointer-events:none; opacity:.22; background:repeating-linear-gradient(0deg,rgba(255,255,255,.055) 0,rgba(255,255,255,.055) 1px,transparent 1px,transparent 3px); mix-blend-mode:screen; }
 body::after { content:""; position:fixed; z-index:99; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(255,40,20,.025),transparent 18%,transparent 82%,rgba(255,40,20,.02)); }
 body.is-sell-view { grid-template-rows:64px 0 minmax(0,1fr) 30px; }
+body > .topbar { grid-row:1; }
+body > .controls { grid-row:2; }
+body > main { grid-row:3; }
+body > footer { grid-row:4; }
 button, input, select { font: inherit; color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; }

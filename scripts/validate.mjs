@@ -184,6 +184,9 @@ assert.ok(app.includes("renderCrafting"), "crafting recipe cards are missing");
 assert.ok(app.includes("sellAnalysis") && app.includes("renderSellResult"), "sell lookup analysis is missing");
 assert.ok(css.includes(".sell-hero-icon") && css.includes('data-sell-state="sell"'), "sell lookup verdict styling is missing");
 assert.ok(css.includes("#sellView.is-active") && html.includes("styles.css?v="), "sell view rendering and cache refresh protection are missing");
+for (const selector of ["body > .topbar { grid-row:1; }", "body > .controls { grid-row:2; }", "body > main { grid-row:3; }", "body > footer { grid-row:4; }"]) {
+  assert.ok(css.includes(selector), `missing fixed application grid row: ${selector}`);
+}
 assert.ok(app.includes("fitGraph"), "responsive quest-tree fitting is missing");
 assert.ok(app.includes("radiant-faction-icon"), "radiant faction icons are missing");
 assert.equal(CAMPAIGN_MAP_NODES.filter((node) => node.kind === "line").length, QUEST_LINES.length, "campaign overview must contain every questline");
