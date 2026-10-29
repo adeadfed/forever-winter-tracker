@@ -161,7 +161,7 @@ const html = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 const css = fs.readFileSync(path.join(dist, "styles.css"), "utf8");
 const app = fs.readFileSync(path.join(dist, "app.js"), "utf8");
 const standalone = fs.readFileSync(path.join(dist, "standalone.html"), "utf8");
-for (const id of ["questLines", "campaignMap", "lineItems", "clearItemFocus", "hideoutGrid", "craftingGrid", "craftingStationFilter", "radiantGrid", "radiantFactionFilter", "radiantSort", "itemsGrid", "searchInput", "resetProgress"]) {
+for (const id of ["questLines", "campaignMap", "lineItems", "clearItemFocus", "hideoutGrid", "craftingGrid", "craftingStationFilter", "radiantGrid", "radiantFactionFilter", "radiantSort", "sellView", "sellSearchInput", "sellItemOptions", "sellResult", "itemsGrid", "searchInput", "resetProgress"]) {
   assert.ok(html.includes(`id="${id}"`), `missing required UI target #${id}`);
 }
 assert.ok(html.indexOf('src="data.js"') < html.indexOf('src="app.js"'), "quest data must load before app logic");
@@ -177,6 +177,8 @@ assert.ok(app.includes("isLineUnlocked"), "questline locking is missing");
 assert.ok(app.includes("renderCampaignMap"), "cross-questline overview is missing");
 assert.ok(app.includes("renderHideout"), "Innards upgrade cards are missing");
 assert.ok(app.includes("renderCrafting"), "crafting recipe cards are missing");
+assert.ok(app.includes("sellAnalysis") && app.includes("renderSellResult"), "sell lookup analysis is missing");
+assert.ok(css.includes(".sell-hero-icon") && css.includes('data-sell-state="sell"'), "sell lookup verdict styling is missing");
 assert.ok(app.includes("fitGraph"), "responsive quest-tree fitting is missing");
 assert.ok(app.includes("radiant-faction-icon"), "radiant faction icons are missing");
 assert.equal(CAMPAIGN_MAP_NODES.filter((node) => node.kind === "line").length, QUEST_LINES.length, "campaign overview must contain every questline");

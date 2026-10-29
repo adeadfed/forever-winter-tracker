@@ -21,6 +21,7 @@
     unlockedLines: {},
     view: "lines",
     selectedLine: QUEST_LINES[0].id,
+    selectedSellItem: "Barrel of Water",
     campaignCollapsed: false,
   };
 
@@ -41,6 +42,7 @@
     "questLines", "radiantGrid", "itemsGrid", "craftingGrid", "searchInput", "lineFilter", "itemGroupFilter",
     "hideoutGroupFilter", "statusFilters", "linesEmpty", "radiantEmpty", "itemsEmpty", "hideoutEmpty",
     "craftingEmpty", "craftingCount", "craftingStationWrap", "craftingStationFilter",
+    "controls", "sellSearchInput", "sellItemOptions", "sellResult",
     "toast", "lineSelectWrap", "itemSelectWrap", "hideoutSelectWrap", "giverList", "lineTitle",
     "lineUnlock", "lineState", "lineProgress", "lineProgressBar", "radiantProgress", "hideoutProgress",
     "zoomLabel", "graphViewport", "campaignMap", "lineItems", "hideoutGrid", "manualLineUnlock",
@@ -529,6 +531,95 @@
     return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
   }
 
+  function sellItemCatalog() {
+    const map = new Map(buildTrackedItems().map((item) => [item.name, item]));
+    CRAFTING_RECIPES.forEach((recipe) => {
+      const name = canonicalItemName(recipe.product);
+      if (!map.has(name)) map.set(name, {
+        name, needed: 0, group: "Crafted item", questNeeded: 0,
+        sources: [], contexts: ["Crafted item"], craftingNeeded: 0, craftingRecipes: [],
+      });
+    });
+    return [...map.values()].sort((left, right) => left.name.localeCompare(right.name));
+  }
+
+  function sellAnalysis(itemName) {
+    const name = canonicalItemName(itemName);
+    const item = sellItemCatalog().find((entry) => entry.name === name);
+    if (!item) return null;
+    const questItem = KEEP_ITEMS.find((entry) => canonicalItemName(entry.name) === name);
+    const questMatches = [];
+    const unmatchedQuestNames = [];
+    (questItem?.quests ?? []).forEach((requirement) => {
+      const matches = allQuests.filter((quest) => requirementMatchesQuest(requirement, quest.name));
+      if (!matches.length) unmatchedQuestNames.push(requirement);
+      matches.forEach((quest) => {
+        if (!questMatches.some((entry) => entry.id === quest.id)) questMatches.push(quest);
+      });
+    });
+    const quests = questMatches.filter((quest) => !isComplete(quest.id));
+    const questReserve = quests.length || unmatchedQuestNames.length ? (questItem?.needed ?? 0) : 0;
+    const upgrades = HIDEOUT_UPGRADES
+      .filter((upgrade) => !isUpgradeComplete(upgrade.id))
+      .flatMap((upgrade) => upgrade.items
+        .filter((requirement) => canonicalItemName(requirement.name) === name)
+        .map((requirement) => ({ upgrade, needed: requirement.needed })));
+    const upgradeReserve = upgrades.reduce((sum, entry) => sum + entry.needed, 0);
+    const recipes = CRAFTING_RECIPES.flatMap((recipe) => recipe.ingredients
+      .filter((ingredient) => canonicalItemName(ingredient.name) === name)
+      .map((ingredient) => ({ recipe, needed: ingredient.needed })));
+    const craftingReserve = recipes.reduce((maximum, entry) => Math.max(maximum, entry.needed), 0);
+    const reserve = questReserve + upgradeReserve + craftingReserve;
+    const count = owned(name);
+    const surplus = Math.max(0, count - reserve);
+    return {
+      item, name, count, reserve, surplus,
+      sellable: reserve === 0 || surplus > 0,
+      quests, unmatchedQuestNames, questReserve, upgrades, recipes,
+    };
+  }
+
+  function renderSellResult(itemName = state.selectedSellItem) {
+    const analysis = itemName ? sellAnalysis(itemName) : null;
+    if (!analysis) {
+      els.sellResult.innerHTML = '<div class="sell-no-result">No matching item.</div>';
+      return;
+    }
+    const { item, name, count, reserve, surplus, sellable, quests, unmatchedQuestNames, questReserve, upgrades, recipes } = analysis;
+    const questRows = [
+      ...quests.map((quest) => `<a href="${quest.wiki}" target="_blank" rel="noopener"><b>Quest</b><span>${escapeHtml(quest.name)}</span></a>`),
+      ...unmatchedQuestNames.map((questName) => `<span><b>Quest</b><span>${escapeHtml(questName)}</span></span>`),
+    ];
+    const upgradeRows = upgrades.map(({ upgrade, needed }) => `<span><b>Innards</b><span>${escapeHtml(upgrade.name)}</span><em>×${needed}</em></span>`);
+    const recipeRows = recipes.map(({ recipe, needed }) => `<a href="${recipe.wiki}" target="_blank" rel="noopener"><b>Craft</b><span>${escapeHtml(recipe.product)}</span><em>×${needed}</em></a>`);
+    const reasonGroups = [
+      questRows.length ? `<section><h3>Quests <b>${questReserve}</b></h3>${questRows.join("")}</section>` : "",
+      upgradeRows.length ? `<section><h3>Innards <b>${upgrades.reduce((sum, entry) => sum + entry.needed, 0)}</b></h3>${upgradeRows.join("")}</section>` : "",
+      recipeRows.length ? `<section><h3>Crafting <b>${recipes.length}</b></h3>${recipeRows.join("")}</section>` : "",
+    ].join("");
+    const verdict = reserve === 0 ? "Sellable" : surplus > 0 ? `Sell ${surplus}` : "Keep";
+    const id = inventoryId(name);
+    els.sellResult.innerHTML = `<article class="sell-card" data-sell-state="${sellable ? "sell" : "keep"}">
+      <div class="sell-hero-icon">${itemIcon(name, item.group)}</div>
+      <div class="sell-verdict"><span>${escapeHtml(verdict)}</span><h2>${escapeHtml(name)}</h2></div>
+      <div class="sell-stock"><div><span>Owned</span><div class="sell-count"><button type="button" data-item-action="minus" data-item-id="${id}" aria-label="Remove one ${escapeHtml(name)}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}" aria-label="Add one ${escapeHtml(name)}">+</button></div></div><div><span>Keep</span><strong>${reserve}</strong></div><div><span>Surplus</span><strong>${surplus}</strong></div></div>
+      <div class="sell-reasons">${reasonGroups || '<section class="sell-unused"><h3>No tracked use</h3></section>'}</div>
+    </article>`;
+  }
+
+  function handleSellSearch(value) {
+    const query = value.trim().toLowerCase();
+    if (!query) { renderSellResult(state.selectedSellItem); return; }
+    const catalog = sellItemCatalog();
+    const match = catalog.find((item) => item.name.toLowerCase() === query)
+      ?? catalog.find((item) => item.name.toLowerCase().startsWith(query))
+      ?? catalog.find((item) => item.name.toLowerCase().includes(query));
+    if (!match) { renderSellResult(""); return; }
+    state.selectedSellItem = match.name;
+    saveState("");
+    renderSellResult(match.name);
+  }
+
   function matchesItem(item) {
     const groupMatches = selectedItemGroup === "all" || item.group === selectedItemGroup || item.contexts.includes(selectedItemGroup);
     return groupMatches && (!search || `${item.name} ${item.group} ${item.sources.join(" ")}`.toLowerCase().includes(search));
@@ -703,7 +794,7 @@
   function setItem(id, value) {
     state.items[id] = Math.max(0, Math.floor(Number(value) || 0));
     saveState("");
-    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout(); renderCrafting();
+    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout(); renderCrafting(); renderSellResult();
   }
 
   function unlockLine(id) {
@@ -724,7 +815,7 @@
   }
 
   function renderAll() {
-    renderCampaignMap(); renderLines(); renderHideout(); renderCrafting(); renderRadiants(); renderItems(); renderStats();
+    renderCampaignMap(); renderLines(); renderHideout(); renderCrafting(); renderRadiants(); renderItems(); renderSellResult(); renderStats();
   }
 
   function switchView(view) {
@@ -737,8 +828,14 @@
     els.craftingStationWrap.classList.toggle("is-hidden", view !== "crafting");
     els.radiantFactionWrap.classList.toggle("is-hidden", view !== "radiant");
     els.radiantSortWrap.classList.toggle("is-hidden", view !== "radiant");
-    els.statusFilters.classList.toggle("is-hidden", view === "items" || view === "crafting");
+    els.statusFilters.classList.toggle("is-hidden", view === "items" || view === "crafting" || view === "sell");
+    els.controls.classList.toggle("is-hidden", view === "sell");
+    document.body.classList.toggle("is-sell-view", view === "sell");
     els.searchInput.placeholder = view === "items" ? "Search inventory" : view === "crafting" ? "Search recipes" : view === "hideout" ? "Search upgrades" : view === "radiant" ? "Search radiant contracts" : "Search quests";
+    if (view === "sell") {
+      els.sellSearchInput.value = state.selectedSellItem;
+      renderSellResult();
+    }
     saveState("");
   }
 
@@ -763,6 +860,7 @@
     els.craftingStationFilter.replaceChildren(new Option("All stations", "all"), ...CRAFTING_STATIONS.map((station) => new Option(station, station)));
     els.radiantFactionFilter.replaceChildren(new Option("All factions", "all"), ...["Scavengers", "Europa", "Eurasia", "Euruska"].map((faction) => new Option(faction, faction)));
     els.radiantSort.replaceChildren(new Option("Faction", "faction"), new Option("Quest name", "name"), new Option("Location", "location"), new Option("Incomplete first", "status"));
+    els.sellItemOptions.replaceChildren(...sellItemCatalog().map((item) => new Option(item.name, item.name)));
   }
 
   document.addEventListener("click", (event) => {
@@ -819,6 +917,7 @@
   els.craftingStationFilter.addEventListener("change", (event) => { selectedCraftingStation = event.target.value; renderCrafting(); });
   els.radiantFactionFilter.addEventListener("change", (event) => { selectedRadiantFaction = event.target.value; renderRadiants(); });
   els.radiantSort.addEventListener("change", (event) => { radiantSort = event.target.value; renderRadiants(); });
+  els.sellSearchInput.addEventListener("input", (event) => handleSellSearch(event.target.value));
   els.manualLineUnlock.addEventListener("click", () => unlockLine(state.selectedLine));
   els.collapseCampaign.addEventListener("click", () => { state.campaignCollapsed = !state.campaignCollapsed; saveState(""); renderCampaignMap(); });
   els.clearItemFocus.addEventListener("click", clearCrossReferenceFocus);
@@ -850,6 +949,6 @@
 
   populateFilters();
   document.querySelector("#snapshotDate").textContent = DATA_META.scraped;
-  switchView(["lines","hideout","crafting","radiant","items"].includes(state.view) ? state.view : "lines");
+  switchView(["lines","hideout","crafting","radiant","sell","items"].includes(state.view) ? state.view : "lines");
   renderAll();
 })();

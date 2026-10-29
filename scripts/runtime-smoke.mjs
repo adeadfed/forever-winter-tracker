@@ -50,6 +50,7 @@ class FakeElement {
 
 class FakeDocument {
   constructor() {
+    this.body = new FakeElement("body");
     this.ids = new Map();
     this.groups = new Map();
     this.listeners = new Map();
@@ -82,15 +83,16 @@ const ids = [
   "manualLineUnlock", "collapseCampaign", "clearItemFocus",
   "radiantFactionWrap", "radiantFactionFilter", "radiantSortWrap", "radiantSort",
   "craftingEmpty", "craftingCount", "craftingStationWrap", "craftingStationFilter", "recipeCount",
+  "controls", "sellSearchInput", "sellItemOptions", "sellResult",
 ];
 ids.forEach((id) => document.register(id));
 
-const tabs = ["lines", "hideout", "crafting", "radiant", "items"].map((view) => {
+const tabs = ["lines", "hideout", "crafting", "radiant", "sell", "items"].map((view) => {
   const tab = new FakeElement("button");
   tab.dataset.view = view;
   return tab;
 });
-const views = ["lines", "hideout", "crafting", "radiant", "items"].map((view) => {
+const views = ["lines", "hideout", "crafting", "radiant", "sell", "items"].map((view) => {
   const panel = new FakeElement("section");
   panel.id = `${view}View`;
   return panel;
@@ -166,6 +168,8 @@ craftingStationFilter.value = "all";
 craftingStationFilter.dispatch("change");
 assert.equal(document.ids.get("questCount").textContent, 187);
 assert.equal(document.ids.get("recipeCount").textContent, 96);
+assert.ok(document.ids.get("sellResult").innerHTML.includes('data-sell-state="keep"'), "default sell lookup should protect a required item");
+assert.ok(document.ids.get("sellResult").innerHTML.includes("Barrel of Water"), "sell lookup should render the selected item");
 let saved = JSON.parse(storage.get("fwQuestTracker.v3"));
 assert.equal(saved.items["item-clamp"], 7, "legacy plural item counts should migrate to the canonical inventory key");
 assert.equal(saved.items["item-old-tool-set"], 2, "legacy spacing variants should migrate to the canonical inventory key");
@@ -206,6 +210,29 @@ const graphNodeFragment = (id) => {
   const articleIndex = markup.lastIndexOf('<article class="graph-node', buttonIndex);
   return markup.slice(articleIndex, buttonIndex);
 };
+
+const sellSearch = document.ids.get("sellSearchInput");
+sellSearch.value = "Rig Light";
+sellSearch.dispatch("input");
+assert.ok(document.ids.get("sellResult").innerHTML.includes('data-sell-state="sell"'), "items without tracked uses should be sellable");
+assert.ok(document.ids.get("sellResult").innerHTML.includes("No tracked use"), "sellable items should identify the absence of tracked uses");
+sellSearch.value = "Military Cables";
+sellSearch.dispatch("input");
+assert.ok(document.ids.get("sellResult").innerHTML.includes("Exo Stamina Equipment"), "sell lookup should list crafting uses");
+assert.ok(document.ids.get("sellResult").innerHTML.includes("A Cost Will Be Paid Pt. 3"), "sell lookup should list quest uses");
+sellSearch.value = "Clamp";
+sellSearch.dispatch("input");
+assert.ok(document.ids.get("sellResult").innerHTML.includes('data-sell-state="keep"'), "required stock should not be sellable");
+assert.ok(document.ids.get("sellResult").innerHTML.includes(">11</strong>"), "sell lookup should reserve combined quest and Innards needs");
+for (let index = 0; index < 5; index += 1) {
+  const sellPlus = new FakeElement("button");
+  sellPlus.dataset.itemAction = "plus";
+  sellPlus.dataset.itemId = "item-clamp";
+  document.dispatch("click", clickTarget("[data-item-action]", sellPlus));
+}
+assert.ok(document.ids.get("sellResult").innerHTML.includes('data-sell-state="sell"'), "inventory surplus should turn the item sellable");
+assert.ok(document.ids.get("sellResult").innerHTML.includes("Sell 1"), "sell lookup should show the sellable surplus");
+assert.ok(document.ids.get("itemsGrid").innerHTML.includes('value="12" data-item-input="item-clamp"'), "sell lookup counts must stay synced with global inventory");
 
 document.dispatch("click", focusItemButton("Barrel of Water"));
 assert.ok(graphNodeFragment("blue-gold").includes("is-cross-highlight"), "item links should highlight the first matching quest");
@@ -282,4 +309,4 @@ lineFilter.dispatch("change");
 assert.equal(document.ids.get("lineTitle").textContent, "Trophy Room", "questline selector should replace the graph");
 assert.equal((document.ids.get("questLines").innerHTML.match(/class="graph-node/g) ?? []).length, 9, "selected trophy line should render nine nodes");
 
-console.log("Runtime smoke test passed: graph arrows, clearable item links, local wiki icons, crafting recipes, nested Innards families, tier gates, campaign locks, radiant isolation, cascade reset, and persistence.");
+console.log("Runtime smoke test passed: graph arrows, sell lookup and inventory sync, local wiki icons, crafting recipes, nested Innards families, tier gates, campaign locks, radiant isolation, cascade reset, and persistence.");

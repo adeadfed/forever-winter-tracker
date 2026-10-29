@@ -6,6 +6,7 @@ A buildless, static quest-tree and stash tracker for *The Forever Winter*.
 - Campaign overview distinguishes questline gates from Innards build gates and mid-line milestones.
 - Innards upgrades follow the in-game Terminal and Welfare columns, with related stages nested into upgrade families.
 - Crafting recipes are grouped by station, with output, time, ingredient requirements, and shared inventory counts.
+- “Can I sell it?” compares owned stock with unfinished quest, Innards, and crafting requirements and exposes only the surplus.
 - Radiant jobs are labeled and deliberately have no dependency edges.
 - Quest and item progress is stored in the browser with `localStorage`.
 - Quest names link to their corresponding wiki pages.

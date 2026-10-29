@@ -19,12 +19,13 @@
       <button class="tab" type="button" data-view="hideout">Innards</button>
       <button class="tab" type="button" data-view="crafting">Crafting</button>
       <button class="tab" type="button" data-view="radiant">Radiant</button>
+      <button class="tab" type="button" data-view="sell">Can I sell it?</button>
       <button class="tab" type="button" data-view="items">Inventory</button>
     </nav>
     <div class="top-stats"><span><b id="overallPercent">0%</b> campaign</span><button class="reset-button" id="resetProgress" type="button">Reset</button></div>
   </header>
 
-  <div class="controls">
+  <div class="controls" id="controls">
     <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search quests" autocomplete="off"></label>
     <label class="select-wrap" id="lineSelectWrap"><span>Line</span><select id="lineFilter" aria-label="Questline"></select></label>
     <label class="select-wrap is-hidden" id="itemSelectWrap"><span>Group</span><select id="itemGroupFilter" aria-label="Item group"><option value="all">All groups</option></select></label>
@@ -76,6 +77,14 @@
     <section class="view" id="radiantView" aria-label="Radiant quests">
       <header class="plain-header"><div><div class="eyebrow">RADIANT / STANDALONE</div><h1>Radiant quests</h1><p>Does not affect questlines.</p></div><strong id="radiantProgress">0 / 0</strong></header>
       <div id="radiantGrid" class="radiant-list"></div><div class="empty-state is-hidden" id="radiantEmpty">No matching radiant quests.</div>
+    </section>
+
+    <section class="view" id="sellView" aria-label="Can I sell it">
+      <div class="sell-lookup">
+        <label class="sell-search" for="sellSearchInput"><span>Can I sell it?</span><input id="sellSearchInput" type="search" list="sellItemOptions" placeholder="Search item" autocomplete="off"></label>
+        <datalist id="sellItemOptions"></datalist>
+        <div id="sellResult" class="sell-result"></div>
+      </div>
     </section>
 
     <section class="view" id="itemsView" aria-label="Tracked inventory">
