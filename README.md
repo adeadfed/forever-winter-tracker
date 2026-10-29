@@ -2,6 +2,8 @@
 
 A buildless, static quest-tree and stash tracker for *The Forever Winter*.
 
+Special thanks to the contributors of [The Forever Winter Wiki](https://theforeverwinter.wiki.gg/) for documenting the quests, items, crafting recipes, factions, traders, and characters used by this tracker.
+
 - Questline nodes unlock from explicit prerequisite edges.
 - Campaign overview distinguishes questline gates from Innards build gates and mid-line milestones.
 - Innards upgrades follow the in-game Terminal and Welfare columns, with related stages nested into upgrade families.
