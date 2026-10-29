@@ -2,6 +2,7 @@
   "name": "forever-winter-tracker",
   "version": "1.0.0",
   "private": true,
+  "license": "0BSD",
   "scripts": {
     "build:standalone": "node scripts/build-standalone.mjs",
     "scrape:wiki": "python3 scripts/scrape_wiki_assets.py",

@@ -20,3 +20,7 @@ Run `npm run scrape:wiki` from this directory to download missing icons for the 
 Use `npm run scrape:items`, `npm run scrape:questgivers`, `npm run scrape:factions`, or `npm run scrape:traders` for one asset class. `npm run scrape:fix-icons` compares existing item sources with the wiki's Items-table portraits and replaces only mismatches. `npm run scrape:refresh` deliberately replaces every file; normal scrape commands fill missing files and repair known mismatches. `npm run scrape:urls` resolves every class without downloading. `python3 scripts/scrape_wiki_assets.py --group items --only toy-dinosaur --force` refreshes one asset; `--delay 5` is the default and can be raised when needed.
 
 Data snapshot: 2026-10-29. Sources: [Items](https://theforeverwinter.wiki.gg/wiki/Items), [Quests](https://theforeverwinter.wiki.gg/wiki/Quests), [crafting data guide](https://theforeverwinter.wiki.gg/wiki/Guides/Wiki/Working_with_Cargo), and [weapon repairs](https://theforeverwinter.wiki.gg/wiki/Weapon_Repairs), CC BY-SA 4.0.
+
+## License
+
+Original software in this repository is licensed under the [0BSD license](LICENSE). Wiki-derived data, images, and other third-party material are excluded from that grant; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
