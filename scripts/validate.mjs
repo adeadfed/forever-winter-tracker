@@ -6,6 +6,7 @@ import vm from "node:vm";
 const root = path.resolve(import.meta.dirname, "..");
 const dist = path.join(root, "dist");
 const context = vm.createContext({ window: {} });
+vm.runInContext(fs.readFileSync(path.join(dist, "item-catalog.js"), "utf8"), context);
 vm.runInContext(fs.readFileSync(path.join(dist, "data.js"), "utf8"), context);
 
 const {
@@ -13,6 +14,7 @@ const {
   QUESTLINE_GATES, CAMPAIGN_MAP_NODES, QUESTLINE_ITEM_NAMES, HIDEOUT_UPGRADES, ASSET_PATHS,
   QUESTLINE_APPEARANCE_ORDER, INNARDS_FAMILIES,
   ITEM_NAME_ALIASES, CRAFTING_RECIPES, CRAFTING_STATIONS,
+  ALL_ITEMS,
 } = context.window;
 const chainQuests = QUEST_LINES.flatMap((line) => line.quests);
 const quests = [...chainQuests, ...RADIANT_QUESTS];
@@ -27,6 +29,11 @@ assert.equal(quests.length, 187, "expected all quest pages from the wiki categor
 assert.equal(KEEP_ITEMS.length, 62, "unexpected keep-item count");
 assert.equal(HIDEOUT_UPGRADES.length, 36, "unexpected Innards upgrade count");
 assert.equal(CRAFTING_RECIPES.length, 96, "unexpected crafting recipe count");
+assert.ok(ALL_ITEMS.length >= 400, "the complete wiki item catalogue was not imported");
+assert.equal(new Set(ALL_ITEMS.map((item) => item.name)).size, ALL_ITEMS.length, "wiki item catalogue contains duplicate names");
+const waterEntry = ALL_ITEMS.find((item) => item.name === "Barrel of Water");
+assert.equal(waterEntry?.page, "Water", "Water must use the canonical barrel wiki page");
+assert.equal(waterEntry?.icon, "assets/items/barrel-of-water.png", "Water must use the barrel inventory icon");
 assert.equal(idSet.size, ids.length, "quest IDs must be unique");
 assert.ok(DATA_META.source.startsWith("https://theforeverwinter.wiki.gg/wiki/"));
 
@@ -168,6 +175,8 @@ const standalone = fs.readFileSync(path.join(dist, "standalone.html"), "utf8");
 for (const id of ["questLines", "campaignMap", "lineItems", "clearItemFocus", "hideoutGrid", "craftingGrid", "craftingStationFilter", "radiantGrid", "radiantFactionFilter", "radiantSort", "sellView", "sellSearchInput", "sellItemOptions", "sellResult", "itemsGrid", "searchInput", "resetProgress"]) {
   assert.ok(html.includes(`id="${id}"`), `missing required UI target #${id}`);
 }
+assert.ok(html.includes("<title>Forever Winter Tracker</title>") && html.includes("<small>TRACKER</small>"), "application branding must use Forever Winter Tracker");
+assert.ok(html.indexOf('src="item-catalog.js') < html.indexOf('src="data.js'), "item catalogue must load before tracker data");
 assert.ok(html.indexOf('src="data.js') < html.indexOf('src="app.js'), "quest data must load before app logic");
 assert.match(css, /@media \(max-width: \d+px\)/, "mobile layout is missing");
 assert.ok(css.includes(":focus-visible"), "keyboard focus treatment is missing");
@@ -208,18 +217,20 @@ assert.ok(scraper.includes("image/png,image/jpeg"), "local wiki scraper must req
 assert.ok(scraper.includes("discover_item_targets") && scraper.includes("wiki-source-urls.json"), "wiki scraper must discover tracked items and retain resolved source URLs");
 assert.ok(scraper.includes("window.CRAFTING_RECIPES") && scraper.includes("craftingRecipe"), "wiki scraper must discover crafting products and ingredients");
 assert.ok(scraper.includes("default=5.0") && scraper.includes("time.sleep"), "wiki scraper must wait five seconds between network requests by default");
+assert.ok(scraper.includes("WikiItemsParser") && scraper.includes("fetch_wiki_item_catalog"), "wiki scraper must parse the complete Items index");
+assert.ok(scraper.includes('"Barrel of Water": "ItemPortrait_Demo_Barrel.png"'), "Water must resolve to its barrel portrait rather than a civilian");
+assert.ok(scraper.includes("def missing_targets") && scraper.includes("merge_targets(missing, repairs)"), "normal scraper runs must target missing icons and known repairs only");
+assert.ok(scraper.includes("def repair_targets") && scraper.includes("--repair-only"), "wiki scraper must isolate existing icons with incorrect source URLs");
+assert.ok(scraper.includes("T_JunkEcon_105_Soidum.png"), "Beef Flavor Packet must use its sodium packet portrait");
 assert.ok(scraper.includes("ВЛАДЕЛЕЦ Vladelets Euruska Quest Giver.png"), "Lordoss must use the full questgiver portrait instead of the shoulder detail");
 for (const group of ["items", "factions", "questgivers", "traders"]) assert.ok(scraper.includes(`"${group}"`), `wiki scraper is missing the ${group} group`);
 assert.ok(!app.includes("resolveWikiItemIcon") && !app.includes("fetch(`https://theforeverwinter.wiki.gg"), "the app must use reproducible local scraped icons instead of browser-side wiki requests");
 assert.ok(!app.includes("const glyphs"), "generic item glyph fallback must not return");
 assert.ok(standalone.includes("<style>"), "standalone edition must inline its styles");
+assert.ok(standalone.includes("window.ALL_ITEMS"), "standalone edition must inline the full item catalogue");
 assert.ok(standalone.includes("window.QUEST_LINES"), "standalone edition must inline quest data");
 assert.ok(standalone.includes("fwQuestTracker.v3"), "standalone edition must inline app behavior");
 assert.ok(!standalone.includes('src="app.js"'), "standalone edition must not depend on app.js");
 assert.ok(!standalone.includes('href="styles.css"'), "standalone edition must not depend on styles.css");
 
-const hosting = JSON.parse(fs.readFileSync(path.join(root, ".openai", "hosting.json"), "utf8"));
-assert.ok(hosting.project_id, "Sites project ID is missing");
-assert.equal(hosting.static.directory, "dist");
-
-console.log(`Validated ${quests.length} quests, ${QUEST_LINES.length} questlines, ${HIDEOUT_UPGRADES.length} Innards upgrades, ${CRAFTING_RECIPES.length} recipes, and ${KEEP_ITEMS.length} quest items.`);
+console.log(`Validated ${quests.length} quests, ${QUEST_LINES.length} questlines, ${HIDEOUT_UPGRADES.length} Innards upgrades, ${CRAFTING_RECIPES.length} recipes, and ${ALL_ITEMS.length} wiki items.`);

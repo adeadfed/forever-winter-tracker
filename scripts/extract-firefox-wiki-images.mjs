@@ -6,6 +6,8 @@ import { execFileSync } from "node:child_process";
 const cacheRoot = path.join(os.homedir(), "Library", "Caches", "Firefox", "Profiles");
 const outputRoot = path.resolve(import.meta.dirname, "..", "dist", "assets", "wiki");
 const listOnly = process.argv.includes("--list");
+const onlyIndex = process.argv.indexOf("--only");
+const only = onlyIndex >= 0 ? (process.argv[onlyIndex + 1] ?? "").toLowerCase() : "";
 const pngSignature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 const iend = Buffer.from("IEND", "ascii");
 const jpgSignature = Buffer.from([0xff, 0xd8, 0xff]);
@@ -70,6 +72,7 @@ for (const profile of fs.readdirSync(cacheRoot)) {
 
 const unique = new Map();
 for (const item of found) {
+  if (only && !`${item.name} ${item.url}`.toLowerCase().includes(only)) continue;
   const key = item.url || item.name;
   if (!unique.has(key) || unique.get(key).bytes.length < item.bytes.length) unique.set(key, item);
 }
@@ -100,6 +103,15 @@ if (!listOnly) {
   for (const [pattern, alias] of aliases) {
     const source = written.find((item) => pattern.test(decodeURIComponent(item.url)) && /\.png$/i.test(item.destination));
     if (source) fs.copyFileSync(source.destination, path.join(portraitRoot, alias));
+  }
+  const itemAliases = [
+    [/ItemPortrait_Demo_Barrel/i, "barrel-of-water.png"],
+  ];
+  const itemRoot = path.resolve(outputRoot, "..", "items");
+  fs.mkdirSync(itemRoot, { recursive: true });
+  for (const [pattern, alias] of itemAliases) {
+    const source = written.find((item) => pattern.test(decodeURIComponent(item.url)) && /\.png$/i.test(item.destination));
+    if (source) fs.copyFileSync(source.destination, path.join(itemRoot, alias));
   }
 }
 console.error(`${listOnly ? "Found" : "Extracted"} ${unique.size} cached wiki images.`);

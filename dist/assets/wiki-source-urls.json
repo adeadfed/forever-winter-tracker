@@ -27,7 +27,7 @@
   "items/barrel-of-water.png": {
     "group": "items",
     "page": "Water",
-    "url": "https://theforeverwinter.wiki.gg/images/Water_Thief_Civilian.png?2850a5"
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Barrel.png?f96a18"
   },
   "items/basic-pliers.png": {
     "group": "items",
@@ -37,7 +37,7 @@
   "items/battery-charger.png": {
     "group": "items",
     "page": "Battery Charger",
-    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_11_PowerCell.png?cf25df"
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_92_RechargeableBatteryCharger.png?5973be"
   },
   "items/biodegradable-multi-tool.png": {
     "group": "items",
@@ -107,7 +107,7 @@
   "items/construction-drone.png": {
     "group": "items",
     "page": "Construction Drone",
-    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool10.png?1d9987"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Drone_Construction.png?a0a477"
   },
   "items/construction-foam.png": {
     "group": "items",
@@ -177,7 +177,7 @@
   "items/eurasian-iff-chip-lvl1.png": {
     "group": "items",
     "page": "Eurasian IFF Chip LVL1",
-    "url": "https://theforeverwinter.wiki.gg/images/T_SMG04.png?e188cd"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Eurasia1.png?9e7624"
   },
   "items/europan-drone-component.png": {
     "group": "items",
@@ -192,12 +192,12 @@
   "items/europan-iff-chip-lvl1.png": {
     "group": "items",
     "page": "Europan IFF Chip LVL1",
-    "url": "https://theforeverwinter.wiki.gg/images/T_PST03.png?f61e56"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Europa1.png?53f9c7"
   },
   "items/euruskan-iff-chip-lvl1.png": {
     "group": "items",
     "page": "Euruskan IFF Chip LVL1",
-    "url": "https://theforeverwinter.wiki.gg/images/T_RFL01.png?7e6729"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Euruska1.png?2e3001"
   },
   "items/euruskan-plans.png": {
     "group": "items",
@@ -262,7 +262,7 @@
   "items/gunpowder.png": {
     "group": "items",
     "page": "Gunpowder",
-    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_308.png?7f1b33"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_GRN_ingredient_Gunpowder.png?652a82"
   },
   "items/gyroscopic-stabilizer.png": {
     "group": "items",
@@ -327,7 +327,7 @@
   "items/light-bulb.png": {
     "group": "items",
     "page": "Light Bulb",
-    "url": "https://theforeverwinter.wiki.gg/images/ItemRigFlashlight.png?7441e6"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Lightbulb.png?b7c961"
   },
   "items/liquid-cooling-unit.png": {
     "group": "items",
@@ -342,7 +342,7 @@
   "items/machine-parts.png": {
     "group": "items",
     "page": "Machine Parts",
-    "url": "https://theforeverwinter.wiki.gg/images/Electric_Motor.png?6724d8"
+    "url": "https://theforeverwinter.wiki.gg/images/T_MachineParts.png?e0c4f5"
   },
   "items/masking-tape.png": {
     "group": "items",
@@ -362,17 +362,17 @@
   "items/medical-tools.png": {
     "group": "items",
     "page": "Medical Tools",
-    "url": "https://theforeverwinter.wiki.gg/images/T_item_med_FirstAidKit.png?915f35"
+    "url": "https://theforeverwinter.wiki.gg/images/T_MedicalTools.png?de50ea"
   },
   "items/metal-fragments.png": {
     "group": "items",
     "page": "Metal Fragments",
-    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_9x19.png?e3c6be"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_GRN_ingredient_MetalFragments.png?97dec3"
   },
   "items/metal-pipe.png": {
     "group": "items",
     "page": "Metal Pipe",
-    "url": "https://theforeverwinter.wiki.gg/images/T_SM_GRN02.png?7ef31a"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_GRN_ingredient_MetalPipe.png?99a829"
   },
   "items/metal-slats.png": {
     "group": "items",
@@ -382,12 +382,12 @@
   "items/military-battery.png": {
     "group": "items",
     "page": "Military Battery",
-    "url": "https://theforeverwinter.wiki.gg/images/T_Drone_Recovery.png?d2a9bf"
+    "url": "https://theforeverwinter.wiki.gg/images/T_MilitaryBattery.png?fdb86a"
   },
   "items/military-cables.png": {
     "group": "items",
     "page": "Military Cables",
-    "url": "https://theforeverwinter.wiki.gg/images/T_item_RIGEQUIPMENT_TacCam_v1.png?e3e5c9"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_43_MilitaryCables.png?fdcd8e"
   },
   "items/military-circuitry.png": {
     "group": "items",
@@ -507,7 +507,7 @@
   "items/power-cell.png": {
     "group": "items",
     "page": "Power Cell",
-    "url": "https://theforeverwinter.wiki.gg/images/Item20mmTurret.png?964857"
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_11_PowerCell.png?cf25df"
   },
   "items/power-schematics.png": {
     "group": "items",
@@ -532,7 +532,7 @@
   "items/printed-circuit-board.png": {
     "group": "items",
     "page": "Printed Circuit Board",
-    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+    "url": "https://theforeverwinter.wiki.gg/images/T_GPU_Caps.png?8c1f79"
   },
   "items/printing-resin.png": {
     "group": "items",
@@ -542,7 +542,7 @@
   "items/processor-board.png": {
     "group": "items",
     "page": "Processor Board",
-    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_GDC_PDA.png?b9feef"
+    "url": "https://theforeverwinter.wiki.gg/images/T_ProcessorBoard.png?f904b6"
   },
   "items/quantum-hard-drive.png": {
     "group": "items",
@@ -577,7 +577,7 @@
   "items/recovery-drone.png": {
     "group": "items",
     "page": "Recovery Drone",
-    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Drone_Beacon_BossPartRetreive.png?d0c9ea"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Drone_Recovery.png?d2a9bf"
   },
   "items/relay.png": {
     "group": "items",
@@ -726,8 +726,8 @@
   },
   "items/uplink.png": {
     "group": "items",
-    "page": "Uplink",
-    "url": "https://theforeverwinter.wiki.gg/images/T_AshenMesa_LootObject_01.png?404666"
+    "page": "Neuro Uplink Board",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_NeuroUplink.png?26960c"
   },
   "items/valve-adjustment-tool.png": {
     "group": "items",
@@ -762,7 +762,7 @@
   "items/wires.png": {
     "group": "items",
     "page": "Wires",
-    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_25_Wires.png?140e44"
   },
   "items/wooden-plank.png": {
     "group": "items",
@@ -893,5 +893,2050 @@
     "group": "traders",
     "page": "Auto-Vendor",
     "url": "https://theforeverwinter.wiki.gg/images/Auto-Vendor_Notice.jpg?43976e"
+  },
+  "items/beef-flavor-packet.png": {
+    "group": "items",
+    "page": "\"Beef\" Flavor Packet",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_105_Soidum.png?750321"
+  },
+  "items/308-ammo.png": {
+    "group": "items",
+    "page": ".308 Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_308.png?7f1b33"
+  },
+  "items/357-magnum-ammo.png": {
+    "group": "items",
+    "page": ".357 Magnum Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_357.png?3f17f4"
+  },
+  "items/45-acp-ammo.png": {
+    "group": "items",
+    "page": ".45 ACP Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_45acp.png?f1fb87"
+  },
+  "items/50-bmg.png": {
+    "group": "items",
+    "page": ".50 BMG",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_50cal.png?77b70d"
+  },
+  "items/50-pst-ammo.png": {
+    "group": "items",
+    "page": ".50 PST Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_50cal.png?77b70d"
+  },
+  "items/12-gauge-buckshot.png": {
+    "group": "items",
+    "page": "12-Gauge Buckshot",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_12x76.png?ab9fe2"
+  },
+  "items/12-7x55mm-subsonic-ammo.png": {
+    "group": "items",
+    "page": "12.7x55mm Subsonic Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_127x55.png?fc1b64"
+  },
+  "items/20mm-turret.png": {
+    "group": "items",
+    "page": "20mm Turret",
+    "url": "https://theforeverwinter.wiki.gg/images/Item20mmTurret.png?964857"
+  },
+  "items/20x105mm-anti-tank.png": {
+    "group": "items",
+    "page": "20x105mm Anti-Tank",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_20mm.png?f7a7dc"
+  },
+  "items/36m-antitank.png": {
+    "group": "items",
+    "page": "36M AntiTank",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/40mm-grenade.png": {
+    "group": "items",
+    "page": "40mm Grenade",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_40mm.png?39606c"
+  },
+  "items/5-45x39mm-ammo.png": {
+    "group": "items",
+    "page": "5.45x39mm Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_545x39.png?4357c4"
+  },
+  "items/5-45x39mm-cryo-ammo.png": {
+    "group": "items",
+    "page": "5.45x39mm Cryo Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_545x39_CRYO.png?ed9126"
+  },
+  "items/5-56x45mm-ammo.png": {
+    "group": "items",
+    "page": "5.56x45mm Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_556x45.png?f76d92"
+  },
+  "items/5-7x28mm-ammo.png": {
+    "group": "items",
+    "page": "5.7x28mm Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_57x28.png?3cec1d"
+  },
+  "items/7-62x39mm-ammo.png": {
+    "group": "items",
+    "page": "7.62x39mm Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_545x39_762.png?809e33"
+  },
+  "items/7-62x54mmr-ammo.png": {
+    "group": "items",
+    "page": "7.62x54mmR Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_545x39_762x45R.png?68fe5a"
+  },
+  "items/87-target.png": {
+    "group": "items",
+    "page": "87 Target",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/9x19mm-ammo.png": {
+    "group": "items",
+    "page": "9x19mm Ammo",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_9x19.png?e3c6be"
+  },
+  "items/aa12.png": {
+    "group": "items",
+    "page": "AA12",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_aa12.png?953fe6"
+  },
+  "items/aa12-shotgun-magazine-b.png": {
+    "group": "items",
+    "page": "AA12 Shotgun Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG05_MAG_12G_02.png?42c9e1"
+  },
+  "items/acg-2x.png": {
+    "group": "items",
+    "page": "ACG 2x",
+    "url": "https://theforeverwinter.wiki.gg/images/ACG_2x_1200p.png?9d53ce"
+  },
+  "items/ak.png": {
+    "group": "items",
+    "page": "AK",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/ak-barrel-b.png": {
+    "group": "items",
+    "page": "AK Barrel B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_BRL_02.png?c38e8c"
+  },
+  "items/ak-barrel-c.png": {
+    "group": "items",
+    "page": "AK Barrel C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_BRL_03.png?456c3f"
+  },
+  "items/apc9-pro.png": {
+    "group": "items",
+    "page": "APC9 Pro",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/at-43-breech-assembly.png": {
+    "group": "items",
+    "page": "AT-43 Breech Assembly",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT04.png?b4c4da"
+  },
+  "items/at-43-feed-mechanism.png": {
+    "group": "items",
+    "page": "AT-43 Feed Mechanism",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT07.png?51928a"
+  },
+  "items/at-43-mass.png": {
+    "group": "items",
+    "page": "AT-43 MASS",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_Ammo_50cal.png?77b70d"
+  },
+  "items/at-43-muzzle-break.png": {
+    "group": "items",
+    "page": "AT-43 Muzzle Break",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT06.png?c7c142"
+  },
+  "items/at-43-spring-system.png": {
+    "group": "items",
+    "page": "AT-43 Spring System",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT08.png?e4b855"
+  },
+  "items/at-43-trigger-assembly.png": {
+    "group": "items",
+    "page": "AT-43 Trigger Assembly",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT05.png?2ea2fb"
+  },
+  "items/absinthe.png": {
+    "group": "items",
+    "page": "Absinthe",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool11.png?6f0862"
+  },
+  "items/adrenaline-stim.png": {
+    "group": "items",
+    "page": "Adrenaline Stim",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood04.png?b89d23"
+  },
+  "items/advanced-first-aid-kit.png": {
+    "group": "items",
+    "page": "Advanced First Aid Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_med_FirstAidKit.png?915f35"
+  },
+  "items/advanced-navigation-device.png": {
+    "group": "items",
+    "page": "Advanced Navigation Device",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Drone_Beacon_BossPartRetreive.png?d0c9ea"
+  },
+  "items/aimp-h2-optic.png": {
+    "group": "items",
+    "page": "Aimp H2 Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Aimp_H2_Optic_1200p.png?825e4d"
+  },
+  "items/aimp-micro-optic.png": {
+    "group": "items",
+    "page": "Aimp Micro Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Aimp_Micro_Optic_1200p.png?4d46a1"
+  },
+  "items/analog-headset.png": {
+    "group": "items",
+    "page": "Analog Headset",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Headphones.png?33dd95"
+  },
+  "items/anti-vertex-bolt-cutters.png": {
+    "group": "items",
+    "page": "Anti-Vertex Bolt Cutters",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_88_PrecisionBoltCutters.png?b25b47"
+  },
+  "items/armorers-wrench.png": {
+    "group": "items",
+    "page": "Armorer's Wrench",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT02.png?8e16fd"
+  },
+  "items/bandages.png": {
+    "group": "items",
+    "page": "Bandages",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Bandages.png?77f71d"
+  },
+  "items/bar-supplies.png": {
+    "group": "items",
+    "page": "Bar Supplies",
+    "url": "https://theforeverwinter.wiki.gg/images/Bar_supplies_location.png?978ef7"
+  },
+  "items/battery.png": {
+    "group": "items",
+    "page": "Battery",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Battery.png?630393"
+  },
+  "items/battle-plans.png": {
+    "group": "items",
+    "page": "Battle Plans",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuruskansPlan.png?7d822f"
+  },
+  "items/beer.png": {
+    "group": "items",
+    "page": "Beer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool09.png?e4c24b"
+  },
+  "items/blood-packs.png": {
+    "group": "items",
+    "page": "Blood Packs",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_med_FirstAidKit.png?915f35"
+  },
+  "items/boinco-candy-bar.png": {
+    "group": "items",
+    "page": "Boinco Candy Bar",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood01.png?a4933b"
+  },
+  "items/bolt-cutters.png": {
+    "group": "items",
+    "page": "Bolt Cutters",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Boltcutters.png?ceeaf7"
+  },
+  "items/brandy.png": {
+    "group": "items",
+    "page": "Brandy",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool02.png?1dd8d9"
+  },
+  "items/brawler-component.png": {
+    "group": "items",
+    "page": "Eurasian Brawler Components",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_BrawlerParts.png?96ebf7"
+  },
+  "items/brawler-insignia.png": {
+    "group": "items",
+    "page": "Brawler Insignia",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_BrawlersInsignias.png?a6c881"
+  },
+  "items/bug-spray.png": {
+    "group": "items",
+    "page": "Bug Spray",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_109_BugSpray.png?94550a"
+  },
+  "items/c96.png": {
+    "group": "items",
+    "page": "C96",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_c96.png?b2de5a"
+  },
+  "items/cpu.png": {
+    "group": "items",
+    "page": "CPU",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_30_CPU.png?ac4de3"
+  },
+  "items/camera.png": {
+    "group": "items",
+    "page": "Camera",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_134_Camera.png?1d99e9"
+  },
+  "items/car-battery.png": {
+    "group": "items",
+    "page": "Car Battery",
+    "url": "https://theforeverwinter.wiki.gg/images/T_CarBattery.png?e2e4ac"
+  },
+  "items/cluster-grenade.png": {
+    "group": "items",
+    "page": "Cluster Grenade",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SM_GRN01.png?9246c6"
+  },
+  "items/codex.png": {
+    "group": "items",
+    "page": "Codex",
+    "url": "https://theforeverwinter.wiki.gg/images/Codex.png?352058"
+  },
+  "items/communication-device.png": {
+    "group": "items",
+    "page": "Comms Device",
+    "url": "https://theforeverwinter.wiki.gg/images/Map_icon_Comms_device.png?38e114"
+  },
+  "items/computer-fan.png": {
+    "group": "items",
+    "page": "Computer Fan",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_32_ComputerFan.png?92b8c4"
+  },
+  "items/construction-glue.png": {
+    "group": "items",
+    "page": "Construction Glue",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ConstructionGlue.png?dc11db"
+  },
+  "items/convoy-schedule.png": {
+    "group": "items",
+    "page": "Convoy Schedule",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuruskansPlan.png?7d822f"
+  },
+  "items/cordura.png": {
+    "group": "items",
+    "page": "Cordura",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_126_Cordura.png?30aba2"
+  },
+  "items/corpse-tank-control-panel.png": {
+    "group": "items",
+    "page": "Corpse Tank Control Panel",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_BodyBossTankPart.png?b64da5"
+  },
+  "items/crowbar.png": {
+    "group": "items",
+    "page": "Crowbar",
+    "url": "https://theforeverwinter.wiki.gg/images/T_CrowBar.png?53e0af"
+  },
+  "items/crucible.png": {
+    "group": "items",
+    "page": "Crucible",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT01.png?274ebe"
+  },
+  "items/cyborg-component.png": {
+    "group": "items",
+    "page": "Cyborg's Head",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_CyborgParts.png?613278"
+  },
+  "items/cyborgs-head.png": {
+    "group": "items",
+    "page": "Cyborg's Head",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_CyborgParts.png?613278"
+  },
+  "items/data-cache.png": {
+    "group": "items",
+    "page": "Data Cache",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_CacheBox.png?14fce5"
+  },
+  "items/decoy-grenade.png": {
+    "group": "items",
+    "page": "Decoy Grenade",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PaintCan.png?840d58"
+  },
+  "items/deep-fried-coffee.png": {
+    "group": "items",
+    "page": "Deep Fried Coffee",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_130_Coffee.png?f2e171"
+  },
+  "items/deployable-drill.png": {
+    "group": "items",
+    "page": "Deployable Drill",
+    "url": "https://theforeverwinter.wiki.gg/images/T_DrillDevice.png?2d6acb"
+  },
+  "items/destroyed-36m-antitank.png": {
+    "group": "items",
+    "page": "Destroyed 36M AntiTank",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-87-target-pistol.png": {
+    "group": "items",
+    "page": "Destroyed 87 Target Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-aa12.png": {
+    "group": "items",
+    "page": "Destroyed AA12",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_aa12.png?953fe6"
+  },
+  "items/destroyed-ak.png": {
+    "group": "items",
+    "page": "Destroyed AK",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-apc9-pro.png": {
+    "group": "items",
+    "page": "Destroyed APC9 Pro",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-c96-pistol.png": {
+    "group": "items",
+    "page": "Destroyed C96 Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_c96.png?b2de5a"
+  },
+  "items/destroyed-g36.png": {
+    "group": "items",
+    "page": "Destroyed G36",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_g36.png?c54271"
+  },
+  "items/destroyed-gm6.png": {
+    "group": "items",
+    "page": "Destroyed GM6",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-glock-19-pistol.png": {
+    "group": "items",
+    "page": "Destroyed Glock 19 Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_g-l_19.png?10d702"
+  },
+  "items/destroyed-grenade-launcher.png": {
+    "group": "items",
+    "page": "Destroyed Grenade Launcher",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_grenade_launcher.png?10dca4"
+  },
+  "items/destroyed-hmg.png": {
+    "group": "items",
+    "page": "Destroyed HMG",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_Painless.png?dcae33"
+  },
+  "items/destroyed-kriss-vector-45.png": {
+    "group": "items",
+    "page": "Destroyed Kriss Vector 45",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-m16.png": {
+    "group": "items",
+    "page": "Destroyed M16",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_m16.png?2513d7"
+  },
+  "items/destroyed-m4.png": {
+    "group": "items",
+    "page": "Destroyed M4",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_m4a1.png?1d1cb1"
+  },
+  "items/destroyed-m60.png": {
+    "group": "items",
+    "page": "Destroyed M60",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-m79-pistol.png": {
+    "group": "items",
+    "page": "Destroyed M79 Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_m79_sawed-off.png?e8e91b"
+  },
+  "items/destroyed-mg34.png": {
+    "group": "items",
+    "page": "Destroyed MG34",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_mg34.png?99f5a1"
+  },
+  "items/destroyed-ntw-20.png": {
+    "group": "items",
+    "page": "Destroyed NTW-20",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_ntw-20.png?261ed0"
+  },
+  "items/destroyed-p90.png": {
+    "group": "items",
+    "page": "Destroyed P90",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-pm-9.png": {
+    "group": "items",
+    "page": "Destroyed PM-9",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-pp-19-vityaz.png": {
+    "group": "items",
+    "page": "Destroyed PP-19 Vityaz",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_pp-19_vityaz.png?a47607"
+  },
+  "items/destroyed-r8-pistol.png": {
+    "group": "items",
+    "page": "Destroyed R8 Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-rpd.png": {
+    "group": "items",
+    "page": "Destroyed RPD",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_RPD.png?d3e4fe"
+  },
+  "items/destroyed-rpk.png": {
+    "group": "items",
+    "page": "Destroyed RPK",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-s12.png": {
+    "group": "items",
+    "page": "Destroyed S12",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-sa58.png": {
+    "group": "items",
+    "page": "Destroyed SA58",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_sa58.png?6683a7"
+  },
+  "items/destroyed-saw.png": {
+    "group": "items",
+    "page": "Destroyed SAW",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_saw.png?231da0"
+  },
+  "items/destroyed-scar.png": {
+    "group": "items",
+    "page": "Destroyed SCAR",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-sog-pistol.png": {
+    "group": "items",
+    "page": "Destroyed SOG Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_sog.png?cd1ad0"
+  },
+  "items/destroyed-svd.png": {
+    "group": "items",
+    "page": "Destroyed SVD",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_svd.png?fcd203"
+  },
+  "items/destroyed-spectre-m4.png": {
+    "group": "items",
+    "page": "Destroyed Spectre M4",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-tkb-0146.png": {
+    "group": "items",
+    "page": "Destroyed TKB-0146",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_tkb-0146.png?ddca6c"
+  },
+  "items/destroyed-usas-12.png": {
+    "group": "items",
+    "page": "Destroyed USAS-12",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_usas-12.png?ab60bf"
+  },
+  "items/destroyed-usp-pistol.png": {
+    "group": "items",
+    "page": "Destroyed USP Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/destroyed-vks-vykhlop.png": {
+    "group": "items",
+    "page": "Destroyed VKS Vykhlop",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_vks_vykhlop.png?aece59"
+  },
+  "items/destroyed-vepr-12.png": {
+    "group": "items",
+    "page": "Destroyed Vepr-12",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_VEPR.png?443b0b"
+  },
+  "items/destroyed-viper-pistol.png": {
+    "group": "items",
+    "page": "Destroyed Viper Pistol",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_viper.png?73fe63"
+  },
+  "items/destroyed-walther-mpl.png": {
+    "group": "items",
+    "page": "Destroyed Walther MPL",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_wlt_mpl.png?c94b76"
+  },
+  "items/destroyed-xm25.png": {
+    "group": "items",
+    "page": "Destroyed XM25",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/diodegradable-multi-tool.png": {
+    "group": "items",
+    "page": "Diodegradable Multi-tool",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT09.png?92786b"
+  },
+  "items/dog-tag.png": {
+    "group": "items",
+    "page": "Dog Tags",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_BondOfBrothers.png?508ab9"
+  },
+  "items/dossier.png": {
+    "group": "items",
+    "page": "Dossier",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan05.png?5e55f4"
+  },
+  "items/duct-tape.png": {
+    "group": "items",
+    "page": "Duct Tape",
+    "url": "https://theforeverwinter.wiki.gg/images/T_DuctTape.png?819df1"
+  },
+  "items/e-nuggets.png": {
+    "group": "items",
+    "page": "E-Nuggets",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_GDC_Enuggets.png?4a616b"
+  },
+  "items/e-tech-xp-optic.png": {
+    "group": "items",
+    "page": "E-TECH XP Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/E-TECH_XP_Optic_1200p.png?fa7009"
+  },
+  "items/eod-suit-component.png": {
+    "group": "items",
+    "page": "EOD Suit Component",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuropaHKParts.png?ec0c30"
+  },
+  "items/et-efx-optic.png": {
+    "group": "items",
+    "page": "ET EFX Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/ET_EFX_Optic_1200p.png?e48eda"
+  },
+  "items/et-hws-exp-optic.png": {
+    "group": "items",
+    "page": "ET HWS EXP Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/ET_HWS_EXP_Optic_1200p.png?bbaa3a"
+  },
+  "items/et-xp2-optic.png": {
+    "group": "items",
+    "page": "ET XP2 Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/ET_XP2_Optic_1200p.png?790315"
+  },
+  "items/encrypted-data-pad.png": {
+    "group": "items",
+    "page": "Encrypted Data Pad",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_TechSchematics.png?1f7728"
+  },
+  "items/energy-bar.png": {
+    "group": "items",
+    "page": "Energy Bar",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood04.png?b89d23"
+  },
+  "items/ethyl-alcohol.png": {
+    "group": "items",
+    "page": "Ethyl Alcohol",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool14.png?aa3be3"
+  },
+  "items/eurasian-iff-chip-lvl2.png": {
+    "group": "items",
+    "page": "Eurasian IFF Chip LVL2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Eurasia2.png?46b0cf"
+  },
+  "items/eurasian-iff-chip-lvl3.png": {
+    "group": "items",
+    "page": "Eurasian IFF Chip LVL3",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Eurasia3.png?d37d1d"
+  },
+  "items/eurasian-supply-crate.png": {
+    "group": "items",
+    "page": "Eurasian Supply Crate",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_Crates.png?63afbd"
+  },
+  "items/europa-miltech-radio.png": {
+    "group": "items",
+    "page": "Europa MilTech Radio",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_QuestItemRadio.png?c52927"
+  },
+  "items/europan-iff-chip-lvl2.png": {
+    "group": "items",
+    "page": "Europan IFF Chip LVL2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Europa2.png?bf3641"
+  },
+  "items/europan-iff-chip-lvl3.png": {
+    "group": "items",
+    "page": "Europan IFF Chip LVL3",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Europa3.png?33d2a6"
+  },
+  "items/euruskan-iff-chip-lvl2.png": {
+    "group": "items",
+    "page": "Euruskan IFF Chip LVL2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Euruska2.png?ede217"
+  },
+  "items/euruskan-iff-chip-lvl3.png": {
+    "group": "items",
+    "page": "Euruskan IFF Chip LVL3",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_IFFCard_Euruska3.png?62bd03"
+  },
+  "items/exo-repair-kit.png": {
+    "group": "items",
+    "page": "Exo Repair Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool04.png?25228f"
+  },
+  "items/exo-stamina-equipment.png": {
+    "group": "items",
+    "page": "Exo Stamina Equipment",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool11.png?6ecf75"
+  },
+  "items/family-photo.png": {
+    "group": "items",
+    "page": "Family Photo",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_EuruskansPlan.png?7d822f"
+  },
+  "items/fast-travel-drone.png": {
+    "group": "items",
+    "page": "Fast Travel Drone",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Drone_FastTravel.png?62c5c0"
+  },
+  "items/fertilizer.png": {
+    "group": "items",
+    "page": "Fertilizer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_ShitCow.png?26e7dd"
+  },
+  "items/fire-starter-kit.png": {
+    "group": "items",
+    "page": "Fire Starter Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Firestarter_Kit.png?ee7bcf"
+  },
+  "items/foregrip-c.png": {
+    "group": "items",
+    "page": "Foregrip C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR3.png?eb439f"
+  },
+  "items/foregrip-d.png": {
+    "group": "items",
+    "page": "Foregrip D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR4.png?c98a60"
+  },
+  "items/foregrip-e.png": {
+    "group": "items",
+    "page": "Foregrip E",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR5.png?e9849f"
+  },
+  "items/foregrip-f.png": {
+    "group": "items",
+    "page": "Foregrip F",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR6.png?2db024"
+  },
+  "items/foregrip-g.png": {
+    "group": "items",
+    "page": "Foregrip G",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR7.png?f411cf"
+  },
+  "items/foregrip-h.png": {
+    "group": "items",
+    "page": "Foregrip H",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR8.png?81108b"
+  },
+  "items/foregrip-i.png": {
+    "group": "items",
+    "page": "Foregrip I",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR9.png?e2f2bf"
+  },
+  "items/foregrip-j.png": {
+    "group": "items",
+    "page": "Foregrip J",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR10.png?865abe"
+  },
+  "items/foregrip-k.png": {
+    "group": "items",
+    "page": "Foregrip K",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFGR11.png?3ccd16"
+  },
+  "items/frag-grenade.png": {
+    "group": "items",
+    "page": "Frag Grenade",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PaintCan.png?840d58"
+  },
+  "items/g-l-19.png": {
+    "group": "items",
+    "page": "G-L 19",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_g-l_19.png?10d702"
+  },
+  "items/g-l-19-magazine-b.png": {
+    "group": "items",
+    "page": "G-L 19 Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_PST10_MAG_919_02.png?e4e812"
+  },
+  "items/g36.png": {
+    "group": "items",
+    "page": "G36",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_g36.png?c54271"
+  },
+  "items/g36-magazine-b.png": {
+    "group": "items",
+    "page": "G36 Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL16_MAG_556_02.png?28ee5b"
+  },
+  "items/gm6.png": {
+    "group": "items",
+    "page": "GM6",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/gp-5-gas-mask.png": {
+    "group": "items",
+    "page": "GP-5 Gas Mask",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Gasmask.png?523dba"
+  },
+  "items/gin.png": {
+    "group": "items",
+    "page": "Gin",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool04.png?a60ae9"
+  },
+  "items/god-sniper-equipment.png": {
+    "group": "items",
+    "page": "God Sniper Equipment",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_God_Sniper_Equipment.png?1a9c8c"
+  },
+  "items/grenade-launcher.png": {
+    "group": "items",
+    "page": "Grenade Launcher",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_grenade_launcher.png?10dca4"
+  },
+  "items/grindstone.png": {
+    "group": "items",
+    "page": "Grindstone",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ItemPortrait_HRF05CRAFTING_CFT03.png?8406be"
+  },
+  "items/h-sun-optic.png": {
+    "group": "items",
+    "page": "H-sun Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/H-sun_Optic_1200p.png?284d83"
+  },
+  "items/hind-navigation-computer.png": {
+    "group": "items",
+    "page": "HIND Navigation Computer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_NavComputer.png?ee82c0"
+  },
+  "items/hk-caws-magazine-b.png": {
+    "group": "items",
+    "page": "HK CAWS Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG06_MAG_12G_02.png?ff1e89"
+  },
+  "items/hammer.png": {
+    "group": "items",
+    "page": "Hammer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Hammer.png?dfb27a"
+  },
+  "items/happy-cookies.png": {
+    "group": "items",
+    "page": "Happy Cookies",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood05.png?aa00e3"
+  },
+  "items/hard-drive.png": {
+    "group": "items",
+    "page": "Hard Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_HardDrive.png?971e81"
+  },
+  "items/heavy-joint-assembly.png": {
+    "group": "items",
+    "page": "Heavy Joint Assembly",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPneumaticJump.png?e5eea8"
+  },
+  "items/high-capacity-hard-drive.png": {
+    "group": "items",
+    "page": "High Capacity Hard Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_26_HDD.png?9d151c"
+  },
+  "items/high-frequency-radio.png": {
+    "group": "items",
+    "page": "High-Frequency Radio",
+    "url": "https://theforeverwinter.wiki.gg/images/T_AshenMesa_LootObject_01.png?404666"
+  },
+  "items/hose.png": {
+    "group": "items",
+    "page": "Hose",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Hose.png?12434a"
+  },
+  "items/ied.png": {
+    "group": "items",
+    "page": "IED",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+  },
+  "items/industrial-black-light.png": {
+    "group": "items",
+    "page": "Industrial Black Light",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Black_Light.png?b7a900"
+  },
+  "items/industrial-chemicals.png": {
+    "group": "items",
+    "page": "Industrial Chemicals",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Salt.png?16212b"
+  },
+  "items/intelligence-disk.png": {
+    "group": "items",
+    "page": "Intelligence Disk",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan02.png?fea4b6"
+  },
+  "items/item-extraction-beacon.png": {
+    "group": "items",
+    "page": "Item Extraction Beacon",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Drone_Beacon_BossPartRetreive.png?d0c9ea"
+  },
+  "items/jammer.png": {
+    "group": "items",
+    "page": "Jammer",
+    "url": "https://theforeverwinter.wiki.gg/images/Clear_Skies_Jammer.png?ad3695"
+  },
+  "items/jerrycan.png": {
+    "group": "items",
+    "page": "Jerrycan",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JerryCanYellow.png?1e4449"
+  },
+  "items/jumper-cable-kit.png": {
+    "group": "items",
+    "page": "Jumper Cable Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_repairtool03.png?521643"
+  },
+  "items/kala-gas-tube-b.png": {
+    "group": "items",
+    "page": "Kala Gas Tube B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_GAS_02.png?941a93"
+  },
+  "items/kala-gas-tube-c.png": {
+    "group": "items",
+    "page": "Kala Gas Tube C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_GAS_03.png?5dbc31"
+  },
+  "items/kala-gas-tube-d.png": {
+    "group": "items",
+    "page": "Kala Gas Tube D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_GAS_04.png?6839da"
+  },
+  "items/kala-gas-tube-e.png": {
+    "group": "items",
+    "page": "Kala Gas Tube E",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_GAS_05.png?f3c6c7"
+  },
+  "items/kala-grip-a.png": {
+    "group": "items",
+    "page": "Kala Grip A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_PGR_01.png?6c5b37"
+  },
+  "items/kala-grip-a-1.png": {
+    "group": "items",
+    "page": "Kala Grip A-1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_PGR_01A.png?147140"
+  },
+  "items/kala-grip-a-2.png": {
+    "group": "items",
+    "page": "Kala Grip A-2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_PGR_01B.png?9d9449"
+  },
+  "items/kala-grip-b.png": {
+    "group": "items",
+    "page": "Kala Grip B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_PGR_02.png?ef1ca8"
+  },
+  "items/kala-grip-c.png": {
+    "group": "items",
+    "page": "Kala Grip C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_PGR_03.png?dd671a"
+  },
+  "items/kala-grip-d.png": {
+    "group": "items",
+    "page": "Kala Grip D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_PGR_04.png?b8aa80"
+  },
+  "items/kala-handguard-b.png": {
+    "group": "items",
+    "page": "Kala Handguard B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_HGD_02.png?4c0a9c"
+  },
+  "items/kala-handguard-b-1.png": {
+    "group": "items",
+    "page": "Kala Handguard B-1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_HGD_02A.png?3541fc"
+  },
+  "items/kala-handguard-b-2.png": {
+    "group": "items",
+    "page": "Kala Handguard B-2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_HGD_02B.png?618524"
+  },
+  "items/kala-handguard-c.png": {
+    "group": "items",
+    "page": "Kala Handguard C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_HGD_03.png?edf74c"
+  },
+  "items/kala-handguard-d.png": {
+    "group": "items",
+    "page": "Kala Handguard D",
+    "url": "https://theforeverwinter.wiki.gg/images/Kala_handguard_d.png?f6bcd6"
+  },
+  "items/kala-handguard-e.png": {
+    "group": "items",
+    "page": "Kala Handguard E",
+    "url": "https://theforeverwinter.wiki.gg/images/Kala_handguard_e.png?7c9c3c"
+  },
+  "items/kala-handguard-f.png": {
+    "group": "items",
+    "page": "Kala Handguard F",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_HGD_06.png?8ea52a"
+  },
+  "items/kala-handguard-g.png": {
+    "group": "items",
+    "page": "Kala Handguard G",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_HGD_07.png?971614"
+  },
+  "items/kala-magazine-a.png": {
+    "group": "items",
+    "page": "Kala Magazine A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_01.png?52e543"
+  },
+  "items/kala-magazine-c.png": {
+    "group": "items",
+    "page": "Kala Magazine C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_03.png?f04402"
+  },
+  "items/kala-magazine-d.png": {
+    "group": "items",
+    "page": "Kala Magazine D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_04.png?114fce"
+  },
+  "items/kala-magazine-e.png": {
+    "group": "items",
+    "page": "Kala Magazine E",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_05.png?d1c162"
+  },
+  "items/kala-magazine-e-1.png": {
+    "group": "items",
+    "page": "Kala Magazine E-1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_05A.png?35f07b"
+  },
+  "items/kala-magazine-f.png": {
+    "group": "items",
+    "page": "Kala Magazine F",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_06.png?490d3c"
+  },
+  "items/kala-magazine-g.png": {
+    "group": "items",
+    "page": "Kala Magazine G",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_07.png?74d1b4"
+  },
+  "items/kala-magazine-h.png": {
+    "group": "items",
+    "page": "Kala Magazine H",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_MAG_545_08.png?a77587"
+  },
+  "items/kala-magazine-i.png": {
+    "group": "items",
+    "page": "Kala Magazine I",
+    "url": "https://theforeverwinter.wiki.gg/images/Kala_magazine_i.png?7c978a"
+  },
+  "items/kala-stock-a.png": {
+    "group": "items",
+    "page": "Kala Stock A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_01.png?68f70b"
+  },
+  "items/kala-stock-b.png": {
+    "group": "items",
+    "page": "Kala Stock B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_02.png?4edf22"
+  },
+  "items/kala-stock-b-1.png": {
+    "group": "items",
+    "page": "Kala Stock B-1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_02A.png?726c94"
+  },
+  "items/kala-stock-b-2.png": {
+    "group": "items",
+    "page": "Kala Stock B-2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_02B.png?4842bf"
+  },
+  "items/kala-stock-c.png": {
+    "group": "items",
+    "page": "Kala Stock C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_03.png?203c08"
+  },
+  "items/kala-stock-c-1.png": {
+    "group": "items",
+    "page": "Kala Stock C-1",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_03A.png?50ea1d"
+  },
+  "items/kala-stock-c-2.png": {
+    "group": "items",
+    "page": "Kala Stock C-2",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_03B.png?66196c"
+  },
+  "items/kala-stock-d.png": {
+    "group": "items",
+    "page": "Kala Stock D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_04.png?c66278"
+  },
+  "items/kala-stock-e.png": {
+    "group": "items",
+    "page": "Kala Stock E",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_STK_05.png?20a9c4"
+  },
+  "items/kala-upper-assembly-a.png": {
+    "group": "items",
+    "page": "Kala Upper Assembly A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_UPP_01.png?a49c03"
+  },
+  "items/kala-upper-assembly-b.png": {
+    "group": "items",
+    "page": "Kala Upper Assembly B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL01_UPP_02.png?fc2d73"
+  },
+  "items/kriss-vector-45.png": {
+    "group": "items",
+    "page": "Kriss Vector 45",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/large-lockbox.png": {
+    "group": "items",
+    "page": "Large Lockbox",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/laser-rangefinder.png": {
+    "group": "items",
+    "page": "Laser Rangefinder",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_RIGEQUIPMENT_TacCam_v1.png?e3e5c9"
+  },
+  "items/lighter.png": {
+    "group": "items",
+    "page": "Lighter",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Lighter.png?647869"
+  },
+  "items/logbook.png": {
+    "group": "items",
+    "page": "Logbook",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan05.png?5e55f4"
+  },
+  "items/m16.png": {
+    "group": "items",
+    "page": "M16",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_m16.png?2513d7"
+  },
+  "items/m16-magazine-b.png": {
+    "group": "items",
+    "page": "M16 Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL23_MAG_556_02.png?e44a46"
+  },
+  "items/m16-upper-assmbly-b.png": {
+    "group": "items",
+    "page": "M16 Upper Assmbly B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL23_UPP_02.png?587c81"
+  },
+  "items/m4a1.png": {
+    "group": "items",
+    "page": "M4A1",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_m4a1.png?1d1cb1"
+  },
+  "items/m4a1-barrel-a.png": {
+    "group": "items",
+    "page": "M4A1 Barrel A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_BRL_01.png?3b4293"
+  },
+  "items/m4a1-barrel-b.png": {
+    "group": "items",
+    "page": "M4A1 Barrel B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_BRL_02.png?d3a05a"
+  },
+  "items/m4a1-barrel-c.png": {
+    "group": "items",
+    "page": "M4A1 Barrel C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_BRL_03.png?b58c6d"
+  },
+  "items/m4a1-charging-handle-a.png": {
+    "group": "items",
+    "page": "M4A1 Charging Handle A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_CHG_01.png?17e275"
+  },
+  "items/m4a1-charging-handle-b.png": {
+    "group": "items",
+    "page": "M4A1 Charging Handle B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_CHG_02.png?37c607"
+  },
+  "items/m4a1-charging-handle-c.png": {
+    "group": "items",
+    "page": "M4A1 Charging Handle C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_CHG_03.png?da3f24"
+  },
+  "items/m4a1-gas-tube-a.png": {
+    "group": "items",
+    "page": "M4A1 Gas Tube A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_GAS_01.png?b114ee"
+  },
+  "items/m4a1-gas-tube-b.png": {
+    "group": "items",
+    "page": "M4A1 Gas Tube B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_GAS_02.png?e95a4f"
+  },
+  "items/m4a1-gas-tube-c.png": {
+    "group": "items",
+    "page": "M4A1 Gas Tube C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_GAS_03.png?961a28"
+  },
+  "items/m4a1-magazine.png": {
+    "group": "items",
+    "page": "M4A1 Magazine",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_MAG_556_03.png?7072af"
+  },
+  "items/m4a1-magazine-a.png": {
+    "group": "items",
+    "page": "M4A1 Magazine A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_MAG_556_01.png?574a56"
+  },
+  "items/m4a1-magazine-b.png": {
+    "group": "items",
+    "page": "M4A1 Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_MAG_556_02.png?395644"
+  },
+  "items/m4a1-receiver-a.png": {
+    "group": "items",
+    "page": "M4A1 Receiver A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_UPP_01.png?3cb91b"
+  },
+  "items/m4a1-receiver-b.png": {
+    "group": "items",
+    "page": "M4A1 Receiver B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_UPP_02.png?d7aa5d"
+  },
+  "items/m4a1-receiver-c.png": {
+    "group": "items",
+    "page": "M4A1 Receiver C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_UPP_03.png?6d6b72"
+  },
+  "items/m60.png": {
+    "group": "items",
+    "page": "M60",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/m79-sawed-off.png": {
+    "group": "items",
+    "page": "M79 Sawed-off",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_m79_sawed-off.png?e8e91b"
+  },
+  "items/mg34.png": {
+    "group": "items",
+    "page": "MG34",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_mg34.png?99f5a1"
+  },
+  "items/matches.png": {
+    "group": "items",
+    "page": "Matches",
+    "url": "https://theforeverwinter.wiki.gg/images/T_MAtches.png?a0fc91"
+  },
+  "items/mead.png": {
+    "group": "items",
+    "page": "Mead",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool13.png?8fca05"
+  },
+  "items/mech-part.png": {
+    "group": "items",
+    "page": "Mech Part",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_T90Parts.png?4a63c7"
+  },
+  "items/medical-supplies.png": {
+    "group": "items",
+    "page": "Medical Supplies",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_med_FirstAidKit.png?915f35"
+  },
+  "items/memento.png": {
+    "group": "items",
+    "page": "Memento",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Memento.png?63393c"
+  },
+  "items/mezcal.png": {
+    "group": "items",
+    "page": "Mezcal",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool07.png?123b3c"
+  },
+  "items/military-hard-drive.png": {
+    "group": "items",
+    "page": "Military Hard Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan03.png?da443f"
+  },
+  "items/military-pda.png": {
+    "group": "items",
+    "page": "Military PDA",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_GDC_PDA.png?b9feef"
+  },
+  "items/military-tape.png": {
+    "group": "items",
+    "page": "Military Tape",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SM_GRN05.png?dd2009"
+  },
+  "items/modem.png": {
+    "group": "items",
+    "page": "Modem",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SSD.png?6140c3"
+  },
+  "items/music-cassette.png": {
+    "group": "items",
+    "page": "Music Cassette",
+    "url": "https://theforeverwinter.wiki.gg/images/T_AudioCassette.png?8a1c65"
+  },
+  "items/muzzle-device-a.png": {
+    "group": "items",
+    "page": "Muzzle Device A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD1_2.png?6b680a"
+  },
+  "items/muzzle-device-b.png": {
+    "group": "items",
+    "page": "Muzzle Device B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD2_1.png?b08f52"
+  },
+  "items/muzzle-device-c.png": {
+    "group": "items",
+    "page": "Muzzle Device C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_1.png?a1bea6"
+  },
+  "items/muzzle-device-d.png": {
+    "group": "items",
+    "page": "Muzzle Device D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_10.png?2ed65b"
+  },
+  "items/muzzle-device-e.png": {
+    "group": "items",
+    "page": "Muzzle Device E",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_11.png?c960d4"
+  },
+  "items/muzzle-device-f.png": {
+    "group": "items",
+    "page": "Muzzle Device F",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_12.png?106bd6"
+  },
+  "items/muzzle-device-g.png": {
+    "group": "items",
+    "page": "Muzzle Device G",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_3.png?cea39e"
+  },
+  "items/muzzle-device-h.png": {
+    "group": "items",
+    "page": "Muzzle Device H",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_4.png?63f3a7"
+  },
+  "items/muzzle-device-i.png": {
+    "group": "items",
+    "page": "Muzzle Device I",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_5.png?d0339d"
+  },
+  "items/muzzle-device-j.png": {
+    "group": "items",
+    "page": "Muzzle Device J",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_6.png?c599fb"
+  },
+  "items/muzzle-device-k.png": {
+    "group": "items",
+    "page": "Muzzle Device K",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_7.png?286a49"
+  },
+  "items/muzzle-device-l.png": {
+    "group": "items",
+    "page": "Muzzle Device L",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD4_1.png?c5051f"
+  },
+  "items/muzzle-device-m.png": {
+    "group": "items",
+    "page": "Muzzle Device M",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD4_2.png?365b6a"
+  },
+  "items/muzzle-device-n.png": {
+    "group": "items",
+    "page": "Muzzle Device N",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD4_4.png?11fdce"
+  },
+  "items/muzzle-device-o.png": {
+    "group": "items",
+    "page": "Muzzle Device O",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD4_5.png?5d0925"
+  },
+  "items/muzzle-device-p.png": {
+    "group": "items",
+    "page": "Muzzle Device P",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD5_1.png?5f9df8"
+  },
+  "items/muzzle-device-q.png": {
+    "group": "items",
+    "page": "Muzzle Device Q",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD5_2.png?577db9"
+  },
+  "items/mystical-tech-totem.png": {
+    "group": "items",
+    "page": "Mystical Tech Totem",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_Totem.png?635339"
+  },
+  "items/mystical-tech-totem-large.png": {
+    "group": "items",
+    "page": "Mystical Tech Totem (Large)",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_Totem.png?635339"
+  },
+  "items/nsn-grip-a.png": {
+    "group": "items",
+    "page": "NSN Grip A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_PGR_01.png?381a8f"
+  },
+  "items/nsn-grip-b.png": {
+    "group": "items",
+    "page": "NSN Grip B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_PGR_02.png?cebc4f"
+  },
+  "items/nsn-grip-c.png": {
+    "group": "items",
+    "page": "NSN Grip C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_PGR_03.png?35268c"
+  },
+  "items/nsn-handguard-a.png": {
+    "group": "items",
+    "page": "NSN Handguard A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_HGD_01.png?1fda21"
+  },
+  "items/nsn-handguard-b.png": {
+    "group": "items",
+    "page": "NSN Handguard B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_HGD_02.png?ecf8a1"
+  },
+  "items/nsn-handguard-c.png": {
+    "group": "items",
+    "page": "NSN Handguard C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_HGD_03.png?d0e8dc"
+  },
+  "items/nsn-stock-a.png": {
+    "group": "items",
+    "page": "NSN Stock A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_STK_01.png?5e88ff"
+  },
+  "items/nsn-stock-c.png": {
+    "group": "items",
+    "page": "NSN Stock C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL12_STK_03.png?789175"
+  },
+  "items/ntw-20.png": {
+    "group": "items",
+    "page": "NTW-20",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_ntw-20.png?261ed0"
+  },
+  "items/occulomide-auto-surgeon.png": {
+    "group": "items",
+    "page": "Occulomide Auto-Surgeon",
+    "url": "https://theforeverwinter.wiki.gg/images/T_JunkEcon_118_AIMedicalTools.png?90ce4b"
+  },
+  "items/octogirls-tool-set.png": {
+    "group": "items",
+    "page": "Octogirl's Tool Set",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Octogirl_Tools_QuestItem.png?672656"
+  },
+  "items/old-paint-can.png": {
+    "group": "items",
+    "page": "Old Paint Can",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PaintCan.png?840d58"
+  },
+  "items/orgamech-nervous-system.png": {
+    "group": "items",
+    "page": "Orgamech Nervous System",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_ANS.png?e74991"
+  },
+  "items/p-arms-3p-optic.png": {
+    "group": "items",
+    "page": "P Arms 3P Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/P_Arms_3P_Optic_1200p.png?29513f"
+  },
+  "items/p90.png": {
+    "group": "items",
+    "page": "P90",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/pm-9.png": {
+    "group": "items",
+    "page": "PM-9",
+    "url": "https://theforeverwinter.wiki.gg/images/PM-9.png?d330c9"
+  },
+  "items/pm-9-magazine-b.png": {
+    "group": "items",
+    "page": "PM-9 Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG03_MAG_919_02.png?d48da8"
+  },
+  "items/pp-19-vityaz.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_pp-19_vityaz.png?a47607"
+  },
+  "items/pp-19-vityaz-barrel-a.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Barrel A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_BRL_01.png?1dd67f"
+  },
+  "items/pp-19-vityaz-barrel-b.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Barrel B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_BRL_02.png?4aac7d"
+  },
+  "items/pp-19-vityaz-grip-a.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Grip A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_PGR_01.png?9516ef"
+  },
+  "items/pp-19-vityaz-grip-b.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Grip B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_PGR_02.png?5ca69d"
+  },
+  "items/pp-19-vityaz-handguard-a.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Handguard A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_HGD_01.png?71e336"
+  },
+  "items/pp-19-vityaz-handguard-b.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Handguard B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_HGD_02.png?14fc6f"
+  },
+  "items/pp-19-vityaz-magazine-a.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Magazine A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_MAG_919_01.png?fcb29e"
+  },
+  "items/pp-19-vityaz-magazine-b.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_MAG_919_02.png?2e1202"
+  },
+  "items/pp-19-vityaz-stock-a.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Stock A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_STK_01.png?e65b81"
+  },
+  "items/pp-19-vityaz-stock-b.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Stock B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_STK_02.png?9cc7b0"
+  },
+  "items/pp-19-vityaz-upper-assembly-a.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Upper Assembly A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_UPP_01.png?65cda7"
+  },
+  "items/pp-19-vityaz-upper-assembly-b.png": {
+    "group": "items",
+    "page": "PP-19 Vityaz Upper Assembly B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SMG07_UPP_02.png?e6478c"
+  },
+  "items/ppsh-41.png": {
+    "group": "items",
+    "page": "PPSH-41",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_ppsh-41.png?d13cd8"
+  },
+  "items/painless.png": {
+    "group": "items",
+    "page": "Painless",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_Painless.png?dcae33"
+  },
+  "items/paper-scrap.png": {
+    "group": "items",
+    "page": "Paper Scrap",
+    "url": "https://theforeverwinter.wiki.gg/images/A_scrap_of_paper.png?ee920e"
+  },
+  "items/picture.png": {
+    "group": "items",
+    "page": "Picture",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan05.png?5e55f4"
+  },
+  "items/pipe-wrench.png": {
+    "group": "items",
+    "page": "Pipe Wrench",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Pipe_Wrench.png?b1046c"
+  },
+  "items/pneumatic-jump.png": {
+    "group": "items",
+    "page": "Pneumatic Jump",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPneumaticJump.png?e5eea8"
+  },
+  "items/potato-chips.png": {
+    "group": "items",
+    "page": "Potato Chips",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood02.png?afab58"
+  },
+  "items/power-drill.png": {
+    "group": "items",
+    "page": "Power Drill",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PowerDrill.png?f1a310"
+  },
+  "items/power-supply-unit.png": {
+    "group": "items",
+    "page": "Power Supply Unit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PSU.png?236215"
+  },
+  "items/precision-components.png": {
+    "group": "items",
+    "page": "Precision Components",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_PrecisionComponents.png?51fd6f"
+  },
+  "items/pretzels.png": {
+    "group": "items",
+    "page": "Pretzels",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_JunkFood03.png?32705d"
+  },
+  "items/prized-alcohol.png": {
+    "group": "items",
+    "page": "Prized Alcohol",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool06.png?887be5"
+  },
+  "items/r11-rsass.png": {
+    "group": "items",
+    "page": "R11 RSASS",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_r11_rsass.png?82df8a"
+  },
+  "items/r8.png": {
+    "group": "items",
+    "page": "R8",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/rpd.png": {
+    "group": "items",
+    "page": "RPD",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_RPD.png?d3e4fe"
+  },
+  "items/rpk.png": {
+    "group": "items",
+    "page": "RPK",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/rail-mounted-flashlight-a.png": {
+    "group": "items",
+    "page": "Rail Mounted Flashlight A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFLL1.png?c1d31c"
+  },
+  "items/rail-mounted-flashlight-b.png": {
+    "group": "items",
+    "page": "Rail Mounted Flashlight B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFLL2.png?387d77"
+  },
+  "items/rail-mounted-flashlight-c.png": {
+    "group": "items",
+    "page": "Rail Mounted Flashlight C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICFLL3.png?edbf5b"
+  },
+  "items/rail-mounted-laser-sight-a.png": {
+    "group": "items",
+    "page": "Rail Mounted Laser Sight A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICLAM1.png?45b2a6"
+  },
+  "items/rail-mounted-laser-sight-b.png": {
+    "group": "items",
+    "page": "Rail Mounted Laser Sight B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICLAM2.png?8b97f8"
+  },
+  "items/rail-mounted-laser-sight-c.png": {
+    "group": "items",
+    "page": "Rail Mounted Laser Sight C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_PICLAM3.png?38b6ae"
+  },
+  "items/railgun-assembly-component.png": {
+    "group": "items",
+    "page": "Railgun Assembly Component",
+    "url": "https://theforeverwinter.wiki.gg/images/Rail_Gun_Turret_Ammo_Supply.png?84298f"
+  },
+  "items/railgun-body-component.png": {
+    "group": "items",
+    "page": "Railgun Body Component",
+    "url": "https://theforeverwinter.wiki.gg/images/Rail_Gun_Turret_Weapon.png?aa36fa"
+  },
+  "items/railgun-breech-component.png": {
+    "group": "items",
+    "page": "Railgun Breech Component",
+    "url": "https://theforeverwinter.wiki.gg/images/Breech_Component.png?de7c68"
+  },
+  "items/railgun-cooling-component.png": {
+    "group": "items",
+    "page": "Railgun Cooling Component",
+    "url": "https://theforeverwinter.wiki.gg/images/Cooling_Component.png?f7b746"
+  },
+  "items/railgun-magazine.png": {
+    "group": "items",
+    "page": "Railgun Magazine",
+    "url": "https://theforeverwinter.wiki.gg/images/Ammo_Housing_Component.png?7a91a3"
+  },
+  "items/rare-metals.png": {
+    "group": "items",
+    "page": "Rare Metals",
+    "url": "https://theforeverwinter.wiki.gg/images/T_RareMetals.png?69b634"
+  },
+  "items/repair-dronelet.png": {
+    "group": "items",
+    "page": "Repair Dronelet",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Drone_Recovery.png?d2a9bf"
+  },
+  "items/rig-light.png": {
+    "group": "items",
+    "page": "Rig Light",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemRigFlashlight.png?7441e6"
+  },
+  "items/s12.png": {
+    "group": "items",
+    "page": "S12",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/s12-shotgun-magazine-b.png": {
+    "group": "items",
+    "page": "S12 Shotgun Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG01_MAG_02.png?f803b0"
+  },
+  "items/s12-shotgun-magazine-c.png": {
+    "group": "items",
+    "page": "S12 Shotgun Magazine C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG01_MAG_03.png?ae6b98"
+  },
+  "items/sa58.png": {
+    "group": "items",
+    "page": "SA58",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_sa58.png?6683a7"
+  },
+  "items/sa58-magazine-b.png": {
+    "group": "items",
+    "page": "SA58 Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_RFL15_MAG_308_02.png?e96bcc"
+  },
+  "items/saw.png": {
+    "group": "items",
+    "page": "SAW",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_saw.png?231da0"
+  },
+  "items/saw-magazine-b.png": {
+    "group": "items",
+    "page": "SAW Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_LMG02_MAG_556_02.png?e102b6"
+  },
+  "items/scar.png": {
+    "group": "items",
+    "page": "SCAR",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/scar-magazine-b.png": {
+    "group": "items",
+    "page": "SCAR Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_HRF01_MAG_50_02.png?c63788"
+  },
+  "items/scar-magazine-c.png": {
+    "group": "items",
+    "page": "SCAR Magazine C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_HRF01_MAG_50_03.png?f76d87"
+  },
+  "items/scar-magazine-d.png": {
+    "group": "items",
+    "page": "SCAR Magazine D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_HRF01_MAG_50_04.png?5a5e36"
+  },
+  "items/sog.png": {
+    "group": "items",
+    "page": "SOG",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_sog.png?cd1ad0"
+  },
+  "items/svd.png": {
+    "group": "items",
+    "page": "SVD",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_svd.png?fcd203"
+  },
+  "items/scavengers-go-bag.png": {
+    "group": "items",
+    "page": "Scavenger's Go-Bag",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Scavbag.png?9f1433"
+  },
+  "items/scotch.png": {
+    "group": "items",
+    "page": "Scotch",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool03.png?5915e0"
+  },
+  "items/sealed-mystery-box.png": {
+    "group": "items",
+    "page": "Sealed Mystery Box",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemIED.png?e7fe5e"
+  },
+  "items/sewers-technical-plans.png": {
+    "group": "items",
+    "page": "Sewers Technical Plans",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_TopSecretplan03.png?da443f"
+  },
+  "items/sfox-queenkiller-optic.png": {
+    "group": "items",
+    "page": "Sfox QueenKiller Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Sfox_QueenKiller_Optic_1200p.png?3d6b1d"
+  },
+  "items/signal-scrambler-grenade.png": {
+    "group": "items",
+    "page": "Signal Scrambler Grenade",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_Octogirl_Tool.png?bb4a36"
+  },
+  "items/small-first-aid-kit.png": {
+    "group": "items",
+    "page": "Small First Aid Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_med_morphine.png?3deda9"
+  },
+  "items/soap.png": {
+    "group": "items",
+    "page": "Soap",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Soap.png?c38bbe"
+  },
+  "items/spark-plug.png": {
+    "group": "items",
+    "page": "Spark Plug",
+    "url": "https://theforeverwinter.wiki.gg/images/Spark_Plug.png?29a2b4"
+  },
+  "items/special-units-detpack.png": {
+    "group": "items",
+    "page": "Special Units DetPack",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_info03.png?b8ae62"
+  },
+  "items/spectre-m4.png": {
+    "group": "items",
+    "page": "Spectre M4",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/standard-first-aid-kit.png": {
+    "group": "items",
+    "page": "Standard First Aid Kit",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_Demo_FirstAid.png?40dbff"
+  },
+  "items/stereo-box.png": {
+    "group": "items",
+    "page": "Stereo Box",
+    "url": "https://theforeverwinter.wiki.gg/images/T_StereoBox.png?fb0cf4"
+  },
+  "items/stethoscope.png": {
+    "group": "items",
+    "page": "Stethoscope",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Stethoscope.png?ac710f"
+  },
+  "items/suppressed-muzzle-device-a.png": {
+    "group": "items",
+    "page": "Suppressed Muzzle Device A",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD1_1.png?50fe7f"
+  },
+  "items/suppressed-muzzle-device-b.png": {
+    "group": "items",
+    "page": "Suppressed Muzzle Device B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_2.png?82779b"
+  },
+  "items/suppressed-muzzle-device-c.png": {
+    "group": "items",
+    "page": "Suppressed Muzzle Device C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_8.png?94aff3"
+  },
+  "items/suppressed-muzzle-device-d.png": {
+    "group": "items",
+    "page": "Suppressed Muzzle Device D",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD3_9.png?3b489f"
+  },
+  "items/suppressed-muzzle-device-e.png": {
+    "group": "items",
+    "page": "Suppressed Muzzle Device E",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD4_3.png?f28551"
+  },
+  "items/suppressed-muzzle-device-f.png": {
+    "group": "items",
+    "page": "Suppressed Muzzle Device F",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ATTMD4_6.png?930cda"
+  },
+  "items/survival-lighter.png": {
+    "group": "items",
+    "page": "Survival Lighter",
+    "url": "https://theforeverwinter.wiki.gg/images/T_SurvivalLighter.png?55cdc7"
+  },
+  "items/survival-seeds.png": {
+    "group": "items",
+    "page": "Survival Seeds",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_136_Seeds.png?904400"
+  },
+  "items/syringe.png": {
+    "group": "items",
+    "page": "Syringe",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Syringe.png?ea228c"
+  },
+  "items/t90-component.png": {
+    "group": "items",
+    "page": "T-90 Suspension Component",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_T90Parts.png?4a63c7"
+  },
+  "items/tkb-0146.png": {
+    "group": "items",
+    "page": "TKB-0146",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_tkb-0146.png?ddca6c"
+  },
+  "items/tactical-camera.png": {
+    "group": "items",
+    "page": "Tactical Camera",
+    "url": "https://theforeverwinter.wiki.gg/images/T_item_RIGEQUIPMENT_TacCam_v1.png?e3e5c9"
+  },
+  "items/target-pistol-magazine-b.png": {
+    "group": "items",
+    "page": "Target Pistol Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_PST03_MAG_919_02.png?a3845c"
+  },
+  "items/targeting-computer.png": {
+    "group": "items",
+    "page": "Targeting Computer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_TargetingComputer.png?cb0a0d"
+  },
+  "items/thermal-matches.png": {
+    "group": "items",
+    "page": "Thermal Matches",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ThermalMatches.png?bbcc21"
+  },
+  "items/thermite.png": {
+    "group": "items",
+    "page": "Thermite",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Thermite.png?7dfd26"
+  },
+  "items/thermometer.png": {
+    "group": "items",
+    "page": "Thermometer",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Thermometer.png?235a31"
+  },
+  "items/toothpaste.png": {
+    "group": "items",
+    "page": "Toothpaste",
+    "url": "https://theforeverwinter.wiki.gg/images/T_toothpaste.png?33f2bb"
+  },
+  "items/tourniquet.png": {
+    "group": "items",
+    "page": "Tourniquet",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Tourniquet.png?191bcf"
+  },
+  "items/tri-m-optic.png": {
+    "group": "items",
+    "page": "Tri M Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Tri_M_Optic_1200p.png?ffa3b7"
+  },
+  "items/trueaimer-4x.png": {
+    "group": "items",
+    "page": "TrueAimer 4x",
+    "url": "https://theforeverwinter.wiki.gg/images/TrueAimer_4x_1200p.png?f13143"
+  },
+  "items/u-stik-usb-drive.png": {
+    "group": "items",
+    "page": "U-STIK+ USB Drive",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Portrait_JunkEcon_28_USBStick.png?7ba421"
+  },
+  "items/usas-12.png": {
+    "group": "items",
+    "page": "USAS-12",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_usas-12.png?ab60bf"
+  },
+  "items/usas-12-shotgun-magazine-b.png": {
+    "group": "items",
+    "page": "USAS-12 Shotgun Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG03_MAG_12G_02.png?21a4a4"
+  },
+  "items/usas-12-shotgun-magazine-c.png": {
+    "group": "items",
+    "page": "USAS-12 Shotgun Magazine C",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG03_MAG_12G_03.png?c74f8a"
+  },
+  "items/usp.png": {
+    "group": "items",
+    "page": "USP",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/urea.png": {
+    "group": "items",
+    "page": "Urea",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Urea.png?f3dbcb"
+  },
+  "items/vepr-12.png": {
+    "group": "items",
+    "page": "VEPR-12",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_VEPR.png?443b0b"
+  },
+  "items/vks-vykhlop.png": {
+    "group": "items",
+    "page": "VKS Vykhlop",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_vks_vykhlop.png?aece59"
+  },
+  "items/ventilation-filter.png": {
+    "group": "items",
+    "page": "Ventilation Filter",
+    "url": "https://theforeverwinter.wiki.gg/images/T_VentilationFilter.png?58c9cb"
+  },
+  "items/vepr-12-shotgun-magazine-b.png": {
+    "group": "items",
+    "page": "Vepr-12 Shotgun Magazine B",
+    "url": "https://theforeverwinter.wiki.gg/images/T_WPN_SHG04_MAG_12G_02.png?2da054"
+  },
+  "items/viper.png": {
+    "group": "items",
+    "page": "Viper",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_viper.png?73fe63"
+  },
+  "items/vtex-optic.png": {
+    "group": "items",
+    "page": "Vtex Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Vtex_Optic_1200p.png?1432e7"
+  },
+  "items/vtex-raz-gen-2-optic.png": {
+    "group": "items",
+    "page": "Vtex Raz Gen 2 Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Vtex_Raz_Gen_2_Optic_1200p.png?f3487a"
+  },
+  "items/vtex-spit-3x.png": {
+    "group": "items",
+    "page": "Vtex Spit 3x",
+    "url": "https://theforeverwinter.wiki.gg/images/Vtex_Spit_3x_1200p.png?5f6608"
+  },
+  "items/vtex-strike-optic.png": {
+    "group": "items",
+    "page": "Vtex Strike Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Vtex_Strike_Optic_1200p.png?ecf3ce"
+  },
+  "items/vtex-v-optic.png": {
+    "group": "items",
+    "page": "Vtex V Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Vtex_V_Optic_1200p.png?e37b72"
+  },
+  "items/wlt-mpl.png": {
+    "group": "items",
+    "page": "WLT MPL",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_wlt_mpl.png?c94b76"
+  },
+  "items/water-canteen.png": {
+    "group": "items",
+    "page": "Water Canteen",
+    "url": "https://theforeverwinter.wiki.gg/images/ItemPortrait_GDC_Chocbar_canteen.png?200ea0"
+  },
+  "items/water-map.png": {
+    "group": "items",
+    "page": "Water Map",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.3_item.png?7b8fb0"
+  },
+  "items/water-thief-mask.png": {
+    "group": "items",
+    "page": "Water Thief Mask",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_WaterThief_Mask3.png?d1b38e"
+  },
+  "items/weapon-schematics.png": {
+    "group": "items",
+    "page": "Weapon Schematics",
+    "url": "https://theforeverwinter.wiki.gg/images/Weapon_schematics_on_the_floor.png?b656b9"
+  },
+  "items/weapon-tech.png": {
+    "group": "items",
+    "page": "Weapon Tech",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Quest_WeaponTech.png?4b5692"
+  },
+  "items/wetware-system.png": {
+    "group": "items",
+    "page": "Wetware System",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Wetware.png?6e4715"
+  },
+  "items/whiskey.png": {
+    "group": "items",
+    "page": "Whiskey",
+    "url": "https://theforeverwinter.wiki.gg/images/T_Item_Alcool01.png?b3059a"
+  },
+  "items/xm25.png": {
+    "group": "items",
+    "page": "XM25",
+    "url": "https://theforeverwinter.wiki.gg/images/Electro-Magnetic_Railway_Pt.2_item.png?8eff6f"
+  },
+  "items/zeni-b-p6-optic.png": {
+    "group": "items",
+    "page": "Zeni-B P6 Optic",
+    "url": "https://theforeverwinter.wiki.gg/images/Zeni-B_P6_Optic_1200p.png?799e0d"
+  },
+  "items/zippo-lighter.png": {
+    "group": "items",
+    "page": "Zippo Lighter",
+    "url": "https://theforeverwinter.wiki.gg/images/T_ZippoRegular.png?e6625b"
+  },
+  "items/destroyed-ppsh-41.png": {
+    "group": "items",
+    "page": "Destroyed PPSH-41",
+    "url": "https://theforeverwinter.wiki.gg/images/Item_ppsh-41.png?d13cd8"
   }
 }

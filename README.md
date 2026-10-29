@@ -1,4 +1,4 @@
-# Forever Winter Quest Tracker
+# Forever Winter Tracker
 
 A buildless, static quest-tree and stash tracker for *The Forever Winter*.
 
@@ -15,8 +15,8 @@ Open `dist/standalone.html` directly for the self-contained tracker, or serve th
 
 ## Local wiki assets
 
-Run `npm run scrape:wiki` from this directory to resolve and download every tracked item icon, crafting product, crafting ingredient, faction emblem, quest-giver portrait, and trader portrait. The Python scraper discovers the tracker material list from `data.js`, asks the MediaWiki API for original image URLs, writes those URLs to `dist/assets/wiki-source-urls.json`, and downloads with Firefox-like headers, same-origin referers, cookies, and redirects. Every API or image request is separated by a five-second delay. Its image `Accept` header prevents wiki.gg from silently converting requested PNGs to WebP; transformed responses are converted back to PNG locally.
+Run `npm run scrape:wiki` from this directory to download missing icons for the wiki's complete Items index, plus faction emblems, quest-giver portraits, and trader portraits. The Python scraper refreshes `dist/item-catalog.js` from the Items table, merges tracker-specific materials from `data.js`, writes original image URLs to `dist/assets/wiki-source-urls.json`, and skips existing PNGs before doing any per-item lookup. Every network request is separated by a five-second delay. Its image `Accept` header prevents wiki.gg from silently converting requested PNGs to WebP; transformed responses are converted back to PNG locally.
 
-Use `npm run scrape:items`, `npm run scrape:questgivers`, `npm run scrape:factions`, or `npm run scrape:traders` for one asset class. `npm run scrape:urls` resolves every class without downloading. `python3 scripts/scrape_wiki_assets.py --group items --only toy-dinosaur --force` refreshes one asset; `--delay 5` is the default and can be raised when needed.
+Use `npm run scrape:items`, `npm run scrape:questgivers`, `npm run scrape:factions`, or `npm run scrape:traders` for one asset class. `npm run scrape:fix-icons` compares existing item sources with the wiki's Items-table portraits and replaces only mismatches. `npm run scrape:refresh` deliberately replaces every file; normal scrape commands fill missing files and repair known mismatches. `npm run scrape:urls` resolves every class without downloading. `python3 scripts/scrape_wiki_assets.py --group items --only toy-dinosaur --force` refreshes one asset; `--delay 5` is the default and can be raised when needed.
 
-Data snapshot: 2026-10-29. Sources: [Quests](https://theforeverwinter.wiki.gg/wiki/Quests), [crafting data guide](https://theforeverwinter.wiki.gg/wiki/Guides/Wiki/Working_with_Cargo), and [weapon repairs](https://theforeverwinter.wiki.gg/wiki/Weapon_Repairs), CC BY-SA 4.0.
+Data snapshot: 2026-10-29. Sources: [Items](https://theforeverwinter.wiki.gg/wiki/Items), [Quests](https://theforeverwinter.wiki.gg/wiki/Quests), [crafting data guide](https://theforeverwinter.wiki.gg/wiki/Guides/Wiki/Working_with_Cargo), and [weapon repairs](https://theforeverwinter.wiki.gg/wiki/Weapon_Repairs), CC BY-SA 4.0.

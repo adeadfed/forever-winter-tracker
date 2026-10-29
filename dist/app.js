@@ -13,6 +13,8 @@
   const questById = new Map(allQuests.map((quest) => [quest.id, quest]));
   const lineById = new Map(QUEST_LINES.map((line) => [line.id, line]));
   const upgradeById = new Map(HIDEOUT_UPGRADES.map((upgrade) => [upgrade.id, upgrade]));
+  const wikiItemCatalog = Array.isArray(window.ALL_ITEMS) ? window.ALL_ITEMS : [];
+  const wikiItemByName = new Map(wikiItemCatalog.map((item) => [item.name, item]));
 
   const defaultState = {
     completed: {},
@@ -408,7 +410,10 @@
   }
 
   function inventoryId(name) { return `item-${slugLocal(canonicalItemName(name))}`; }
-  function itemPageName(name) { const canonical = canonicalItemName(name); return ITEM_ICON_ALIASES[canonical] ?? canonical; }
+  function itemPageName(name) {
+    const canonical = canonicalItemName(name);
+    return wikiItemByName.get(canonical)?.page ?? ITEM_ICON_ALIASES[canonical] ?? canonical;
+  }
   function owned(name) { return Math.max(0, Number(state.items[inventoryId(canonicalItemName(name))]) || 0); }
 
   function iconKind(name, group = "") {
@@ -424,7 +429,9 @@
   function itemIcon(name, group = "") {
     const canonicalName = canonicalItemName(name);
     const kind = iconKind(canonicalName, group);
-    const localImage = ASSET_PATHS.item?.[canonicalName] ?? `assets/items/${slugLocal(canonicalName)}.png`;
+    const localImage = ASSET_PATHS.item?.[canonicalName]
+      ?? wikiItemByName.get(canonicalName)?.icon
+      ?? `assets/items/${slugLocal(canonicalName)}.png`;
     const content = `<img src="${localImage}" onerror="this.classList.add('is-missing')" alt="" loading="lazy">`;
     return `<a class="item-icon kind-${kind}" href="${wikiPageUrl(itemPageName(canonicalName))}" target="_blank" rel="noopener" title="${escapeHtml(canonicalName)}">${content}</a>`;
   }
@@ -532,6 +539,13 @@
       if (!hasPlanTarget) current.needed = current.craftingNeeded;
       map.set(name, current);
     }));
+    wikiItemCatalog.forEach((entry) => {
+      const name = canonicalItemName(entry.name);
+      if (!map.has(name)) map.set(name, {
+        name, needed: 0, group: "Item", questNeeded: 0,
+        sources: [], contexts: [], craftingNeeded: 0, craftingRecipes: [],
+      });
+    });
     return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
   }
 
@@ -625,7 +639,8 @@
   }
 
   function matchesItem(item) {
-    const groupMatches = selectedItemGroup === "all" || item.group === selectedItemGroup || item.contexts.includes(selectedItemGroup);
+    const groupMatches = selectedItemGroup === "all"
+      || (selectedItemGroup === "other" ? item.contexts.length === 0 : item.group === selectedItemGroup || item.contexts.includes(selectedItemGroup));
     return groupMatches && (!search || `${item.name} ${item.group} ${item.sources.join(" ")}`.toLowerCase().includes(search));
   }
 
@@ -634,13 +649,14 @@
     const visible = tracked.filter(matchesItem);
     els.itemsGrid.innerHTML = visible.map((item) => {
       const count = owned(item.name);
-      const ready = count >= item.needed;
+      const hasRequirement = item.needed > 0;
+      const ready = hasRequirement && count >= item.needed;
       const id = inventoryId(item.name);
       return `<article class="item-row ${ready ? "is-ready" : ""}">${itemIcon(item.name, item.group)}
-        <div class="item-name"><strong>${escapeHtml(item.name)}</strong>${item.contexts.includes("Crafting") ? '<span class="crafting-tag">Crafting ingredient</span>' : ""}<small>${item.questNeeded || item.contexts.includes("Innards") ? `Plan total ${item.needed}` : `Recipe max ${item.craftingNeeded}`}</small></div>
+        <div class="item-name"><strong>${escapeHtml(item.name)}</strong>${item.contexts.includes("Crafting") ? '<span class="crafting-tag">Crafting ingredient</span>' : ""}${hasRequirement ? `<small>${item.questNeeded || item.contexts.includes("Innards") ? `Plan total ${item.needed}` : `Recipe max ${item.craftingNeeded}`}</small>` : ""}</div>
         <span class="item-group">${escapeHtml(item.contexts.join(" + "))}</span>
         <span class="item-quests">${escapeHtml(item.sources.join(" · "))}</span>
-        <div class="item-count"><button type="button" data-item-action="minus" data-item-id="${id}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(item.name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}">+</button><small>${ready ? "Ready" : `${count} / ${item.needed}`}</small></div>
+        <div class="item-count"><button type="button" data-item-action="minus" data-item-id="${id}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(item.name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}">+</button>${hasRequirement ? `<small>${ready ? "Ready" : `${count} / ${item.needed}`}</small>` : ""}</div>
       </article>`;
     }).join("");
     els.itemsEmpty.classList.toggle("is-hidden", visible.length !== 0);
@@ -691,8 +707,10 @@
       ].filter(Boolean);
       const prereq = prereqs.length ? prereqs.join(" + ") : "None";
       const stageLabel = upgrade.tiered ? `TIER ${upgrade.tier}` : "MODULE";
+      const header = `<header><div><span>${escapeHtml(upgrade.group)}</span><h2>${escapeHtml(upgrade.name)}</h2></div><b class="upgrade-tier">${stageLabel}</b><button class="upgrade-check" type="button" data-upgrade-id="${upgrade.id}" ${status === "locked" ? "disabled" : ""} aria-label="Toggle ${escapeHtml(upgrade.name)}">${status === "complete" ? "Built" : status === "locked" ? "Locked" : "Mark built"}</button></header>`;
+      if (status === "complete") return `<article class="upgrade-card is-collapsed" data-status="complete">${header}<p>${escapeHtml(upgrade.effect)}</p></article>`;
       return `<article class="upgrade-card" data-status="${status}">
-        <header><div><span>${escapeHtml(upgrade.group)}</span><h2>${escapeHtml(upgrade.name)}</h2></div><b class="upgrade-tier">${stageLabel}</b><button class="upgrade-check" type="button" data-upgrade-id="${upgrade.id}" ${status === "locked" ? "disabled" : ""} aria-label="Toggle ${escapeHtml(upgrade.name)}">${status === "complete" ? "Built" : status === "locked" ? "Locked" : "Mark built"}</button></header>
+        ${header}
         <p>${escapeHtml(upgrade.effect)}</p>
         <div class="upgrade-stats"><span><b>${upgrade.water}</b> water</span><span><b>${upgrade.credits.toLocaleString()}</b> CR</span><span><b>${upgrade.time}</b> build</span><span><b>${escapeHtml(prereq)}</b> prerequisite</span></div>
         <div class="upgrade-items">${upgrade.items.length ? upgrade.items.map((item) => compactItemMarkup(item.name, item.needed)).join("") : '<p class="no-materials">No material items.</p>'}</div>
@@ -858,7 +876,7 @@
     els.lineFilter.replaceChildren();
     QUEST_LINES.forEach((line) => els.lineFilter.add(new Option(line.name, line.id)));
     els.lineFilter.value = state.selectedLine;
-    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"), new Option("Crafting", "Crafting"));
+    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"), new Option("Crafting", "Crafting"), new Option("Other items", "other"));
     [...new Set(KEEP_ITEMS.map((item) => item.group))].sort().forEach((group) => els.itemGroupFilter.add(new Option(group, group)));
     els.hideoutGroupFilter.replaceChildren(new Option("All categories", "all"), new Option("Terminal", "Terminal"), new Option("Welfare", "Welfare"));
     els.craftingStationFilter.replaceChildren(new Option("All stations", "all"), ...CRAFTING_STATIONS.map((station) => new Option(station, station)));
