@@ -13,9 +13,9 @@ let html = read("index.html");
 html = html
   .replace(/\s*<link rel="preconnect"[^>]*>/g, "")
   .replace(/\s*<link href="https:\/\/fonts\.googleapis\.com[^>]*>/g, "")
-  .replace(/\s*<link rel="stylesheet" href="styles\.css">/, `\n  <style>\n${css}\n  </style>`)
-  .replace(/\s*<script src="data\.js"><\/script>/, `\n  <script>\n${data}\n  </script>`)
-  .replace(/\s*<script src="app\.js"><\/script>/, `\n  <script>\n${app}\n  </script>`);
+  .replace(/\s*<link rel="stylesheet" href="styles\.css(?:\?[^\"]*)?">/, `\n  <style>\n${css}\n  </style>`)
+  .replace(/\s*<script src="data\.js(?:\?[^\"]*)?"><\/script>/, `\n  <script>\n${data}\n  </script>`)
+  .replace(/\s*<script src="app\.js(?:\?[^\"]*)?"><\/script>/, `\n  <script>\n${app}\n  </script>`);
 
 fs.writeFileSync(path.join(dist, "standalone.html"), html);
 console.log(`Built dist/standalone.html (${Buffer.byteLength(html).toLocaleString()} bytes).`);

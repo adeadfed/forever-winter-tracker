@@ -374,11 +374,15 @@
       const position = layout.positions.get(quest.id);
       const status = questStatus(quest);
       const requiredItems = itemNamesForQuest(line, quest);
+      const externalRequirements = quest.requires
+        .filter((id) => !layout.ownIds.has(id))
+        .map((id) => questById.get(id)?.name)
+        .filter(Boolean);
       const crossClass = highlightedQuestIds.size
         ? highlightedQuestIds.has(quest.id) ? " is-cross-highlight" : " is-cross-dimmed"
         : "";
       return `<article class="graph-node${matchesQuest(quest) ? "" : " is-filtered"}${crossClass}" data-status="${status}" style="left:${position.x}px;top:${position.y}px;--line-accent:${line.accent}">
-        ${quest.optional ? '<span class="node-flag is-optional">OPTIONAL</span>' : quest.phase ? `<span class="node-flag">${escapeHtml(quest.phase)}</span>` : ""}
+        ${quest.optional ? '<span class="node-flag is-optional">OPTIONAL</span>' : quest.phase ? `<span class="node-flag">${escapeHtml(quest.phase)}</span>` : externalRequirements.length ? `<span class="node-flag is-requirement">REQUIRES ${escapeHtml(externalRequirements.join(" + "))}</span>` : ""}
         <button class="node-check" type="button" data-quest-id="${quest.id}" ${status === "locked" ? "disabled" : ""} aria-label="${status === "complete" ? "Mark incomplete" : "Mark complete"}: ${escapeHtml(quest.name)}"></button>
         <a class="node-link" href="${quest.wiki}" target="_blank" rel="noopener">${escapeHtml(quest.name)}</a>
         <span class="node-meta">${escapeHtml(quest.location)}</span>

@@ -134,11 +134,14 @@ assert.ok(graphMarkup.includes('data-focus-quest-items="blue-gold"'), "quest nod
 assert.ok(document.ids.get("lineItems").innerHTML.includes('data-focus-item="Barrel of Water"'), "questline item rows should link to graph nodes");
 assert.ok(document.ids.get("lineItems").innerHTML.includes('assets/items/barrel-of-water.png'), "unmapped item art should use the stable scraper destination");
 assert.ok(!document.ids.get("lineItems").innerHTML.includes("◇"), "questline items must not render generic category glyphs");
-assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card/g) ?? []).length, 18, "campaign overview should render questlines and Innards gates");
-assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card campaign-gate /g) ?? []).length, 4, "campaign overview should render four Innards gate nodes");
+assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card/g) ?? []).length, 17, "campaign overview should render questlines and real Innards gates");
+assert.equal((document.ids.get("campaignMap").innerHTML.match(/class="campaign-card campaign-gate /g) ?? []).length, 3, "campaign overview should render three real Innards gate nodes");
 assert.ok(document.ids.get("campaignMap").innerHTML.includes("STARTING LINE"), "The Long Road In should be visibly identified as the starting line");
 assert.ok(document.ids.get("campaignMap").innerHTML.includes("Lordoss I · Cigarettes"), "campaign overview should render Lordoss I");
 assert.ok(document.ids.get("campaignMap").innerHTML.includes("Lordoss II · Restoration"), "campaign overview should render Lordoss II");
+assert.ok(document.ids.get("campaignMap").innerHTML.includes("REQUIRES LORDOSS I"), "campaign overview should show Lordoss I gating Transmission Tower");
+assert.ok(document.ids.get("campaignMap").innerHTML.includes("PT. 3 · GIANT&#39;S SENSES"), "campaign overview should show Giant's Senses gating Tower Pt. 3");
+assert.equal(document.ids.get("campaignMap").innerHTML.includes("BAR V3"), false, "campaign overview must not show a false Bar requirement");
 assert.equal((document.ids.get("radiantGrid").innerHTML.match(/class="radiant-row/g) ?? []).length, 87, "all radiant rows should render");
 assert.equal((document.ids.get("radiantGrid").innerHTML.match(/class="radiant-faction-icon/g) ?? []).length, 87, "radiants should render faction icons");
 assert.ok(document.ids.get("radiantGrid").innerHTML.includes("Western Embassy"), "radiants should distinguish the issuing desk from the reputation faction");
@@ -176,6 +179,13 @@ assert.equal(saved.items["item-old-tool-set"], 2, "legacy spacing variants shoul
 assert.equal(saved.items["item-clamps"], undefined, "legacy duplicate inventory keys should be removed");
 
 const clickTarget = (selector, element) => ({ closest: (query) => query === selector ? element : null });
+const sellTab = tabs.find((tab) => tab.dataset.view === "sell");
+const sellPanel = views.find((panel) => panel.id === "sellView");
+document.dispatch("click", clickTarget(".tab", sellTab));
+assert.equal(sellPanel.classList.contains("is-active"), true, "sell tab must activate its result panel");
+assert.equal(document.body.classList.contains("is-sell-view"), true, "sell tab must activate its full-height layout");
+assert.ok(document.ids.get("sellResult").innerHTML.includes("Barrel of Water"), "sell tab must not render blank");
+document.dispatch("click", clickTarget(".tab", tabs.find((tab) => tab.dataset.view === "lines")));
 const questButton = (id) => {
   const button = new FakeElement("button");
   button.dataset.questId = id;
@@ -271,11 +281,17 @@ document.dispatch("click", questButton("rust-in-peace"));
 saved = JSON.parse(storage.get("fwQuestTracker.v3"));
 assert.deepEqual(Object.keys(saved.completed), ["rust-in-peace"], "radiant progress must remain independent of chains");
 
-for (const id of ["bar", "bar-v1", "bar-v2", "bar-v3"]) document.dispatch("click", upgradeButton(id));
-saved = JSON.parse(storage.get("fwQuestTracker.v3"));
-assert.equal(saved.upgrades["bar-v3"], true, "Bar tiers should unlock in sequence");
-
 const lineFilter = document.ids.get("lineFilter");
+lineFilter.value = "transmission-tower";
+lineFilter.dispatch("change");
+assertQuestStatus("transmission-tower-pt-1", "locked");
+assert.ok(graphNodeFragment("transmission-tower-pt-3").includes("REQUIRES Giant&#39;s Senses"), "Tower Pt. 3 must visibly show its cross-line requirement");
+
+lineFilter.value = "lordoss-cigarettes";
+lineFilter.dispatch("change");
+document.ids.get("manualLineUnlock").dispatch("click");
+for (const quest of context.window.QUEST_LINES.find((line) => line.id === "lordoss-cigarettes").quests) document.dispatch("click", questButton(quest.id));
+
 lineFilter.value = "transmission-tower";
 lineFilter.dispatch("change");
 assertQuestStatus("transmission-tower-pt-1", "available");
@@ -290,12 +306,19 @@ assertQuestStatus("transmission-tower-pt-2", "available");
 document.dispatch("click", questButton("transmission-tower-pt-2"));
 saved = JSON.parse(storage.get("fwQuestTracker.v3"));
 assert.equal(saved.completed["transmission-tower-pt-2"], true, "Pt. 2 should unlock after tower construction");
+assert.equal(saved.upgrades["bar-v3"], undefined, "Transmission Tower must not require Bar V3");
+assertQuestStatus("transmission-tower-pt-3", "locked");
 
-document.dispatch("click", upgradeButton("bar-v3"));
+lineFilter.value = "lordoss-restoration";
+lineFilter.dispatch("change");
+for (const quest of context.window.QUEST_LINES.find((line) => line.id === "lordoss-restoration").quests) document.dispatch("click", questButton(quest.id));
+
+lineFilter.value = "transmission-tower";
+lineFilter.dispatch("change");
+assertQuestStatus("transmission-tower-pt-3", "available");
+document.dispatch("click", questButton("transmission-tower-pt-3"));
 saved = JSON.parse(storage.get("fwQuestTracker.v3"));
-assert.equal(saved.upgrades["transmission-tower-build"], undefined, "reopening Bar V3 should reset tower construction");
-assert.equal(saved.completed["transmission-tower-pt-1"], undefined, "reopening Bar V3 should reset the locked campaign line");
-assert.equal(saved.completed["transmission-tower-pt-2"], undefined, "reopening Bar V3 should reset downstream quest progress");
+assert.equal(saved.completed["transmission-tower-pt-3"], true, "Giant's Senses should unlock Tower Pt. 3");
 
 const plus = new FakeElement("button");
 plus.dataset.itemAction = "plus";

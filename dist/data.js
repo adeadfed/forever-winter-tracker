@@ -135,7 +135,7 @@ window.QUEST_LINES = [
     "transmission-tower",
     "Transmission Tower",
     "Velko · Sura · Octogirl",
-    "Fully upgrade the Bar to start. Build the Transmission Tower after Pt. 1. Pt. 3 also requires Giant's Senses.",
+    "Requires Lordoss I. Build the Transmission Tower after Pt. 1. Giant's Senses gates Pt. 3.",
     "#5dc8ff",
     [
       quest("Transmission Tower Pt. 1", "Scavengers (Velko)", "Elephant Mausoleum / Frozen Swamp / Babel", "Place nine Frequency Taps near Radar Walkers."),
@@ -495,7 +495,7 @@ window.QUESTLINE_GATES = {
   railgun: { label: "Bunco approval", requiresLines: [], requiresUpgrades: [] },
   "lordoss-cigarettes": { label: "Meet Lordoss in the Innards", requiresLines: [], requiresUpgrades: [] },
   "lordoss-restoration": { label: "Complete Lordoss I", requiresLines: ["lordoss-cigarettes"], requiresUpgrades: [] },
-  "transmission-tower": { label: "Build Bar V3", requiresLines: [], requiresUpgrades: ["bar-v3"] },
+  "transmission-tower": { label: "Requires Lordoss I", requiresLines: ["lordoss-cigarettes"], requiresUpgrades: [] },
   "trophy-room": { label: "Complete Transmission Tower Pt. 4", requiresLines: ["transmission-tower"], requiresUpgrades: [] },
   "shifting-tide": { label: "Discover the Water Thief contact", requiresLines: [], requiresUpgrades: [] },
   "vip-treatment": { label: "Receive the SPETSNAZ commission", requiresLines: [], requiresUpgrades: [] },
@@ -511,8 +511,8 @@ window.QUESTLINE_GATES = {
 // pretending every relationship is a full questline-to-questline dependency.
 window.CAMPAIGN_MAP_NODES = [
   { id:"line:tutorial", kind:"line", ref:"tutorial", column:0, row:2, starting:true },
-  { id:"line:lordoss-cigarettes", kind:"line", ref:"lordoss-cigarettes", column:1, row:0 },
-  { id:"line:lordoss-restoration", kind:"line", ref:"lordoss-restoration", column:2, row:0, depends:[{ id:"line:lordoss-cigarettes", label:"COMPLETE PT. 10", hard:true }] },
+  { id:"line:lordoss-cigarettes", kind:"line", ref:"lordoss-cigarettes", column:1, row:5.8 },
+  { id:"line:lordoss-restoration", kind:"line", ref:"lordoss-restoration", column:2, row:5.2, depends:[{ id:"line:lordoss-cigarettes", label:"COMPLETE PT. 10", hard:true }] },
   { id:"line:hidden-water", kind:"line", ref:"hidden-water", column:1, row:1 },
   { id:"line:scav-scrap", kind:"line", ref:"scav-scrap", column:1, row:2 },
   { id:"line:summon-the-pain", kind:"line", ref:"summon-the-pain", column:1, row:3 },
@@ -522,12 +522,11 @@ window.CAMPAIGN_MAP_NODES = [
   { id:"line:garage-days", kind:"line", ref:"garage-days", column:2, row:3 },
   { id:"line:railgun", kind:"line", ref:"railgun", column:2, row:4 },
   { id:"upgrade:garage", kind:"upgrade", ref:"garage", column:3, row:3, label:"GARAGE", detail:"Innards fast-travel facility", depends:[{ id:"line:garage-days", label:"COMPLETE PT. 3", hard:true }] },
-  { id:"upgrade:bar-v3", kind:"upgrade", ref:"bar-v3", column:1, row:5.8, label:"BAR V3", detail:"Fully upgrade the Bar" },
-  { id:"line:transmission-tower", kind:"line", ref:"transmission-tower", column:2, row:5.8, note:"Pt. 3 also requires Lordoss II", depends:[{ id:"upgrade:bar-v3", label:"STARTS LINE", hard:true }] },
-  { id:"upgrade:transmission-tower-build", kind:"upgrade", ref:"transmission-tower-build", column:3, row:5.8, label:"TRANSMISSION TOWER", detail:"Blueprint awarded after Pt. 1", depends:[{ id:"line:transmission-tower", label:"AFTER PT. 1", hard:false }] },
-  { id:"line:doctor-morrow", kind:"line", ref:"doctor-morrow", column:4, row:5.8, depends:[{ id:"upgrade:transmission-tower-build", label:"TOWER + CODE", hard:true }] },
-  { id:"line:trophy-room", kind:"line", ref:"trophy-room", column:3, row:6.75, depends:[{ id:"line:transmission-tower", label:"COMPLETE PT. 4", hard:true }] },
-  { id:"upgrade:cognition-cradle", kind:"upgrade", ref:"cognition-cradle", column:4, row:6.75, label:"COGNITION CRADLE", detail:"Trophy Room construction branch", depends:[{ id:"line:trophy-room", label:"AFTER COST PT. 4", hard:false }] },
+  { id:"line:transmission-tower", kind:"line", ref:"transmission-tower", column:3, row:5.8, depends:[{ id:"line:lordoss-cigarettes", label:"REQUIRES LORDOSS I", hard:true },{ id:"line:lordoss-restoration", label:"PT. 3 · GIANT'S SENSES", hard:false }] },
+  { id:"upgrade:transmission-tower-build", kind:"upgrade", ref:"transmission-tower-build", column:4, row:5.8, label:"TRANSMISSION TOWER", detail:"Blueprint awarded after Pt. 1", depends:[{ id:"line:transmission-tower", label:"AFTER PT. 1", hard:false }] },
+  { id:"line:doctor-morrow", kind:"line", ref:"doctor-morrow", column:5, row:5.8, depends:[{ id:"upgrade:transmission-tower-build", label:"TOWER + CODE", hard:true }] },
+  { id:"line:trophy-room", kind:"line", ref:"trophy-room", column:4, row:6.75, depends:[{ id:"line:transmission-tower", label:"COMPLETE PT. 4", hard:true }] },
+  { id:"upgrade:cognition-cradle", kind:"upgrade", ref:"cognition-cradle", column:5, row:6.75, label:"COGNITION CRADLE", detail:"Trophy Room construction branch", depends:[{ id:"line:trophy-room", label:"AFTER COST PT. 4", hard:false }] },
 ];
 
 window.QUESTLINE_ITEM_NAMES = {
@@ -563,7 +562,7 @@ window.HIDEOUT_UPGRADES = [
   upgrade("shooting-range-v1", "Facilities", "Shooting Range V1", "Unlock the damage test area.", 12, 125000, "12h", [["WD40",2],["Sheet Metal",8],["Drywall",8],["ES Lamp",8],["Nails",10]], "shooting-range"),
   upgrade("shooting-range-v2", "Facilities", "Shooting Range V2", "Unlock the target practice area.", 24, 250000, "1d", [["Construction Drone",1],["Concrete Mixer",1],["Concrete Powder",3],["Industrial Sealant",5],["UV Light Bulb",6]], "shooting-range-v1"),
   upgrade("shooting-range-v3", "Facilities", "Shooting Range V3", "Unlock live targets.", 48, 500000, "2d", [["Water Thief's Mask Bozo",1],["Water Thief's Mask Thirsty",1],["Shield Officer Codex",1],["Construction Foam",3],["Construction Drone",3]], "shooting-range-v2"),
-  upgrade("transmission-tower-build", "Facilities", "Transmission Tower", "Contact distant characters and unlock new quest paths.", 80, 5000000, "24h", [["Organoid Networking Board",2],["Wetware Processor",2],["Construction Drone",3],["Military Codebreaker",3],["Multi-frequency Broadcaster",3],["Construction Foam",5]], "bar-v3", "transmission-tower"),
+  upgrade("transmission-tower-build", "Facilities", "Transmission Tower", "Contact distant characters and unlock new quest paths.", 80, 5000000, "24h", [["Organoid Networking Board",2],["Wetware Processor",2],["Construction Drone",3],["Military Codebreaker",3],["Multi-frequency Broadcaster",3],["Construction Foam",5]]),
   upgrade("garage", "Facilities", "Garage", "Use Bunco's APC for credit-based fast travel.", 32, 2500000, "24h", [["Ratchet",1],["Precision Tool Set",1],["Hard Shell Laptop",1],["Portable Generator",2],["Construction Drone",3]], null, "garage-days"),
   upgrade("cognition-cradle", "Facilities", "Cognition Cradle", "Unlock the endgame lore room.", 50, 2000000, "12h", [["Ventilation Regulator",2],["Construction Foam",3],["Concrete Powder",3],["Sentient Drill",3],["Construction Drone",3]], null, "trophy-room"),
   upgrade("cognition-frame", "Facilities", "Cognition Cradle Frame", "Power the Cognition Cradle.", 60, 3500000, "1d", [["Military Power Cell",4],["Construction Drone",4],["Organoid Plug",5],["Organoid Outlet",5],["Carbon Fiber Tube",6]], "cognition-cradle"),
@@ -582,7 +581,7 @@ window.HIDEOUT_UPGRADES = [
   upgrade("bar", "Bar", "The Bar", "Open the Bar and meet Velko, Arbeits and Wahlkreise.", 32, 250000, "6h", [["Ribbed Tube",8],["Food Tin",10],["Vodka",10],["Metal Pipe",12],["Metal Fragments",15]]),
   upgrade("bar-v1", "Bar", "Bar V1", "First Bar expansion.", 44, 750000, "12h", [["Clear Tube",6],["Printing Resin",8],["Goodies",8],["Rum",8],["Sheet Metal",12]], "bar"),
   upgrade("bar-v2", "Bar", "Bar V2", "Euruskan patrons arrive; meet Sura and Father Malenko.", 56, 1500000, "1d", [["Construction Drone",1],["Concrete Mixer",2],["Concrete Powder",6],["MRE",6],["Tequila",6]], "bar-v1"),
-  upgrade("bar-v3", "Bar", "Bar V3", "Europan patrons arrive; Velko unlocks the Transmission Tower plan.", 68, 2500000, "2d", [["Rat King Codex",1],["Sentient Drill",2],["Construction Drone",3],["Bulkhead Lights",5]], "bar-v2", "transmission-tower"),
+  upgrade("bar-v3", "Bar", "Bar V3", "Europan patrons arrive.", 68, 2500000, "2d", [["Rat King Codex",1],["Sentient Drill",2],["Construction Drone",3],["Bulkhead Lights",5]], "bar-v2"),
 ];
 
 window.HIDEOUT_UPGRADES.find((entry) => entry.id === "transmission-tower-build").requiresQuest = "transmission-tower-pt-1";

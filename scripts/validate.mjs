@@ -61,7 +61,11 @@ assert.equal(lordossRestoration.quests.length, 7, "Lordoss II must contain the s
 assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-cigarettes"].requiresUpgrades), [], "Lordoss I must not require the Bar");
 assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-restoration"].requiresUpgrades), [], "Lordoss II must not require the Bar");
 assert.deepEqual(Array.from(QUESTLINE_GATES["lordoss-restoration"].requiresLines), ["lordoss-cigarettes"], "Lordoss II must unlock after Lordoss I");
-assert.deepEqual(Array.from(QUEST_LINES.find((entry) => entry.id === "transmission-tower").quests.find((entry) => entry.id === "transmission-tower-pt-3").requires), ["transmission-tower-pt-2", "giants-senses"], "Lordoss must rejoin the Bar/Tower story at Transmission Tower Pt. 3");
+assert.deepEqual(Array.from(QUESTLINE_GATES["transmission-tower"].requiresLines), ["lordoss-cigarettes"], "Transmission Tower must require Lordoss I");
+assert.deepEqual(Array.from(QUESTLINE_GATES["transmission-tower"].requiresUpgrades), [], "Transmission Tower must not require the Bar");
+assert.deepEqual(Array.from(QUEST_LINES.find((entry) => entry.id === "transmission-tower").quests.find((entry) => entry.id === "transmission-tower-pt-3").requires), ["transmission-tower-pt-2", "giants-senses"], "Giant's Senses must gate Transmission Tower Pt. 3");
+assert.equal(HIDEOUT_UPGRADES.find((entry) => entry.id === "transmission-tower-build").prerequisite, null, "Transmission Tower construction must not require Bar V3");
+assert.equal(HIDEOUT_UPGRADES.find((entry) => entry.id === "bar-v3").unlocks, null, "Bar V3 must not unlock Transmission Tower");
 
 for (const quest of chainQuests) assert.equal(quest.radiant, false, `${quest.name} must be a questline node`);
 for (const line of QUEST_LINES) {
@@ -164,7 +168,7 @@ const standalone = fs.readFileSync(path.join(dist, "standalone.html"), "utf8");
 for (const id of ["questLines", "campaignMap", "lineItems", "clearItemFocus", "hideoutGrid", "craftingGrid", "craftingStationFilter", "radiantGrid", "radiantFactionFilter", "radiantSort", "sellView", "sellSearchInput", "sellItemOptions", "sellResult", "itemsGrid", "searchInput", "resetProgress"]) {
   assert.ok(html.includes(`id="${id}"`), `missing required UI target #${id}`);
 }
-assert.ok(html.indexOf('src="data.js"') < html.indexOf('src="app.js"'), "quest data must load before app logic");
+assert.ok(html.indexOf('src="data.js') < html.indexOf('src="app.js'), "quest data must load before app logic");
 assert.match(css, /@media \(max-width: \d+px\)/, "mobile layout is missing");
 assert.ok(css.includes(":focus-visible"), "keyboard focus treatment is missing");
 assert.ok(app.includes("localStorage"), "local persistence is missing");
@@ -179,11 +183,15 @@ assert.ok(app.includes("renderHideout"), "Innards upgrade cards are missing");
 assert.ok(app.includes("renderCrafting"), "crafting recipe cards are missing");
 assert.ok(app.includes("sellAnalysis") && app.includes("renderSellResult"), "sell lookup analysis is missing");
 assert.ok(css.includes(".sell-hero-icon") && css.includes('data-sell-state="sell"'), "sell lookup verdict styling is missing");
+assert.ok(css.includes("#sellView.is-active") && html.includes("styles.css?v="), "sell view rendering and cache refresh protection are missing");
 assert.ok(app.includes("fitGraph"), "responsive quest-tree fitting is missing");
 assert.ok(app.includes("radiant-faction-icon"), "radiant faction icons are missing");
 assert.equal(CAMPAIGN_MAP_NODES.filter((node) => node.kind === "line").length, QUEST_LINES.length, "campaign overview must contain every questline");
-assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "bar-v3"), "campaign overview must expose the Bar V3 gate");
+assert.equal(CAMPAIGN_MAP_NODES.some((node) => node.ref === "bar-v3"), false, "campaign overview must not show Bar V3 as a Tower gate");
 assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "transmission-tower-build"), "campaign overview must expose the Transmission Tower build gate");
+const towerCampaignNode = CAMPAIGN_MAP_NODES.find((node) => node.ref === "transmission-tower");
+assert.ok(towerCampaignNode.depends.some((entry) => entry.id === "line:lordoss-cigarettes" && entry.hard), "campaign overview must connect Lordoss I to Transmission Tower");
+assert.ok(towerCampaignNode.depends.some((entry) => entry.id === "line:lordoss-restoration" && !entry.hard && entry.label.includes("GIANT'S SENSES")), "campaign overview must show Giant's Senses gating Tower Pt. 3");
 assert.equal(CAMPAIGN_MAP_NODES.find((node) => node.ref === "tutorial")?.column, 0, "the tutorial must be the opening campaign column");
 assert.equal(CAMPAIGN_MAP_NODES.find((node) => node.ref === "tutorial")?.starting, true, "The Long Road In must be visually marked as the starting questline");
 assert.ok(CAMPAIGN_MAP_NODES.some((node) => node.ref === "lordoss-cigarettes"), "campaign overview must show Lordoss I");
