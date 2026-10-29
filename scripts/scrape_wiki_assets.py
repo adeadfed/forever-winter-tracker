@@ -88,7 +88,7 @@ def js_string(value: str) -> str:
 
 
 def discover_item_targets() -> dict[str, tuple[str, str]]:
-    """Read every quest/Innards material name directly from data.js."""
+    """Read every quest, Innards, crafting product, and ingredient from data.js."""
     source = DATA_JS.read_text(encoding="utf-8")
     names = {
         js_string(match.group(1))
@@ -98,6 +98,18 @@ def discover_item_targets() -> dict[str, tuple[str, str]]:
     names.update(
         js_string(match.group(1))
         for match in re.finditer(r'\["((?:[^"\\]|\\.)+)",\s*\d+\]', hideout)
+    )
+    crafting = source.partition("window.CRAFTING_RECIPES = [")[2].partition("];")[0]
+    names.update(
+        js_string(match.group(1))
+        for match in re.finditer(
+            r'craftingRecipe\(\s*"(?:[^"\\]|\\.)+"\s*,\s*"(?:[^"\\]|\\.)+"\s*,\s*"((?:[^"\\]|\\.)+)"',
+            crafting,
+        )
+    )
+    names.update(
+        js_string(match.group(1))
+        for match in re.finditer(r'\["((?:[^"\\]|\\.)+)",\s*\d+\]', crafting)
     )
     return {
         slugify(name): (ITEM_PAGE_OVERRIDES.get(name, name), "")

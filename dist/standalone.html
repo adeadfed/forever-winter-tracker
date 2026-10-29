@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050505">
-  <meta name="description" content="Interactive questline, hideout, and item tracker for The Forever Winter.">
+  <meta name="description" content="Interactive questline, Innards, crafting, and item tracker for The Forever Winter.">
   <title>The Forever Winter — Operations Map</title>
   <style>
 :root {
@@ -216,8 +216,8 @@ main { min-height:0; overflow:hidden; }
 .plain-header { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:88px; padding:16px 22px; border-bottom:1px solid var(--border); background:var(--surface); }
 .plain-header h1 { font-size:32px; }.plain-header p { margin:5px 0 0; color:var(--muted); font-size:11px; }
 .plain-header > strong { font:700 24px var(--display); }
-#radiantView,#itemsView,#hideoutView { grid-template-rows:auto minmax(0,1fr); }
-.radiant-list,.items-list,.upgrade-grid { overflow:auto; scrollbar-color:var(--border-strong) var(--bg); }
+#radiantView,#itemsView,#hideoutView,#craftingView { grid-template-rows:auto minmax(0,1fr); }
+.radiant-list,.items-list,.upgrade-grid,.crafting-catalog { overflow:auto; scrollbar-color:var(--border-strong) var(--bg); }
 
 .upgrade-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(440px,1fr)); align-content:start; gap:12px; padding:16px 18px 30px; }
 .upgrade-card { border:1px solid var(--border); background:var(--surface); box-shadow:0 10px 24px rgba(0,0,0,.18); }
@@ -237,6 +237,30 @@ main { min-height:0; overflow:hidden; }
 .upgrade-items .compact-item { min-height:66px; grid-template-columns:44px minmax(0,1fr) auto; padding:8px 9px; }
 .upgrade-items .item-icon { width:42px; height:42px; }
 .upgrade-items .mini-count { grid-template-columns:24px 40px 24px; }.upgrade-items .mini-count input { width:40px; }
+
+.crafting-catalog { padding:0 0 32px; }
+.crafting-station > header { position:sticky; z-index:3; top:0; display:flex; align-items:center; justify-content:space-between; min-height:58px; padding:10px 20px; border-block:1px solid #454545; background:rgba(9,9,9,.97); backdrop-filter:blur(8px); }
+.crafting-station > header h2 { margin:0; font:700 23px/1 var(--display); letter-spacing:.055em; text-transform:uppercase; }
+.crafting-station > header strong { display:grid; place-items:center; min-width:34px; height:30px; padding:0 8px; border:1px solid #5b5b5b; color:#aaa; font:10px var(--mono); }
+.recipe-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(450px,1fr)); gap:12px; padding:14px 18px 22px; }
+.recipe-card { overflow:hidden; border:1px solid #4c4c4c; background:#111; }
+.recipe-card > header { display:grid; grid-template-columns:56px minmax(0,1fr) auto; align-items:center; gap:12px; min-height:78px; padding:10px 12px; border-bottom:1px solid #454545; background:#171717; }
+.recipe-card > header .item-icon { width:54px; height:54px; }
+.recipe-card > header > div { min-width:0; }
+.recipe-card > header a { display:block; overflow:hidden; font:700 19px/1.1 var(--display); letter-spacing:.035em; text-decoration:none; text-overflow:ellipsis; text-transform:uppercase; white-space:nowrap; }
+.recipe-card > header a:hover { color:var(--rust-bright); }
+.recipe-card > header small { display:block; margin-top:6px; color:var(--rust-bright); font:10px var(--mono); }
+.recipe-card dl { display:flex; align-self:stretch; margin:0; border-left:1px solid #454545; }
+.recipe-card dl > div { display:grid; align-content:center; min-width:68px; padding:8px 10px; border-right:1px solid #454545; }
+.recipe-card dt { color:#777; font:9px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+.recipe-card dd { margin:4px 0 0; color:#ddd; font:700 13px var(--mono); }
+.recipe-ingredients { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:#383838; }
+.recipe-ingredients .compact-item { min-height:68px; grid-template-columns:44px minmax(0,1fr) auto; padding:8px 9px; }
+.recipe-ingredients .item-icon { width:42px; height:42px; }
+.recipe-ingredients .mini-count { grid-template-columns:24px 40px 24px; }
+.recipe-ingredients .mini-count input { width:40px; }
+.crafting-tag { display:inline-block; margin-top:5px; padding:2px 5px; border:1px solid #74582e; color:var(--amber); font:700 8px var(--mono); letter-spacing:.07em; text-transform:uppercase; }
+.item-name .crafting-tag { margin-right:7px; }
 
 .radiant-list,.items-list { padding:10px 18px 28px; }
 .radiant-row { display:grid; grid-template-columns:26px 48px minmax(240px,1.1fr) minmax(160px,.55fr) minmax(150px,.55fr) 86px; align-items:center; gap:13px; min-height:70px; padding:9px 12px; border-bottom:1px solid var(--border); }
@@ -406,6 +430,7 @@ footer a { color:var(--muted); }
   .upgrade-card > header { grid-template-columns:minmax(0,1fr) auto; gap:10px; }
   .upgrade-check { grid-column:1/3; width:max-content; }
   .upgrade-stats { grid-template-columns:1fr 1fr; }.upgrade-stats span:nth-child(2) { border-right:0; }.upgrade-items { grid-template-columns:1fr; }
+  .recipe-grid { grid-template-columns:1fr; padding:10px; }.recipe-ingredients { grid-template-columns:1fr; }
   .radiant-row { grid-template-columns:22px 34px minmax(0,1fr) 66px; gap:8px; }.radiant-cell { display:none; }.radiant-faction-icon { width:32px; height:32px; }
   .item-row { grid-template-columns:44px minmax(0,1fr) auto; }.item-group,.item-quests { display:none; }
   .item-totals { grid-template-columns:auto auto; }.item-totals i,.item-totals small { display:none; }
@@ -414,6 +439,7 @@ footer a { color:var(--muted); }
   footer { display:none; }.section-label h1,.section-label h2 { font-size:19px; }.section-label p { display:none; }
   .tree-header { grid-template-columns:auto 1fr; }.zoom-controls { display:none; }.line-unlock { grid-column:2; }
   .plain-header { min-height:76px; padding:12px 14px; }.plain-header h1 { font-size:25px; }
+  .recipe-card > header { grid-template-columns:46px minmax(0,1fr); }.recipe-card > header .item-icon { width:44px; height:44px; }.recipe-card dl { grid-column:1/3; border-top:1px solid #454545; border-left:0; }
   .item-count { grid-template-columns:24px 40px 24px; }.item-count input { width:40px; }.item-count small { display:none; }
 }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; } }
@@ -429,6 +455,7 @@ footer a { color:var(--muted); }
     <nav class="tabs" aria-label="Tracker sections">
       <button class="tab is-active" type="button" data-view="lines">Questlines</button>
       <button class="tab" type="button" data-view="hideout">Innards</button>
+      <button class="tab" type="button" data-view="crafting">Crafting</button>
       <button class="tab" type="button" data-view="radiant">Radiant</button>
       <button class="tab" type="button" data-view="items">Inventory</button>
     </nav>
@@ -440,12 +467,13 @@ footer a { color:var(--muted); }
     <label class="select-wrap" id="lineSelectWrap"><span>Line</span><select id="lineFilter" aria-label="Questline"></select></label>
     <label class="select-wrap is-hidden" id="itemSelectWrap"><span>Group</span><select id="itemGroupFilter" aria-label="Item group"><option value="all">All groups</option></select></label>
     <label class="select-wrap is-hidden" id="hideoutSelectWrap"><span>Category</span><select id="hideoutGroupFilter" aria-label="Innards category"><option value="all">All categories</option></select></label>
+    <label class="select-wrap is-hidden" id="craftingStationWrap"><span>Station</span><select id="craftingStationFilter" aria-label="Crafting station"><option value="all">All stations</option></select></label>
     <label class="select-wrap is-hidden" id="radiantFactionWrap"><span>Faction</span><select id="radiantFactionFilter" aria-label="Radiant faction"><option value="all">All factions</option></select></label>
     <label class="select-wrap is-hidden" id="radiantSortWrap"><span>Sort</span><select id="radiantSort" aria-label="Radiant sort order"><option value="faction">Faction</option></select></label>
     <div class="filter-group" id="statusFilters" role="group" aria-label="Status filter">
       <button class="filter is-active" data-status="all" type="button">All</button><button class="filter" data-status="available" type="button">Ready</button><button class="filter" data-status="locked" type="button">Locked</button><button class="filter" data-status="complete" type="button">Done</button>
     </div>
-    <div class="data-counts"><span><b id="questCount">0</b> quests</span><span><b id="lineCount">0</b> lines</span><span><b id="upgradeCount">0</b> upgrades</span><span><b id="itemCount">0</b> items</span></div>
+    <div class="data-counts"><span><b id="questCount">0</b> quests</span><span><b id="lineCount">0</b> lines</span><span><b id="upgradeCount">0</b> upgrades</span><span><b id="recipeCount">0</b> recipes</span><span><b id="itemCount">0</b> items</span></div>
   </div>
 
   <main>
@@ -476,6 +504,11 @@ footer a { color:var(--muted); }
     <section class="view" id="hideoutView" aria-label="Innards upgrades">
       <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1></div><strong id="hideoutProgress">0 / 0</strong></header>
       <div id="hideoutGrid" class="upgrade-catalog"></div><div class="empty-state is-hidden" id="hideoutEmpty">No matching upgrades.</div>
+    </section>
+
+    <section class="view" id="craftingView" aria-label="Crafting recipes">
+      <header class="plain-header"><div><div class="eyebrow">MANUFACTURING</div><h1>Crafting</h1></div><strong id="craftingCount">0</strong></header>
+      <div id="craftingGrid" class="crafting-catalog"></div><div class="empty-state is-hidden" id="craftingEmpty">No matching recipes.</div>
     </section>
 
     <section class="view" id="radiantView" aria-label="Radiant quests">
@@ -1114,6 +1147,119 @@ window.INNARDS_FAMILIES.forEach((family, familyOrder) => family.ids.forEach((id,
   entry.tiered = family.tiered !== false;
 }));
 
+const craftingRecipe = (id, station, product, output, time, ingredients, options = {}) => ({
+  id,
+  station,
+  product,
+  output,
+  time,
+  ingredients: ingredients.map(([name, needed]) => ({ name, needed })),
+  wiki: wikiUrl(options.page ?? product),
+  ...options,
+});
+
+window.CRAFTING_RECIPES = [
+  craftingRecipe("57x28mm-ammo", "Munitions Printer", "5.7x28mm Ammo", 90, "1s", [["Gunpowder",1],["Metal Fragments",2]]),
+  craftingRecipe("556x45mm-ammo", "Munitions Printer", "5.56x45mm Ammo", 90, "1s", [["Gunpowder",1],["Metal Fragments",2]]),
+  craftingRecipe("545x39mm-ammo", "Munitions Printer", "5.45x39mm Ammo", 90, "1s", [["Gunpowder",1],["Metal Fragments",2]]),
+  craftingRecipe("45-acp-ammo", "Munitions Printer", ".45 ACP Ammo", 90, "1s", [["Gunpowder",1],["Metal Fragments",2]]),
+  craftingRecipe("762x39mm-ammo", "Munitions Printer", "7.62x39mm Ammo", 90, "1s", [["Nails",2],["Gunpowder",2]]),
+  craftingRecipe("9x19mm-ammo", "Munitions Printer", "9x19mm Ammo", 120, "1s", [["Fertilizer",1],["Metal Fragments",2]]),
+  craftingRecipe("308-ammo", "Munitions Printer", ".308 Ammo", 90, "1s", [["Gunpowder",1],["Nails",2]]),
+  craftingRecipe("357-magnum-ammo", "Munitions Printer", ".357 Magnum Ammo", 60, "1s", [["Gunpowder",1],["Nails",2]]),
+  craftingRecipe("50-bmg", "Munitions Printer", ".50 BMG", 30, "1s", [["Rare Metals",2],["Gunpowder",2]]),
+  craftingRecipe("762x54mmr-ammo", "Munitions Printer", "7.62x54mmR Ammo", 30, "1s", [["Rare Metals",1],["Gunpowder",2]]),
+  craftingRecipe("127x55mm-subsonic-ammo", "Munitions Printer", "12.7x55mm Subsonic Ammo", 30, "1s", [["Rare Metals",1],["Gunpowder",2]]),
+  craftingRecipe("12-gauge-buckshot", "Munitions Printer", "12-Gauge Buckshot", 30, "1s", [["Fertilizer",1],["Ball Bearings",2]]),
+  craftingRecipe("20x105mm-anti-tank", "Munitions Printer", "20x105mm Anti-Tank", 10, "15m", [["Explosives",1],["Rare Metals",2]]),
+  craftingRecipe("40mm-grenade", "Munitions Printer", "40mm Grenade", 6, "15m", [["Explosive Charge",1],["Thermite",1]]),
+  craftingRecipe("50-pst-ammo", "Munitions Printer", ".50 PST Ammo", 8, "1s", [["Diodegradable Multi-tool",1],["Thermite",4],[".50 BMG",8]]),
+  craftingRecipe("frag-grenade", "Munitions Printer", "Frag Grenade", 3, "1s", [["Explosives",1],["Old Paint Can",3],["Fuse",3]]),
+  craftingRecipe("cluster-grenade", "Munitions Printer", "Cluster Grenade", 1, "1s", [["Military Tape",1],["Frag Grenade",3]]),
+  craftingRecipe("decoy-grenade", "Munitions Printer", "Decoy Grenade", 3, "1s", [["Neuralink Disc Player",1],["Old Paint Can",3],["Fuse",3]]),
+  craftingRecipe("signal-scrambler-grenade", "Munitions Printer", "Signal Scrambler Grenade", 3, "1s", [["Metal Pipe",1],["Frequency Tap",1],["Old Paint Can",3],["Fuse",3]]),
+  craftingRecipe("special-units-detpack", "Munitions Printer", "Special Units DetPack", 1, "1s", [["Military Circuitry",1],["Explosive Charge",2],["Thermite",6]], { unlock:"Achilles' Heel" }),
+  craftingRecipe("item-extraction-beacon", "Munitions Printer", "Item Extraction Beacon", 1, "1s", [["Recovery Drone",1],["Military Power Cell",1],["Advanced Navigation Device",2]], { unlock:"Achilles' Heel" }),
+  craftingRecipe("545x39mm-cryo-dogboro", "Munitions Printer", "5.45x39mm Cryo Ammo", 30, "1s", [["Dogboro Cigarettes (Basic)",3],["5.45x39mm Ammo",30]]),
+  craftingRecipe("545x39mm-cryo-whiskey", "Munitions Printer", "5.45x39mm Cryo Ammo", 30, "1s", [["Whiskey",1],["5.45x39mm Ammo",30]]),
+
+  craftingRecipe("processor-board", "Workshop", "Processor Board", 1, "5m", [["Screwdriver",1],["Military PDA",1]]),
+  craftingRecipe("cpu", "Workshop", "CPU", 1, "10m", [["Screwdriver",1],["Modem",1]]),
+  craftingRecipe("advanced-navigation-device", "Workshop", "Advanced Navigation Device", 1, "10m", [["Organoid Memory Board",1],["Modem",1],["Computer Fan",1]]),
+  craftingRecipe("ied", "Workshop", "IED", 1, "5m", [["Explosives",1],["Wires",1],["Printed Circuit Board",1]]),
+  craftingRecipe("fertilizer", "Workshop", "Fertilizer", 3, "15m", [["Urea",1],["Food Tin",1]]),
+  craftingRecipe("advanced-first-aid-kit", "Workshop", "Advanced First Aid Kit", 2, "1s", [["Blood Packs",1],["Medical Tools",2]]),
+  craftingRecipe("standard-first-aid-kit", "Workshop", "Standard First Aid Kit", 2, "1s", [["Assorted Medicine",1],["Bandages",2]]),
+  craftingRecipe("adrenaline-stim", "Workshop", "Adrenaline Stim", 2, "1s", [["Energy Bar",1],["Syringe",2]]),
+  craftingRecipe("water-canteen", "Workshop", "Water Canteen", 2, "1s", [["Blood Packs",1]]),
+  craftingRecipe("food-tin", "Workshop", "Food Tin", 8, "1s", [["Smuggled Organs",1]]),
+  craftingRecipe("mre", "Workshop", "MRE", 1, "1s", [["Boinco Candy Bar",1],["Food Tin",1],["Pretzels",1]]),
+  craftingRecipe("gunpowder", "Workshop", "Gunpowder", 3, "15m", [["Explosives",1],["Basic Pliers",1]]),
+  craftingRecipe("electric-motor", "Workshop", "Electric Motor", 2, "10m", [["Machine Parts",1],["Relay",2],["Bolts",2],["Nuts",2]]),
+  craftingRecipe("military-codebreaker", "Workshop", "Military Codebreaker", 1, "15m", [["Military PDA",1],["Telemetry Unit",1],["Military Hard Drive",1],["Intelligence Disk",1],["Motherboard",1]]),
+  craftingRecipe("power-cell", "Workshop", "Power Cell", 1, "5m", [["Rechargeable Battery",1],["Battery Charger",1],["Machine Parts",1]]),
+  craftingRecipe("sentient-drill", "Workshop", "Sentient Drill", 1, "10m", [["Organoid Outlet",1],["Organoid Plug",1],["Wetware Processor",1]]),
+  craftingRecipe("eurasian-iff-chip-lvl2", "Workshop", "Eurasian IFF Chip LVL2", 1, "5m", [["Eurasian IFF Chip LVL1",5]]),
+  craftingRecipe("eurasian-iff-chip-lvl3", "Workshop", "Eurasian IFF Chip LVL3", 1, "15m", [["Eurasian IFF Chip LVL2",3]]),
+  craftingRecipe("europan-iff-chip-lvl2", "Workshop", "Europan IFF Chip LVL2", 1, "5m", [["Europan IFF Chip LVL1",5]]),
+  craftingRecipe("europan-iff-chip-lvl3", "Workshop", "Europan IFF Chip LVL3", 1, "15m", [["Europan IFF Chip LVL2",3]]),
+  craftingRecipe("euruskan-iff-chip-lvl2", "Workshop", "Euruskan IFF Chip LVL2", 1, "5m", [["Euruskan IFF Chip LVL1",5]]),
+  craftingRecipe("euruskan-iff-chip-lvl3", "Workshop", "Euruskan IFF Chip LVL3", 1, "15m", [["Euruskan IFF Chip LVL2",3]]),
+  craftingRecipe("rig-light", "Workshop", "Rig Light", 1, "60s", [["Car Battery",1],["Wires",1],["Light Bulb",1]]),
+  craftingRecipe("pneumatic-jump", "Workshop", "Pneumatic Jump", 1, "15m", [["Power Cell",1],["Heavy Joint Assembly",1],["Military Circuitry",1]]),
+  craftingRecipe("exo-stamina-equipment", "Workshop", "Exo Stamina Equipment", 1, "30m", [["Exo Component",1],["Advanced Joint",1],["Heavy-Duty Battery",1],["Military Cables",1]]),
+  craftingRecipe("tactical-camera", "Workshop", "Tactical Camera", 1, "15m", [["Laser Rangefinder",1],["Cyborg's Head",1],["Military Cables",1]]),
+  craftingRecipe("20mm-turret", "Workshop", "20mm Turret", 1, "15m", [["Turret Component",1],["Camera Lens",1],["Electric Motor",1],["Power Cell",1]]),
+  craftingRecipe("fast-travel-drone", "Workshop", "Fast Travel Drone", 2, "15m", [["Sheet Metal",2],["Electric Motor",2],["LCD",2],["Power Cell",2]]),
+  craftingRecipe("recovery-drone", "Workshop", "Recovery Drone", 1, "60m", [["Camera Lens",1],["Repair Dronelet",1],["Electric Motor",1],["Military Battery",1]]),
+  craftingRecipe("construction-drone", "Workshop", "Construction Drone", 1, "30m", [["CPU",1],["Precision Tool Set",1],["Electric Motor",1],["Military Power Cell",1]]),
+  craftingRecipe("at-43-mass", "Workshop", "AT-43 MASS", 1, "60m", [["AT-43 Breech Assembly",1],["Crucible",1],["AT-43 Feed Mechanism",1],["Armorer's Wrench",1],["AT-43 Muzzle Break",1],["AT-43 Spring System",1],["AT-43 Trigger Assembly",1],["Military Grade Lubricant",1],["Weapon Parts",1],["Grindstone",5]]),
+  craftingRecipe("military-cables", "Special Projects", "Military Cables", 1, "60s", [["Wires",1],["Military Tape",1]]),
+
+  craftingRecipe("grenade-launcher", "Repair Bench", "Grenade Launcher", 1, "12h", [["Destroyed Grenade Launcher",1],["Europan IFF Chip LVL3",2]]),
+  craftingRecipe("xm25", "Repair Bench", "XM25", 1, "12h", [["Destroyed XM25",1],["Eurasian IFF Chip LVL3",3]]),
+  craftingRecipe("painless", "Repair Bench", "Painless", 1, "15h", [["Destroyed HMG",1],["Eurasian IFF Chip LVL3",3]]),
+  craftingRecipe("scar", "Repair Bench", "SCAR", 1, "45m", [["Destroyed SCAR",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("36m-antitank", "Repair Bench", "36M AntiTank", 1, "11h", [["Destroyed 36M AntiTank",1],["Europan IFF Chip LVL2",2]]),
+  craftingRecipe("ntw-20", "Repair Bench", "NTW-20", 1, "11h", [["Destroyed NTW-20",1],["Eurasian IFF Chip LVL2",2]]),
+  craftingRecipe("gm6", "Repair Bench", "GM6", 1, "11h", [["Destroyed GM6",1],["Eurasian IFF Chip LVL2",1]]),
+  craftingRecipe("mg34", "Repair Bench", "MG34", 1, "60m", [["Destroyed MG34",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("saw", "Repair Bench", "SAW", 1, "60m", [["Destroyed SAW",1],["Europan IFF Chip LVL3",1]]),
+  craftingRecipe("m60", "Repair Bench", "M60", 1, "60m", [["Destroyed M60",1],["Europan IFF Chip LVL2",2]]),
+  craftingRecipe("rpd", "Repair Bench", "RPD", 1, "60m", [["Destroyed RPD",1],["Euruskan IFF Chip LVL3",1]]),
+  craftingRecipe("usp", "Repair Bench", "USP", 1, "15m", [["Destroyed USP Pistol",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("sog", "Repair Bench", "SOG", 1, "30m", [["Destroyed SOG Pistol",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("87-target", "Repair Bench", "87 Target", 1, "30m", [["Destroyed 87 Target Pistol",1],["Europan IFF Chip LVL1",2]]),
+  craftingRecipe("c96", "Repair Bench", "C96", 1, "30m", [["Destroyed C96 Pistol",1],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("r8", "Repair Bench", "R8", 1, "45m", [["Destroyed R8 Pistol",1],["Europan IFF Chip LVL1",2]]),
+  craftingRecipe("viper", "Repair Bench", "Viper", 1, "45m", [["Destroyed Viper Pistol",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("g-l-19", "Repair Bench", "G-L 19", 1, "25m", [["Destroyed Glock 19 Pistol",1],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("ak", "Repair Bench", "AK", 1, "15m", [["Destroyed AK",1],["Euruskan IFF Chip LVL1",1]]),
+  craftingRecipe("rpk", "Repair Bench", "RPK", 1, "45m", [["Destroyed RPK",1],["Euruskan IFF Chip LVL2",2]]),
+  craftingRecipe("m4a1", "Repair Bench", "M4A1", 1, "45m", [["Destroyed M4",1],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("sa58", "Repair Bench", "SA58", 1, "30m", [["Destroyed SA58",1],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("g36", "Repair Bench", "G36", 1, "45m", [["Destroyed G36",1],["Europan IFF Chip LVL1",2]]),
+  craftingRecipe("r11-rsass", "Repair Bench", "R11 RSASS", 1, "60m", [["Destroyed RSASS",1],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("svd", "Repair Bench", "SVD", 1, "35m", [["Destroyed SVD",1],["Euruskan IFF Chip LVL2",2]]),
+  craftingRecipe("m16", "Repair Bench", "M16", 1, "15m", [["Destroyed M16",2],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("vks-vykhlop", "Repair Bench", "VKS Vykhlop", 1, "45m", [["Destroyed VKS Vykhlop",1],["Euruskan IFF Chip LVL1",2]]),
+  craftingRecipe("tkb-0146", "Repair Bench", "TKB-0146", 1, "45m", [["Destroyed TKB-0146",1],["Euruskan IFF Chip LVL1",2]]),
+  craftingRecipe("s12", "Repair Bench", "S12", 1, "15m", [["Destroyed S12",1],["Europan IFF Chip LVL1",1]]),
+  craftingRecipe("usas-12", "Repair Bench", "USAS-12", 1, "90m", [["Destroyed USAS-12",1],["Eurasian IFF Chip LVL3",2]]),
+  craftingRecipe("vepr-12", "Repair Bench", "VEPR-12", 1, "90m", [["Destroyed Vepr-12",1],["Eurasian IFF Chip LVL3",2]]),
+  craftingRecipe("aa12", "Repair Bench", "AA12", 1, "90m", [["Destroyed AA12",1],["Europan IFF Chip LVL3",2]]),
+  craftingRecipe("kriss-vector-45", "Repair Bench", "Kriss Vector 45", 1, "45m", [["Destroyed Kriss Vector 45",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("ppsh-41", "Repair Bench", "PPSH-41", 1, "45m", [["Destroyed PPSH-41",1],["Euruskan IFF Chip LVL1",2]]),
+  craftingRecipe("pm-9", "Repair Bench", "PM-9", 1, "60m", [["Destroyed PM-9",1],["Eurasian IFF Chip LVL2",1]]),
+  craftingRecipe("wlt-mpl", "Repair Bench", "WLT MPL", 1, "15m", [["Destroyed Walther MPL",1],["Eurasian IFF Chip LVL1",1]]),
+  craftingRecipe("apc9-pro", "Repair Bench", "APC9 Pro", 1, "45m", [["Destroyed APC9 Pro",1],["Europan IFF Chip LVL2",1]]),
+  craftingRecipe("p90", "Repair Bench", "P90", 1, "45m", [["Destroyed P90",1],["Europan IFF Chip LVL2",2]]),
+  craftingRecipe("pp-19-vityaz", "Repair Bench", "PP-19 Vityaz", 1, "15m", [["Destroyed PP-19 Vityaz",1],["Euruskan IFF Chip LVL1",1]]),
+  craftingRecipe("spectre-m4", "Repair Bench", "Spectre M4", 1, "60m", [["Destroyed Spectre M4",1],["Europan IFF Chip LVL2",2]]),
+  craftingRecipe("m79-sawed-off", "Repair Bench", "M79 Sawed-off", 1, "8h", [["Destroyed M79 Pistol",1],["Europan IFF Chip LVL3",1]]),
+];
+window.CRAFTING_STATIONS = ["Munitions Printer", "Workshop", "Repair Bench", "Special Projects"];
+
 window.ASSET_PATHS = {
   giver: {
     "Scavengers": "assets/portraits/scavengers.png",
@@ -1294,7 +1440,7 @@ window.ASSET_PATHS = {
 
 window.DATA_META = {
   source: "https://theforeverwinter.wiki.gg/wiki/Quests",
-  scraped: "2026-10-28",
+  scraped: "2026-10-29",
   license: "CC BY-SA 4.0",
 };
 
@@ -1331,6 +1477,7 @@ window.DATA_META = {
   let statusFilter = "all";
   let selectedItemGroup = "all";
   let selectedHideoutGroup = "all";
+  let selectedCraftingStation = "all";
   let selectedRadiantFaction = "all";
   let radiantSort = "faction";
   let highlightedQuestIds = new Set();
@@ -1339,8 +1486,9 @@ window.DATA_META = {
   let toastTimer;
 
   const els = Object.fromEntries([
-    "questLines", "radiantGrid", "itemsGrid", "searchInput", "lineFilter", "itemGroupFilter",
+    "questLines", "radiantGrid", "itemsGrid", "craftingGrid", "searchInput", "lineFilter", "itemGroupFilter",
     "hideoutGroupFilter", "statusFilters", "linesEmpty", "radiantEmpty", "itemsEmpty", "hideoutEmpty",
+    "craftingEmpty", "craftingCount", "craftingStationWrap", "craftingStationFilter",
     "toast", "lineSelectWrap", "itemSelectWrap", "hideoutSelectWrap", "giverList", "lineTitle",
     "lineUnlock", "lineState", "lineProgress", "lineProgressBar", "radiantProgress", "hideoutProgress",
     "zoomLabel", "graphViewport", "campaignMap", "lineItems", "hideoutGrid", "manualLineUnlock",
@@ -1723,7 +1871,7 @@ window.DATA_META = {
     return `<a class="item-icon kind-${kind}" href="${wikiPageUrl(itemPageName(canonicalName))}" target="_blank" rel="noopener" title="${escapeHtml(canonicalName)}">${content}</a>`;
   }
 
-  function compactItemMarkup(name, needed, note = "", questIds = []) {
+  function compactItemMarkup(name, needed, note = "", questIds = [], options = {}) {
     const count = owned(name);
     const ready = count >= needed;
     const id = inventoryId(name);
@@ -1731,7 +1879,7 @@ window.DATA_META = {
       ? highlightedItemNames.has(name) ? " is-cross-highlight" : " is-cross-dimmed"
       : "";
     return `<article class="compact-item ${ready ? "is-ready" : ""}${crossClass}">${itemIcon(name)}
-      <div><strong>${escapeHtml(name)}</strong><small>${escapeHtml(note || `Need ${needed}`)}</small>${questIds.length ? `<button class="item-quest-link" type="button" data-focus-item="${escapeHtml(name)}" aria-label="Highlight ${questIds.length} quest${questIds.length === 1 ? "" : "s"} requiring ${escapeHtml(name)}">QUESTS <b>${questIds.length}</b></button>` : ""}</div>
+      <div><strong>${escapeHtml(name)}</strong>${options.crafting ? '<span class="crafting-tag">Ingredient</span>' : ""}<small>${escapeHtml(note || `Need ${needed}`)}</small>${questIds.length ? `<button class="item-quest-link" type="button" data-focus-item="${escapeHtml(name)}" aria-label="Highlight ${questIds.length} quest${questIds.length === 1 ? "" : "s"} requiring ${escapeHtml(name)}">QUESTS <b>${questIds.length}</b></button>` : ""}</div>
       <div class="mini-count"><button type="button" data-item-action="minus" data-item-id="${id}" aria-label="Remove one ${escapeHtml(name)}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}" aria-label="Add one ${escapeHtml(name)}">+</button><em>${count}/${needed}</em></div>
     </article>`;
   }
@@ -1804,15 +1952,26 @@ window.DATA_META = {
       const name = canonicalItemName(item.name);
       map.set(name, {
       name, needed: item.needed, group: item.group, questNeeded: item.needed,
-      sources: [...item.quests], contexts: ["Quest"],
+      sources: [...item.quests], contexts: ["Quest"], craftingNeeded: 0, craftingRecipes: [],
       });
     });
     HIDEOUT_UPGRADES.forEach((upgrade) => upgrade.items.forEach((requirement) => {
       const name = canonicalItemName(requirement.name);
-      const current = map.get(name) ?? { name, needed: 0, group: "Innards", questNeeded: 0, sources: [], contexts: [] };
+      const current = map.get(name) ?? { name, needed: 0, group: "Innards", questNeeded: 0, sources: [], contexts: [], craftingNeeded: 0, craftingRecipes: [] };
       current.needed += requirement.needed;
       current.sources.push(upgrade.name);
       if (!current.contexts.includes("Innards")) current.contexts.push("Innards");
+      map.set(name, current);
+    }));
+    CRAFTING_RECIPES.forEach((recipe) => recipe.ingredients.forEach((ingredient) => {
+      const name = canonicalItemName(ingredient.name);
+      const current = map.get(name) ?? { name, needed: 0, group: "Crafting", questNeeded: 0, sources: [], contexts: [], craftingNeeded: 0, craftingRecipes: [] };
+      const hasPlanTarget = current.contexts.includes("Quest") || current.contexts.includes("Innards");
+      current.craftingNeeded = Math.max(current.craftingNeeded ?? 0, ingredient.needed);
+      if (!current.craftingRecipes.includes(recipe.product)) current.craftingRecipes.push(recipe.product);
+      if (!current.sources.includes(recipe.product)) current.sources.push(recipe.product);
+      if (!current.contexts.includes("Crafting")) current.contexts.push("Crafting");
+      if (!hasPlanTarget) current.needed = current.craftingNeeded;
       map.set(name, current);
     }));
     return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
@@ -1831,7 +1990,7 @@ window.DATA_META = {
       const ready = count >= item.needed;
       const id = inventoryId(item.name);
       return `<article class="item-row ${ready ? "is-ready" : ""}">${itemIcon(item.name, item.group)}
-        <div class="item-name"><strong>${escapeHtml(item.name)}</strong><small>Plan total ${item.needed}</small></div>
+        <div class="item-name"><strong>${escapeHtml(item.name)}</strong>${item.contexts.includes("Crafting") ? '<span class="crafting-tag">Crafting ingredient</span>' : ""}<small>${item.questNeeded || item.contexts.includes("Innards") ? `Plan total ${item.needed}` : `Recipe max ${item.craftingNeeded}`}</small></div>
         <span class="item-group">${escapeHtml(item.contexts.join(" + "))}</span>
         <span class="item-quests">${escapeHtml(item.sources.join(" · "))}</span>
         <div class="item-count"><button type="button" data-item-action="minus" data-item-id="${id}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(item.name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}">+</button><small>${ready ? "Ready" : `${count} / ${item.needed}`}</small></div>
@@ -1850,6 +2009,24 @@ window.DATA_META = {
     document.querySelector("#itemsMissing").textContent = missing;
     document.querySelector("#itemsProgressText").textContent = `${percent}% stocked`;
     document.querySelector("#itemsProgressBar").style.width = `${percent}%`;
+  }
+
+  function renderCrafting() {
+    const visible = CRAFTING_RECIPES.filter((recipe) => {
+      const stationMatches = selectedCraftingStation === "all" || recipe.station === selectedCraftingStation;
+      const searchMatches = !search || `${recipe.product} ${recipe.station} ${recipe.unlock ?? ""} ${recipe.ingredients.map((ingredient) => ingredient.name).join(" ")}`.toLowerCase().includes(search);
+      return stationMatches && searchMatches;
+    });
+    els.craftingGrid.innerHTML = CRAFTING_STATIONS.map((station) => {
+      const recipes = visible.filter((recipe) => recipe.station === station);
+      if (!recipes.length) return "";
+      return `<section class="crafting-station"><header><h2>${escapeHtml(station)}</h2><strong>${recipes.length}</strong></header><div class="recipe-grid">${recipes.map((recipe) => `<article class="recipe-card">
+        <header>${itemIcon(recipe.product, recipe.station)}<div><a href="${recipe.wiki}" target="_blank" rel="noopener">${escapeHtml(recipe.product)}</a>${recipe.unlock ? `<small>Unlock: ${escapeHtml(recipe.unlock)}</small>` : ""}</div><dl><div><dt>Output</dt><dd>×${recipe.output}</dd></div><div><dt>Time</dt><dd>${escapeHtml(recipe.time)}</dd></div></dl></header>
+        <div class="recipe-ingredients">${recipe.ingredients.map((ingredient) => compactItemMarkup(ingredient.name, ingredient.needed, `Need ${ingredient.needed}`, [], { crafting:true })).join("")}</div>
+      </article>`).join("")}</div></section>`;
+    }).join("");
+    els.craftingCount.textContent = `${visible.length} / ${CRAFTING_RECIPES.length}`;
+    els.craftingEmpty.classList.toggle("is-hidden", visible.length !== 0);
   }
 
   function renderHideout() {
@@ -1974,7 +2151,7 @@ window.DATA_META = {
   function setItem(id, value) {
     state.items[id] = Math.max(0, Math.floor(Number(value) || 0));
     saveState("");
-    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout();
+    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout(); renderCrafting();
   }
 
   function unlockLine(id) {
@@ -1989,12 +2166,13 @@ window.DATA_META = {
     document.querySelector("#questCount").textContent = allQuests.length;
     document.querySelector("#lineCount").textContent = QUEST_LINES.length;
     document.querySelector("#upgradeCount").textContent = HIDEOUT_UPGRADES.length;
+    document.querySelector("#recipeCount").textContent = CRAFTING_RECIPES.length;
     document.querySelector("#itemCount").textContent = buildTrackedItems().length;
     document.querySelector("#overallPercent").textContent = `${Math.round(complete / allChainQuests.length * 100)}%`;
   }
 
   function renderAll() {
-    renderCampaignMap(); renderLines(); renderHideout(); renderRadiants(); renderItems(); renderStats();
+    renderCampaignMap(); renderLines(); renderHideout(); renderCrafting(); renderRadiants(); renderItems(); renderStats();
   }
 
   function switchView(view) {
@@ -2004,10 +2182,11 @@ window.DATA_META = {
     els.lineSelectWrap.classList.toggle("is-hidden", view !== "lines");
     els.itemSelectWrap.classList.toggle("is-hidden", view !== "items");
     els.hideoutSelectWrap.classList.toggle("is-hidden", view !== "hideout");
+    els.craftingStationWrap.classList.toggle("is-hidden", view !== "crafting");
     els.radiantFactionWrap.classList.toggle("is-hidden", view !== "radiant");
     els.radiantSortWrap.classList.toggle("is-hidden", view !== "radiant");
-    els.statusFilters.classList.toggle("is-hidden", view === "items");
-    els.searchInput.placeholder = view === "items" ? "Search inventory" : view === "hideout" ? "Search upgrades" : view === "radiant" ? "Search radiant contracts" : "Search quests";
+    els.statusFilters.classList.toggle("is-hidden", view === "items" || view === "crafting");
+    els.searchInput.placeholder = view === "items" ? "Search inventory" : view === "crafting" ? "Search recipes" : view === "hideout" ? "Search upgrades" : view === "radiant" ? "Search radiant contracts" : "Search quests";
     saveState("");
   }
 
@@ -2026,9 +2205,10 @@ window.DATA_META = {
     els.lineFilter.replaceChildren();
     QUEST_LINES.forEach((line) => els.lineFilter.add(new Option(line.name, line.id)));
     els.lineFilter.value = state.selectedLine;
-    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"));
+    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"), new Option("Crafting", "Crafting"));
     [...new Set(KEEP_ITEMS.map((item) => item.group))].sort().forEach((group) => els.itemGroupFilter.add(new Option(group, group)));
     els.hideoutGroupFilter.replaceChildren(new Option("All categories", "all"), new Option("Terminal", "Terminal"), new Option("Welfare", "Welfare"));
+    els.craftingStationFilter.replaceChildren(new Option("All stations", "all"), ...CRAFTING_STATIONS.map((station) => new Option(station, station)));
     els.radiantFactionFilter.replaceChildren(new Option("All factions", "all"), ...["Scavengers", "Europa", "Eurasia", "Euruska"].map((faction) => new Option(faction, faction)));
     els.radiantSort.replaceChildren(new Option("Faction", "faction"), new Option("Quest name", "name"), new Option("Location", "location"), new Option("Incomplete first", "status"));
   }
@@ -2084,6 +2264,7 @@ window.DATA_META = {
   els.lineFilter.addEventListener("change", (event) => { clearCrossReference(); state.selectedLine = event.target.value; zoom = 1; saveState(""); renderCampaignMap(); renderLines({ center: true }); });
   els.itemGroupFilter.addEventListener("change", (event) => { selectedItemGroup = event.target.value; renderItems(); });
   els.hideoutGroupFilter.addEventListener("change", (event) => { selectedHideoutGroup = event.target.value; renderHideout(); });
+  els.craftingStationFilter.addEventListener("change", (event) => { selectedCraftingStation = event.target.value; renderCrafting(); });
   els.radiantFactionFilter.addEventListener("change", (event) => { selectedRadiantFaction = event.target.value; renderRadiants(); });
   els.radiantSort.addEventListener("change", (event) => { radiantSort = event.target.value; renderRadiants(); });
   els.manualLineUnlock.addEventListener("click", () => unlockLine(state.selectedLine));
@@ -2117,7 +2298,7 @@ window.DATA_META = {
 
   populateFilters();
   document.querySelector("#snapshotDate").textContent = DATA_META.scraped;
-  switchView(["lines","hideout","radiant","items"].includes(state.view) ? state.view : "lines");
+  switchView(["lines","hideout","crafting","radiant","items"].includes(state.view) ? state.view : "lines");
   renderAll();
 })();
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050505">
-  <meta name="description" content="Interactive questline, hideout, and item tracker for The Forever Winter.">
+  <meta name="description" content="Interactive questline, Innards, crafting, and item tracker for The Forever Winter.">
   <title>The Forever Winter — Operations Map</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,6 +17,7 @@
     <nav class="tabs" aria-label="Tracker sections">
       <button class="tab is-active" type="button" data-view="lines">Questlines</button>
       <button class="tab" type="button" data-view="hideout">Innards</button>
+      <button class="tab" type="button" data-view="crafting">Crafting</button>
       <button class="tab" type="button" data-view="radiant">Radiant</button>
       <button class="tab" type="button" data-view="items">Inventory</button>
     </nav>
@@ -28,12 +29,13 @@
     <label class="select-wrap" id="lineSelectWrap"><span>Line</span><select id="lineFilter" aria-label="Questline"></select></label>
     <label class="select-wrap is-hidden" id="itemSelectWrap"><span>Group</span><select id="itemGroupFilter" aria-label="Item group"><option value="all">All groups</option></select></label>
     <label class="select-wrap is-hidden" id="hideoutSelectWrap"><span>Category</span><select id="hideoutGroupFilter" aria-label="Innards category"><option value="all">All categories</option></select></label>
+    <label class="select-wrap is-hidden" id="craftingStationWrap"><span>Station</span><select id="craftingStationFilter" aria-label="Crafting station"><option value="all">All stations</option></select></label>
     <label class="select-wrap is-hidden" id="radiantFactionWrap"><span>Faction</span><select id="radiantFactionFilter" aria-label="Radiant faction"><option value="all">All factions</option></select></label>
     <label class="select-wrap is-hidden" id="radiantSortWrap"><span>Sort</span><select id="radiantSort" aria-label="Radiant sort order"><option value="faction">Faction</option></select></label>
     <div class="filter-group" id="statusFilters" role="group" aria-label="Status filter">
       <button class="filter is-active" data-status="all" type="button">All</button><button class="filter" data-status="available" type="button">Ready</button><button class="filter" data-status="locked" type="button">Locked</button><button class="filter" data-status="complete" type="button">Done</button>
     </div>
-    <div class="data-counts"><span><b id="questCount">0</b> quests</span><span><b id="lineCount">0</b> lines</span><span><b id="upgradeCount">0</b> upgrades</span><span><b id="itemCount">0</b> items</span></div>
+    <div class="data-counts"><span><b id="questCount">0</b> quests</span><span><b id="lineCount">0</b> lines</span><span><b id="upgradeCount">0</b> upgrades</span><span><b id="recipeCount">0</b> recipes</span><span><b id="itemCount">0</b> items</span></div>
   </div>
 
   <main>
@@ -64,6 +66,11 @@
     <section class="view" id="hideoutView" aria-label="Innards upgrades">
       <header class="plain-header"><div><div class="eyebrow">INNARDS CUSTOMIZATION</div><h1>Upgrade terminal</h1></div><strong id="hideoutProgress">0 / 0</strong></header>
       <div id="hideoutGrid" class="upgrade-catalog"></div><div class="empty-state is-hidden" id="hideoutEmpty">No matching upgrades.</div>
+    </section>
+
+    <section class="view" id="craftingView" aria-label="Crafting recipes">
+      <header class="plain-header"><div><div class="eyebrow">MANUFACTURING</div><h1>Crafting</h1></div><strong id="craftingCount">0</strong></header>
+      <div id="craftingGrid" class="crafting-catalog"></div><div class="empty-state is-hidden" id="craftingEmpty">No matching recipes.</div>
     </section>
 
     <section class="view" id="radiantView" aria-label="Radiant quests">

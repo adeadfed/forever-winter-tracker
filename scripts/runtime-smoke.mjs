@@ -73,7 +73,7 @@ const root = path.resolve(import.meta.dirname, "..");
 const dist = path.join(root, "dist");
 const document = new FakeDocument();
 const ids = [
-  "questLines", "radiantGrid", "itemsGrid", "searchInput", "lineFilter", "itemGroupFilter", "statusFilters",
+  "questLines", "radiantGrid", "itemsGrid", "craftingGrid", "searchInput", "lineFilter", "itemGroupFilter", "statusFilters",
   "linesEmpty", "radiantEmpty", "itemsEmpty", "toast", "resetProgress", "itemsReady", "itemsMissing",
   "itemsProgressText", "itemsProgressBar", "questCount", "lineCount", "itemCount", "overallPercent",
   "snapshotDate", "lineSelectWrap", "itemSelectWrap", "giverList", "lineTitle", "lineUnlock", "lineProgress",
@@ -81,15 +81,16 @@ const ids = [
   "hideoutEmpty", "hideoutProgress", "hideoutGrid", "upgradeCount", "campaignMap", "lineItems", "lineState",
   "manualLineUnlock", "collapseCampaign", "clearItemFocus",
   "radiantFactionWrap", "radiantFactionFilter", "radiantSortWrap", "radiantSort",
+  "craftingEmpty", "craftingCount", "craftingStationWrap", "craftingStationFilter", "recipeCount",
 ];
 ids.forEach((id) => document.register(id));
 
-const tabs = ["lines", "hideout", "radiant", "items"].map((view) => {
+const tabs = ["lines", "hideout", "crafting", "radiant", "items"].map((view) => {
   const tab = new FakeElement("button");
   tab.dataset.view = view;
   return tab;
 });
-const views = ["lines", "hideout", "radiant", "items"].map((view) => {
+const views = ["lines", "hideout", "crafting", "radiant", "items"].map((view) => {
   const panel = new FakeElement("section");
   panel.id = `${view}View`;
   return panel;
@@ -152,7 +153,19 @@ assert.equal((document.ids.get("hideoutGrid").innerHTML.match(/class="upgrade-ca
 assert.equal((document.ids.get("hideoutGrid").innerHTML.match(/class="upgrade-category/g) ?? []).length, 2, "Innards upgrades should render in two categories");
 assert.equal((document.ids.get("hideoutGrid").innerHTML.match(/class="upgrade-family"/g) ?? []).length, 16, "Innards upgrades should render as in-game families");
 assert.ok(document.ids.get("hideoutGrid").innerHTML.indexOf(">Terminal<") < document.ids.get("hideoutGrid").innerHTML.indexOf(">Welfare<"), "Terminal must be the first Innards column");
+assert.equal((document.ids.get("craftingGrid").innerHTML.match(/class="recipe-card/g) ?? []).length, 96, "every crafting recipe should render");
+assert.ok(document.ids.get("craftingGrid").innerHTML.indexOf("Munitions Printer") < document.ids.get("craftingGrid").innerHTML.indexOf("Workshop"), "Munitions Printer must precede Workshop");
+assert.ok(document.ids.get("craftingGrid").innerHTML.indexOf("Workshop") < document.ids.get("craftingGrid").innerHTML.indexOf("Repair Bench"), "Workshop must precede Repair Bench");
+assert.ok(document.ids.get("craftingGrid").innerHTML.includes("Ingredient"), "recipe materials must be marked as crafting ingredients");
+assert.ok(document.ids.get("itemsGrid").innerHTML.includes("Crafting ingredient"), "inventory rows must mark crafting ingredients");
+const craftingStationFilter = document.ids.get("craftingStationFilter");
+craftingStationFilter.value = "Repair Bench";
+craftingStationFilter.dispatch("change");
+assert.equal((document.ids.get("craftingGrid").innerHTML.match(/class="recipe-card/g) ?? []).length, 41, "crafting station filter should isolate Repair Bench recipes");
+craftingStationFilter.value = "all";
+craftingStationFilter.dispatch("change");
 assert.equal(document.ids.get("questCount").textContent, 187);
+assert.equal(document.ids.get("recipeCount").textContent, 96);
 let saved = JSON.parse(storage.get("fwQuestTracker.v3"));
 assert.equal(saved.items["item-clamp"], 7, "legacy plural item counts should migrate to the canonical inventory key");
 assert.equal(saved.items["item-old-tool-set"], 2, "legacy spacing variants should migrate to the canonical inventory key");
@@ -269,4 +282,4 @@ lineFilter.dispatch("change");
 assert.equal(document.ids.get("lineTitle").textContent, "Trophy Room", "questline selector should replace the graph");
 assert.equal((document.ids.get("questLines").innerHTML.match(/class="graph-node/g) ?? []).length, 9, "selected trophy line should render nine nodes");
 
-console.log("Runtime smoke test passed: graph arrows, clearable item links, local wiki icons, nested Innards families, tier gates, campaign locks, radiant isolation, cascade reset, and persistence.");
+console.log("Runtime smoke test passed: graph arrows, clearable item links, local wiki icons, crafting recipes, nested Innards families, tier gates, campaign locks, radiant isolation, cascade reset, and persistence.");

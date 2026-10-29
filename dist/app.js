@@ -29,6 +29,7 @@
   let statusFilter = "all";
   let selectedItemGroup = "all";
   let selectedHideoutGroup = "all";
+  let selectedCraftingStation = "all";
   let selectedRadiantFaction = "all";
   let radiantSort = "faction";
   let highlightedQuestIds = new Set();
@@ -37,8 +38,9 @@
   let toastTimer;
 
   const els = Object.fromEntries([
-    "questLines", "radiantGrid", "itemsGrid", "searchInput", "lineFilter", "itemGroupFilter",
+    "questLines", "radiantGrid", "itemsGrid", "craftingGrid", "searchInput", "lineFilter", "itemGroupFilter",
     "hideoutGroupFilter", "statusFilters", "linesEmpty", "radiantEmpty", "itemsEmpty", "hideoutEmpty",
+    "craftingEmpty", "craftingCount", "craftingStationWrap", "craftingStationFilter",
     "toast", "lineSelectWrap", "itemSelectWrap", "hideoutSelectWrap", "giverList", "lineTitle",
     "lineUnlock", "lineState", "lineProgress", "lineProgressBar", "radiantProgress", "hideoutProgress",
     "zoomLabel", "graphViewport", "campaignMap", "lineItems", "hideoutGrid", "manualLineUnlock",
@@ -421,7 +423,7 @@
     return `<a class="item-icon kind-${kind}" href="${wikiPageUrl(itemPageName(canonicalName))}" target="_blank" rel="noopener" title="${escapeHtml(canonicalName)}">${content}</a>`;
   }
 
-  function compactItemMarkup(name, needed, note = "", questIds = []) {
+  function compactItemMarkup(name, needed, note = "", questIds = [], options = {}) {
     const count = owned(name);
     const ready = count >= needed;
     const id = inventoryId(name);
@@ -429,7 +431,7 @@
       ? highlightedItemNames.has(name) ? " is-cross-highlight" : " is-cross-dimmed"
       : "";
     return `<article class="compact-item ${ready ? "is-ready" : ""}${crossClass}">${itemIcon(name)}
-      <div><strong>${escapeHtml(name)}</strong><small>${escapeHtml(note || `Need ${needed}`)}</small>${questIds.length ? `<button class="item-quest-link" type="button" data-focus-item="${escapeHtml(name)}" aria-label="Highlight ${questIds.length} quest${questIds.length === 1 ? "" : "s"} requiring ${escapeHtml(name)}">QUESTS <b>${questIds.length}</b></button>` : ""}</div>
+      <div><strong>${escapeHtml(name)}</strong>${options.crafting ? '<span class="crafting-tag">Ingredient</span>' : ""}<small>${escapeHtml(note || `Need ${needed}`)}</small>${questIds.length ? `<button class="item-quest-link" type="button" data-focus-item="${escapeHtml(name)}" aria-label="Highlight ${questIds.length} quest${questIds.length === 1 ? "" : "s"} requiring ${escapeHtml(name)}">QUESTS <b>${questIds.length}</b></button>` : ""}</div>
       <div class="mini-count"><button type="button" data-item-action="minus" data-item-id="${id}" aria-label="Remove one ${escapeHtml(name)}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}" aria-label="Add one ${escapeHtml(name)}">+</button><em>${count}/${needed}</em></div>
     </article>`;
   }
@@ -502,15 +504,26 @@
       const name = canonicalItemName(item.name);
       map.set(name, {
       name, needed: item.needed, group: item.group, questNeeded: item.needed,
-      sources: [...item.quests], contexts: ["Quest"],
+      sources: [...item.quests], contexts: ["Quest"], craftingNeeded: 0, craftingRecipes: [],
       });
     });
     HIDEOUT_UPGRADES.forEach((upgrade) => upgrade.items.forEach((requirement) => {
       const name = canonicalItemName(requirement.name);
-      const current = map.get(name) ?? { name, needed: 0, group: "Innards", questNeeded: 0, sources: [], contexts: [] };
+      const current = map.get(name) ?? { name, needed: 0, group: "Innards", questNeeded: 0, sources: [], contexts: [], craftingNeeded: 0, craftingRecipes: [] };
       current.needed += requirement.needed;
       current.sources.push(upgrade.name);
       if (!current.contexts.includes("Innards")) current.contexts.push("Innards");
+      map.set(name, current);
+    }));
+    CRAFTING_RECIPES.forEach((recipe) => recipe.ingredients.forEach((ingredient) => {
+      const name = canonicalItemName(ingredient.name);
+      const current = map.get(name) ?? { name, needed: 0, group: "Crafting", questNeeded: 0, sources: [], contexts: [], craftingNeeded: 0, craftingRecipes: [] };
+      const hasPlanTarget = current.contexts.includes("Quest") || current.contexts.includes("Innards");
+      current.craftingNeeded = Math.max(current.craftingNeeded ?? 0, ingredient.needed);
+      if (!current.craftingRecipes.includes(recipe.product)) current.craftingRecipes.push(recipe.product);
+      if (!current.sources.includes(recipe.product)) current.sources.push(recipe.product);
+      if (!current.contexts.includes("Crafting")) current.contexts.push("Crafting");
+      if (!hasPlanTarget) current.needed = current.craftingNeeded;
       map.set(name, current);
     }));
     return [...map.values()].sort((a, b) => a.name.localeCompare(b.name));
@@ -529,7 +542,7 @@
       const ready = count >= item.needed;
       const id = inventoryId(item.name);
       return `<article class="item-row ${ready ? "is-ready" : ""}">${itemIcon(item.name, item.group)}
-        <div class="item-name"><strong>${escapeHtml(item.name)}</strong><small>Plan total ${item.needed}</small></div>
+        <div class="item-name"><strong>${escapeHtml(item.name)}</strong>${item.contexts.includes("Crafting") ? '<span class="crafting-tag">Crafting ingredient</span>' : ""}<small>${item.questNeeded || item.contexts.includes("Innards") ? `Plan total ${item.needed}` : `Recipe max ${item.craftingNeeded}`}</small></div>
         <span class="item-group">${escapeHtml(item.contexts.join(" + "))}</span>
         <span class="item-quests">${escapeHtml(item.sources.join(" · "))}</span>
         <div class="item-count"><button type="button" data-item-action="minus" data-item-id="${id}">−</button><input type="number" min="0" value="${count}" data-item-input="${id}" aria-label="${escapeHtml(item.name)} owned"><button type="button" data-item-action="plus" data-item-id="${id}">+</button><small>${ready ? "Ready" : `${count} / ${item.needed}`}</small></div>
@@ -548,6 +561,24 @@
     document.querySelector("#itemsMissing").textContent = missing;
     document.querySelector("#itemsProgressText").textContent = `${percent}% stocked`;
     document.querySelector("#itemsProgressBar").style.width = `${percent}%`;
+  }
+
+  function renderCrafting() {
+    const visible = CRAFTING_RECIPES.filter((recipe) => {
+      const stationMatches = selectedCraftingStation === "all" || recipe.station === selectedCraftingStation;
+      const searchMatches = !search || `${recipe.product} ${recipe.station} ${recipe.unlock ?? ""} ${recipe.ingredients.map((ingredient) => ingredient.name).join(" ")}`.toLowerCase().includes(search);
+      return stationMatches && searchMatches;
+    });
+    els.craftingGrid.innerHTML = CRAFTING_STATIONS.map((station) => {
+      const recipes = visible.filter((recipe) => recipe.station === station);
+      if (!recipes.length) return "";
+      return `<section class="crafting-station"><header><h2>${escapeHtml(station)}</h2><strong>${recipes.length}</strong></header><div class="recipe-grid">${recipes.map((recipe) => `<article class="recipe-card">
+        <header>${itemIcon(recipe.product, recipe.station)}<div><a href="${recipe.wiki}" target="_blank" rel="noopener">${escapeHtml(recipe.product)}</a>${recipe.unlock ? `<small>Unlock: ${escapeHtml(recipe.unlock)}</small>` : ""}</div><dl><div><dt>Output</dt><dd>×${recipe.output}</dd></div><div><dt>Time</dt><dd>${escapeHtml(recipe.time)}</dd></div></dl></header>
+        <div class="recipe-ingredients">${recipe.ingredients.map((ingredient) => compactItemMarkup(ingredient.name, ingredient.needed, `Need ${ingredient.needed}`, [], { crafting:true })).join("")}</div>
+      </article>`).join("")}</div></section>`;
+    }).join("");
+    els.craftingCount.textContent = `${visible.length} / ${CRAFTING_RECIPES.length}`;
+    els.craftingEmpty.classList.toggle("is-hidden", visible.length !== 0);
   }
 
   function renderHideout() {
@@ -672,7 +703,7 @@
   function setItem(id, value) {
     state.items[id] = Math.max(0, Math.floor(Number(value) || 0));
     saveState("");
-    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout();
+    renderItems(); renderLineItems(lineById.get(state.selectedLine)); renderHideout(); renderCrafting();
   }
 
   function unlockLine(id) {
@@ -687,12 +718,13 @@
     document.querySelector("#questCount").textContent = allQuests.length;
     document.querySelector("#lineCount").textContent = QUEST_LINES.length;
     document.querySelector("#upgradeCount").textContent = HIDEOUT_UPGRADES.length;
+    document.querySelector("#recipeCount").textContent = CRAFTING_RECIPES.length;
     document.querySelector("#itemCount").textContent = buildTrackedItems().length;
     document.querySelector("#overallPercent").textContent = `${Math.round(complete / allChainQuests.length * 100)}%`;
   }
 
   function renderAll() {
-    renderCampaignMap(); renderLines(); renderHideout(); renderRadiants(); renderItems(); renderStats();
+    renderCampaignMap(); renderLines(); renderHideout(); renderCrafting(); renderRadiants(); renderItems(); renderStats();
   }
 
   function switchView(view) {
@@ -702,10 +734,11 @@
     els.lineSelectWrap.classList.toggle("is-hidden", view !== "lines");
     els.itemSelectWrap.classList.toggle("is-hidden", view !== "items");
     els.hideoutSelectWrap.classList.toggle("is-hidden", view !== "hideout");
+    els.craftingStationWrap.classList.toggle("is-hidden", view !== "crafting");
     els.radiantFactionWrap.classList.toggle("is-hidden", view !== "radiant");
     els.radiantSortWrap.classList.toggle("is-hidden", view !== "radiant");
-    els.statusFilters.classList.toggle("is-hidden", view === "items");
-    els.searchInput.placeholder = view === "items" ? "Search inventory" : view === "hideout" ? "Search upgrades" : view === "radiant" ? "Search radiant contracts" : "Search quests";
+    els.statusFilters.classList.toggle("is-hidden", view === "items" || view === "crafting");
+    els.searchInput.placeholder = view === "items" ? "Search inventory" : view === "crafting" ? "Search recipes" : view === "hideout" ? "Search upgrades" : view === "radiant" ? "Search radiant contracts" : "Search quests";
     saveState("");
   }
 
@@ -724,9 +757,10 @@
     els.lineFilter.replaceChildren();
     QUEST_LINES.forEach((line) => els.lineFilter.add(new Option(line.name, line.id)));
     els.lineFilter.value = state.selectedLine;
-    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"));
+    els.itemGroupFilter.replaceChildren(new Option("All groups", "all"), new Option("Quest", "Quest"), new Option("Innards", "Innards"), new Option("Crafting", "Crafting"));
     [...new Set(KEEP_ITEMS.map((item) => item.group))].sort().forEach((group) => els.itemGroupFilter.add(new Option(group, group)));
     els.hideoutGroupFilter.replaceChildren(new Option("All categories", "all"), new Option("Terminal", "Terminal"), new Option("Welfare", "Welfare"));
+    els.craftingStationFilter.replaceChildren(new Option("All stations", "all"), ...CRAFTING_STATIONS.map((station) => new Option(station, station)));
     els.radiantFactionFilter.replaceChildren(new Option("All factions", "all"), ...["Scavengers", "Europa", "Eurasia", "Euruska"].map((faction) => new Option(faction, faction)));
     els.radiantSort.replaceChildren(new Option("Faction", "faction"), new Option("Quest name", "name"), new Option("Location", "location"), new Option("Incomplete first", "status"));
   }
@@ -782,6 +816,7 @@
   els.lineFilter.addEventListener("change", (event) => { clearCrossReference(); state.selectedLine = event.target.value; zoom = 1; saveState(""); renderCampaignMap(); renderLines({ center: true }); });
   els.itemGroupFilter.addEventListener("change", (event) => { selectedItemGroup = event.target.value; renderItems(); });
   els.hideoutGroupFilter.addEventListener("change", (event) => { selectedHideoutGroup = event.target.value; renderHideout(); });
+  els.craftingStationFilter.addEventListener("change", (event) => { selectedCraftingStation = event.target.value; renderCrafting(); });
   els.radiantFactionFilter.addEventListener("change", (event) => { selectedRadiantFaction = event.target.value; renderRadiants(); });
   els.radiantSort.addEventListener("change", (event) => { radiantSort = event.target.value; renderRadiants(); });
   els.manualLineUnlock.addEventListener("click", () => unlockLine(state.selectedLine));
@@ -815,6 +850,6 @@
 
   populateFilters();
   document.querySelector("#snapshotDate").textContent = DATA_META.scraped;
-  switchView(["lines","hideout","radiant","items"].includes(state.view) ? state.view : "lines");
+  switchView(["lines","hideout","crafting","radiant","items"].includes(state.view) ? state.view : "lines");
   renderAll();
 })();

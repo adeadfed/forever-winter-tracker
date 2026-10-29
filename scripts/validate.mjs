@@ -12,7 +12,7 @@ const {
   QUEST_LINES, RADIANT_QUESTS, KEEP_ITEMS, QUEST_GIVERS, ITEM_ICON_ALIASES, DATA_META,
   QUESTLINE_GATES, CAMPAIGN_MAP_NODES, QUESTLINE_ITEM_NAMES, HIDEOUT_UPGRADES, ASSET_PATHS,
   QUESTLINE_APPEARANCE_ORDER, INNARDS_FAMILIES,
-  ITEM_NAME_ALIASES,
+  ITEM_NAME_ALIASES, CRAFTING_RECIPES, CRAFTING_STATIONS,
 } = context.window;
 const chainQuests = QUEST_LINES.flatMap((line) => line.quests);
 const quests = [...chainQuests, ...RADIANT_QUESTS];
@@ -26,6 +26,7 @@ assert.equal(RADIANT_QUESTS.length, 87, "unexpected radiant quest count");
 assert.equal(quests.length, 187, "expected all quest pages from the wiki category (excluding utility pages)");
 assert.equal(KEEP_ITEMS.length, 62, "unexpected keep-item count");
 assert.equal(HIDEOUT_UPGRADES.length, 36, "unexpected Innards upgrade count");
+assert.equal(CRAFTING_RECIPES.length, 96, "unexpected crafting recipe count");
 assert.equal(idSet.size, ids.length, "quest IDs must be unique");
 assert.ok(DATA_META.source.startsWith("https://theforeverwinter.wiki.gg/wiki/"));
 
@@ -104,6 +105,18 @@ const clampQuestNeed = KEEP_ITEMS.find((item) => item.name === "Clamp")?.needed 
 const clampUpgradeNeed = HIDEOUT_UPGRADES.flatMap((entry) => entry.items).filter((item) => canonicalItem(item.name) === "Clamp").reduce((sum, item) => sum + item.needed, 0);
 assert.equal(clampQuestNeed + clampUpgradeNeed, 11, "Clamp requirements must merge into one plan total");
 
+assert.deepEqual(Array.from(CRAFTING_STATIONS), ["Munitions Printer", "Workshop", "Repair Bench", "Special Projects"], "crafting stations must follow the in-game terminal order");
+assert.equal(new Set(CRAFTING_RECIPES.map((recipe) => recipe.id)).size, CRAFTING_RECIPES.length, "crafting recipe IDs must be unique");
+for (const recipe of CRAFTING_RECIPES) {
+  assert.ok(CRAFTING_STATIONS.includes(recipe.station), `${recipe.product} has an unknown crafting station`);
+  assert.ok(recipe.product && Number.isInteger(recipe.output) && recipe.output > 0 && recipe.time, `${recipe.id} lacks recipe output data`);
+  assert.ok(recipe.wiki.startsWith("https://theforeverwinter.wiki.gg/wiki/"), `${recipe.product} has an invalid wiki link`);
+  assert.ok(recipe.ingredients.length, `${recipe.product} has no ingredients`);
+  for (const ingredient of recipe.ingredients) {
+    assert.ok(ingredient.name && Number.isInteger(ingredient.needed) && ingredient.needed > 0, `${recipe.product} has an invalid ingredient`);
+  }
+}
+
 const upgradeIds = new Set(HIDEOUT_UPGRADES.map((upgrade) => upgrade.id));
 assert.equal(upgradeIds.size, HIDEOUT_UPGRADES.length, "Innards upgrade IDs must be unique");
 assert.deepEqual(new Set(HIDEOUT_UPGRADES.map((upgrade) => upgrade.category)), new Set(["Terminal", "Welfare"]), "Innards must match the two in-game columns");
@@ -148,7 +161,7 @@ const html = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 const css = fs.readFileSync(path.join(dist, "styles.css"), "utf8");
 const app = fs.readFileSync(path.join(dist, "app.js"), "utf8");
 const standalone = fs.readFileSync(path.join(dist, "standalone.html"), "utf8");
-for (const id of ["questLines", "campaignMap", "lineItems", "clearItemFocus", "hideoutGrid", "radiantGrid", "radiantFactionFilter", "radiantSort", "itemsGrid", "searchInput", "resetProgress"]) {
+for (const id of ["questLines", "campaignMap", "lineItems", "clearItemFocus", "hideoutGrid", "craftingGrid", "craftingStationFilter", "radiantGrid", "radiantFactionFilter", "radiantSort", "itemsGrid", "searchInput", "resetProgress"]) {
   assert.ok(html.includes(`id="${id}"`), `missing required UI target #${id}`);
 }
 assert.ok(html.indexOf('src="data.js"') < html.indexOf('src="app.js"'), "quest data must load before app logic");
@@ -163,6 +176,7 @@ assert.ok(app.includes("item-icon"), "item icons are missing");
 assert.ok(app.includes("isLineUnlocked"), "questline locking is missing");
 assert.ok(app.includes("renderCampaignMap"), "cross-questline overview is missing");
 assert.ok(app.includes("renderHideout"), "Innards upgrade cards are missing");
+assert.ok(app.includes("renderCrafting"), "crafting recipe cards are missing");
 assert.ok(app.includes("fitGraph"), "responsive quest-tree fitting is missing");
 assert.ok(app.includes("radiant-faction-icon"), "radiant faction icons are missing");
 assert.equal(CAMPAIGN_MAP_NODES.filter((node) => node.kind === "line").length, QUEST_LINES.length, "campaign overview must contain every questline");
@@ -179,6 +193,7 @@ const scraper = fs.readFileSync(path.join(root, "scripts", "scrape_wiki_assets.p
 assert.ok(scraper.includes("Mozilla/5.0") && scraper.includes("MediaWiki"), "local wiki scraper must use browser headers and the MediaWiki API");
 assert.ok(scraper.includes("image/png,image/jpeg"), "local wiki scraper must request original PNG/JPEG responses");
 assert.ok(scraper.includes("discover_item_targets") && scraper.includes("wiki-source-urls.json"), "wiki scraper must discover tracked items and retain resolved source URLs");
+assert.ok(scraper.includes("window.CRAFTING_RECIPES") && scraper.includes("craftingRecipe"), "wiki scraper must discover crafting products and ingredients");
 assert.ok(scraper.includes("default=5.0") && scraper.includes("time.sleep"), "wiki scraper must wait five seconds between network requests by default");
 assert.ok(scraper.includes("ВЛАДЕЛЕЦ Vladelets Euruska Quest Giver.png"), "Lordoss must use the full questgiver portrait instead of the shoulder detail");
 for (const group of ["items", "factions", "questgivers", "traders"]) assert.ok(scraper.includes(`"${group}"`), `wiki scraper is missing the ${group} group`);
@@ -194,4 +209,4 @@ const hosting = JSON.parse(fs.readFileSync(path.join(root, ".openai", "hosting.j
 assert.ok(hosting.project_id, "Sites project ID is missing");
 assert.equal(hosting.static.directory, "dist");
 
-console.log(`Validated ${quests.length} quests, ${QUEST_LINES.length} questlines, ${HIDEOUT_UPGRADES.length} Innards upgrades, and ${KEEP_ITEMS.length} quest items.`);
+console.log(`Validated ${quests.length} quests, ${QUEST_LINES.length} questlines, ${HIDEOUT_UPGRADES.length} Innards upgrades, ${CRAFTING_RECIPES.length} recipes, and ${KEEP_ITEMS.length} quest items.`);
